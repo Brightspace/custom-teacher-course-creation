@@ -1,6 +1,5 @@
 # d2l-custom-teacher-course-creation
 
-[![NPM version](https://img.shields.io/npm/v/@brightspace-ui/custom-teacher-course-creation.svg)](https://www.npmjs.org/package/@brightspace-ui/custom-teacher-course-creation)
 [![Dependabot badge](https://flat.badgen.net/dependabot/BrightspaceUI/custom-teacher-course-creation?icon=dependabot)](https://app.dependabot.com/)
 [![Build status](https://travis-ci.com/@brightspace-ui/custom-teacher-course-creation.svg?branch=master)](https://travis-ci.com/@brightspace-ui/custom-teacher-course-creation)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
@@ -99,16 +98,15 @@ Golden snapshots in source control must be updated by Travis CI. To trigger an u
 
 All version changes should obey [semantic versioning](https://semver.org/) rules.
 
-This component uses the [semantic-release](https://github.com/semantic-release/semantic-release) library to manage GitHub releases. The commit message format for initiating releases follows the [Angular Commit Message Conventions](https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#-git-commit-guidelines).
+This component uses the [semantic-release](https://github.com/semantic-release/semantic-release) library to manage GitHub releases. The commit message format for initiating releases follows the [ESLint Convention](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-eslint).
 
-Prefixing your commit with `fix(scope):` will increment the `PATCH` version, prefixing with `feat(scope):` will increment the `MINOR` version, and prefixing the *footer* of the commit with `BREAKING CHANGE:` will increment the `MAJOR` version. Note, `(scope)` is optional. Two examples are below:
+Supported commit prefixes:
+| Commit prefix | Version Increase |
+| ------------- | ---------------- |
+| `Docs`        | `PATCH`          |
+| `New`         | `PATCH`          |
+| `Fix`         | `PATCH`          |
+| `Update`      | `MINOR`          |
+| `Breaking`    | `MAJOR`          |
 
-`feat: Adding error page` will increment the `MINOR` version.
-
-```
-fix(api): Updating to new API call signature
-
-
-BREAKING CHANGE: The new API call is incompatible with the old signature
-```
-will increment the `MAJOR` version. *IMPORTANT:* There are two blank lines in between the `type(scope): <subject>` message and the `BREAKING_CHANGE` message. This is important because the `BREAKING_CHANGE` portion needs to be in the *footer* of the commit message, not the *body*.
+Example commit: `Update: Adding error page` will increment the `MINOR` version.
