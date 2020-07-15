@@ -99,4 +99,16 @@ Golden snapshots in source control must be updated by Travis CI. To trigger an u
 
 All version changes should obey [semantic versioning](https://semver.org/) rules.
 
-Include either `[increment major]`, `[increment minor]` or `[increment patch]` in your merge commit message to automatically increment the `package.json` version, create a tag, and trigger a deployment to NPM.
+This component uses the [semantic-release](https://github.com/semantic-release/semantic-release) library to manage GitHub releases. The commit message format for initiating releases follows the [Angular Commit Message Conventions](https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#-git-commit-guidelines).
+
+Prefixing your commit with `fix(scope):` will increment the `PATCH` version, prefixing with `feat(scope):` will increment the `MINOR` version, and prefixing the *footer* of the commit with `BREAKING CHANGE:` will increment the `MAJOR` version. Note, `(scope)` is optional. Two examples are below:
+
+`feat: Adding error page` will increment the `MINOR` version.
+
+```
+fix(api): Updating to new API call signature
+
+
+BREAKING CHANGE: The new API call is incompatible with the old signature
+```
+will increment the `MAJOR` version. *IMPORTANT:* There are two blank lines in between the `type(scope): <subject>` message and the `BREAKING_CHANGE` message. This is important because the `BREAKING_CHANGE` portion needs to be in the *footer* of the commit message, not the *body*.
