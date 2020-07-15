@@ -1,7 +1,8 @@
 {
   "name": "d2l-teacher-course-creation",
-  "description": "",
+  "description": "Teacher Course Creation",
   "repository": "https://github.com/Brightspace/custom-teacher-course-creation.git",
+  "version": "1.0.2",
   "publishConfig": {
     "access": "public"
   },
@@ -66,11 +67,26 @@
           ]
         }
       ],
+      [
+        "@semantic-release/npm",
+        {
+          "npmPublish": "false"
+        }
+      ],
       "@semantic-release/github",
       [
         "@semantic-release/release-notes-generator",
         {
           "preset": "eslint"
+        }
+      ],
+      [
+        "@semantic-release/git",
+        {
+          "assets": [
+            "package.json"
+          ],
+          "message": "Chore: Updating version to ${nextRelease.version} [skip ci]"
         }
       ]
     ]
