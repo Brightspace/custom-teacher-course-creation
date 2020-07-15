@@ -103,10 +103,10 @@ This component uses the [semantic-release](https://github.com/semantic-release/s
 Supported commit prefixes:
 | Commit prefix | Version Increase |
 | ------------- | ---------------- |
-| `Docs`        | `PATCH`          |
-| `New`         | `PATCH`          |
-| `Fix`         | `PATCH`          |
-| `Update`      | `MINOR`          |
-| `Breaking`    | `MAJOR`          |
+| `Docs:`       | `PATCH`          |
+| `New:`        | `PATCH`          |
+| `Fix:`        | `PATCH`          |
+| `Update:`     | `MINOR`          |
+| `Breaking:`   | `MAJOR`          |
 
 Example commit: `Update: Adding error page` will increment the `MINOR` version.
