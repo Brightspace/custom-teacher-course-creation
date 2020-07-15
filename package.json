@@ -72,15 +72,6 @@
         {
           "preset": "eslint"
         }
-      ],
-      [
-        "@semantic-release/git",
-        {
-          "assets": [
-            "package.json"
-          ],
-          "message": "Chore: ${nextRelease.version} [skip ci]"
-        }
       ]
     ]
   }
