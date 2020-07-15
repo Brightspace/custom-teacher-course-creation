@@ -7,7 +7,7 @@ script:
 - |
   if [ $TRAVIS_PULL_REQUEST != false ] && [ $TRAVIS_SECURE_ENV_VARS == true ]; then
     echo "Pull request with secure environment variables, running Sauce tests...";
-    npm run test:sauce || travis_terminate 1;
+    npm run test:headless || travis_terminate 1;
   else
     echo "Not a pull request and/or no secure environment variables, running headless tests...";
     npm run test:headless || travis_terminate 1;
@@ -16,7 +16,7 @@ env:
   global:
   - SAUCE_USERNAME: Desire2Learn
   - REPO_NAME=custom-teacher-course-creation
-  - OWNER_NAME=BrightspaceUI
+  - OWNER_NAME=Brightspace
   - secure: JHyWPffYqAA7CkVquSkYafPxA4wLVSbhNOOP6TEJerIsOHpjANlaSSbTNhIdREklRTLU1uweQroARe1EPzwPfcrDrnc1z7d6xWPKM1wbO61gFY1wR+tF9yhPjZues48e9f81qV5B4mIgaAdjsA9vbLQWiDEcgSCypiVuPsnixOhh9f1J7kXZtNAL2ZTP3rWDq0w5j1er4dsONSnKZfuom9EOpUpb6OAhdIA4fmwcCf0y7YwgZ8luyBcb9p+OaiXZofcHb0+X+klW2tv/L9UVApg1mgBL30oSsllXzSfJ2X8OYb3mWQRrWH5MKu2W8XaxkcaY5Q5nojC4mvatUd0ZYkwfNiSp+GI9NC30Mt+UCXLdZRqPLN1jGbqXeDn35iSA/gA3+iAJx9zrIfbTo87LhMB/6sApEHg1rHrMe7FPPhACABnqEsjzkblsUcttGsEDIfZqjXxSB4Csb2jKy+CbS9dmsgELJ8LReF5Uguq3g0mEZFHJnCwWvfHrS1diY93cJCtSm7UkbUes2N0fFWhWqsLqZ2RZ1BMWMpVD1vBO8W25qxB6ffYa4Mc3hXYNVSm1V0UFpr7KzIxPAowZitK/gI6dePVRDQeqkvMiG+a6LJZf0Ob5tWLwl3Ah3PPa3Xn1GQe/TQCLDLbHap5cIXedd+ETJb/SkdBDeAe0IgzGJ1I=
 deploy:
 - provider: script
