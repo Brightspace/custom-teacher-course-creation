@@ -7,7 +7,7 @@
     "access": "public"
   },
   "files": [
-    "custom-teacher-course-creation.js"
+    "src/**"
   ],
   "scripts": {
     "lint": "npm run lint:eslint && npm run lint:lit",
