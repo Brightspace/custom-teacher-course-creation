@@ -1,9 +1,9 @@
 const puppeteer = require('puppeteer');
 const VisualDiff = require('@brightspace-ui/visual-diff');
 
-describe('d2l-custom-teacher-course-creation', () => {
+describe('d2l-teacher-course-creation', () => {
 
-	const visualDiff = new VisualDiff('custom-teacher-course-creation', __dirname);
+	const visualDiff = new VisualDiff('d2l-teacher-course-creation', __dirname);
 
 	let browser, page;
 
@@ -11,7 +11,7 @@ describe('d2l-custom-teacher-course-creation', () => {
 		browser = await puppeteer.launch();
 		page = await visualDiff.createPage(browser);
 		await page.setViewport({width: 800, height: 800, deviceScaleFactor: 2});
-		await page.goto(`${visualDiff.getBaseUrl()}/test/custom-teacher-course-creation.visual-diff.html`, {waitUntil: ['networkidle0', 'load']});
+		await page.goto(`${visualDiff.getBaseUrl()}/test/d2l-teacher-course-creation.visual-diff.html`, {waitUntil: ['networkidle0', 'load']});
 		await page.bringToFront();
 	});
 

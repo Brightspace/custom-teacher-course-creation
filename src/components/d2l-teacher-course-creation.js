@@ -1,7 +1,7 @@
 import { css, html, LitElement } from 'lit-element/lit-element.js';
 import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
 
-class CustomTeacherCourseCreation extends LocalizeMixin(LitElement) {
+class TeacherCourseCreation extends LocalizeMixin(LitElement) {
 
 	static get properties() {
 		return {
@@ -50,4 +50,4 @@ class CustomTeacherCourseCreation extends LocalizeMixin(LitElement) {
 		`;
 	}
 }
-customElements.define('d2l-custom-teacher-course-creation', CustomTeacherCourseCreation);
+customElements.define('d2l-teacher-course-creation', TeacherCourseCreation);
