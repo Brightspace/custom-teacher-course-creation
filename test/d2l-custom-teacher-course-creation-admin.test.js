@@ -2,7 +2,7 @@ import '../src/components/d2l-teacher-course-creation-admin.js';
 import { expect, fixture, html } from '@open-wc/testing';
 import { runConstructor } from '@brightspace-ui/core/tools/constructor-test-helper.js';
 
-describe('d2l-teacher-course-creation', () => {
+describe('d2l-teacher-course-creation-admin', () => {
 
 	describe('accessibility', () => {
 		it('should pass all axe tests', async() => {
