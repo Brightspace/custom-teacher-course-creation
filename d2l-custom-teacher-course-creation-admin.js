@@ -50,4 +50,4 @@ class CustomTeacherCourseCreation extends LocalizeMixin(LitElement) {
 		`;
 	}
 }
-customElements.define('d2l-custom-teacher-course-creation', CustomTeacherCourseCreation);
+customElements.define('d2l-course-creation-admin', CustomTeacherCourseCreation);
