@@ -11,13 +11,30 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
 		<meta charset="UTF-8">
+		<style>
+			d2l-demo-snippet {
+				max-width: 310px;
+			}
+			.d2l-demo-snippet-demo {
+				display: flex;
+				justify-content: center;
+			}
+			d2l-tcc-admin {
+				justify-self: center;
+				width: 100%;
+			}
+
+		</style>
 	</head>
 	<script>
 		window.demo = true;
 	</script>
 	<body>
-		<a href="demo/admin.html">Admin page</a><br>
-		<a href="demo/small_widget.html">Small widget</a><br>
-		<a href="demo/big_widget.html">Big widget</a><br>
+		<d2l-demo-page page-title="d2l-custom-teacher-course-creation">
+			<h2>d2l-tcc</h2>
+			<d2l-demo-snippet>
+				<d2l-tcc></d2l-tcc>
+			</d2l-demo-snippet>
+		</d2l-demo-page>
 	</body>
 </html>

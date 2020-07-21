@@ -1,11 +1,11 @@
 import { css, html, LitElement } from 'lit-element/lit-element';
 import { BaseMixin } from '../mixins/base-mixin';
+import { getTccService } from '../services/tccServiceFactory';
 
 class TeacherCourseCreation extends BaseMixin(LitElement) {
 
 	static get properties() {
 		return {
-			prop1: { type: String },
 		};
 	}
 
@@ -23,7 +23,7 @@ class TeacherCourseCreation extends BaseMixin(LitElement) {
 	constructor() {
 		super();
 
-		this.prop1 = 'custom-teacher-course-creation';
+		window.tccService = getTccService();
 	}
 
 	connectedCallback() {

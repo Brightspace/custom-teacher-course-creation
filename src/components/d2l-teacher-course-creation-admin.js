@@ -1,11 +1,20 @@
 import { css, html, LitElement } from 'lit-element/lit-element';
 import { BaseMixin } from '../mixins/base-mixin';
+import { getTccService } from '../services/tccServiceFactory';
 
 class TeacherCourseCreationAdmin extends BaseMixin(LitElement) {
 
 	static get properties() {
 		return {
-			prop1: { type: String },
+			associations: {
+				type: Array
+			},
+			roles: {
+				type: Array
+			},
+			courseTypes: {
+				type: Array
+			}
 		};
 	}
 
@@ -14,6 +23,7 @@ class TeacherCourseCreationAdmin extends BaseMixin(LitElement) {
 			:host {
 				display: inline-block;
 			}
+
 			:host([hidden]) {
 				display: none;
 			}
@@ -23,13 +33,25 @@ class TeacherCourseCreationAdmin extends BaseMixin(LitElement) {
 	constructor() {
 		super();
 
-		this.prop1 = 'custom-teacher-course-creation';
+		this.associations = [];
+		this.roles = [];
+		this.courseTypes = [];
+
+		window.tccService = getTccService();
+	}
+
+	async connectedCallback() {
+		super.connectedCallback();
+
+		this.roles = await window.tccService.getRoles();
+		this.courseTypes = await window.tccService.getCourseTypes();
+		this.associations = await window.tccService.getAssociations();
 	}
 
 	render() {
 		return html`
-			<h2>Hello ${this.prop1}!</h2>
-			<div>Localization Example: ${this.localize('tccToolName')}</div>
+			<table>
+			</table>
 		`;
 	}
 }
