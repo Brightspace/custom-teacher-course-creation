@@ -1,8 +1,28 @@
 [
   {
-    "Course Type": 1,
-    "Prefix": "TEST",
-    "Suffix": "2020",
-    "Role": 1
+    "OrgId": "6606",
+    "Prefix": "BANANA2",
+    "Suffix": "MEATBALL",
+    "Department": {
+        "OrgUnitId": "10006",
+        "Name": "IPSIS Department New"
+    },
+    "Role": {
+        "Id": 1,
+        "Name": "Instructor"
+    }
+  },
+  {
+    "OrgId": "6606",
+    "Prefix": "BANANA1",
+    "Suffix": "MEATSAUCE",
+    "Department": {
+        "OrgUnitId": "2",
+        "Name": "Another Department"
+    },
+    "Role": {
+        "Id": 2,
+        "Name": "Administrator"
+    }
   }
 ]

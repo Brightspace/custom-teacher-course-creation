@@ -1,14 +1,14 @@
 [
   {
-    "Id": 1,
-    "Name": "Chess Club"
+    "OrgUnitId": "10006",
+    "Name": "IPSIS Department New"
   },
   {
-    "Id": 2,
-    "Name": "Soccer Team"
+    "OrgUnitId": "2",
+    "Name": "Another Department"
   },
   {
-    "Id": 3,
-    "Name": "AV Club"
+    "OrgUnitId": "3",
+    "Name": "Janitorial"
   }
 ]
