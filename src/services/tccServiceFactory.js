@@ -1,9 +1,11 @@
 import { TccDemoService } from './tccDemoService';
 import { TccService } from './tccService';
 
-export function getTccService() {
-	if (window.demo) {
-		return TccDemoService;
+export class TccServiceFactory {
+	static getTccService() {
+		if (window.demo) {
+			return TccDemoService;
+		}
+		return TccService;
 	}
-	return TccService;
 }

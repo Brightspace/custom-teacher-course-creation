@@ -3,7 +3,7 @@ export class TccService {
 
 	}
 
-	static async getCourseTypes() {
+	static async getDepartments() {
 
 	}
 

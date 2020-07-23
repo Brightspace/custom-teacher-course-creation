@@ -3,8 +3,8 @@ export class TccDemoService {
 		return await fetch('../../data/associations.json').then(response => response.json());
 	}
 
-	static async getCourseTypes() {
-		return await fetch('../../data/course_types.json').then(response => response.json());
+	static async getDepartments() {
+		return await fetch('../../data/departments.json').then(response => response.json());
 	}
 
 	static async getRoles() {

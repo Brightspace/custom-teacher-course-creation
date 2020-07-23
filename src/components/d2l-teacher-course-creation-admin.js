@@ -7,9 +7,9 @@ import '@brightspace-ui/core/components/menu/menu-item';
 import { css, html, LitElement } from 'lit-element/lit-element';
 import { BaseMixin } from '../mixins/base-mixin';
 import d2lTableStyles from '../styles/d2lTableStyles';
-import { getTccService } from '../services/tccServiceFactory';
+import { TccServiceFactory } from '../services/tccServiceFactory';
 
-const tccService = getTccService();
+// const tccService = getTccService();
 
 class TeacherCourseCreationAdmin extends BaseMixin(LitElement) {
 
@@ -21,8 +21,11 @@ class TeacherCourseCreationAdmin extends BaseMixin(LitElement) {
 			roles: {
 				type: Array
 			},
-			courseTypes: {
+			departments: {
 				type: Array
+			},
+			tccService: {
+				type: Object
 			}
 		};
 	}
@@ -48,19 +51,21 @@ class TeacherCourseCreationAdmin extends BaseMixin(LitElement) {
 
 		this.associations = [];
 		this.roles = [];
-		this.courseTypes = [];
+		this.departments = [];
+
+		this.tccService = TccServiceFactory.getTccService();
 	}
 
 	async connectedCallback() {
 		super.connectedCallback();
 
-		this.roles = await tccService.getRoles();
-		this.courseTypes = await tccService.getCourseTypes();
+		this.roles = await this.tccService.getRoles();
+		this.departments = await this.tccService.getDepartments();
 		this._fetchAssociations();
 	}
 
 	async _fetchAssociations() {
-		tccService
+		this.tccService
 			.getAssociations()
 			.then(associationsArray => {
 				let i = 0;
@@ -133,7 +138,7 @@ class TeacherCourseCreationAdmin extends BaseMixin(LitElement) {
 
 	render() {
 		return html`
-			${ this._renderTable() }
+			${ this.associations.length > 0 ? this._renderTable() : html`` }
 		`;
 	}
 }

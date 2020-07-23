@@ -43,7 +43,8 @@
     "karma-sauce-launcher": "^2",
     "lit-analyzer": "^1",
     "puppeteer": "^4",
-    "semantic-release": "^17.1.1"
+    "semantic-release": "^17.1.1",
+    "sinon": "^9.0.2"
   },
   "dependencies": {
     "@brightspace-ui/core": "^1",

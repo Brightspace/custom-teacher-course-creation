@@ -1,6 +1,6 @@
 import { css, html, LitElement } from 'lit-element/lit-element';
 import { BaseMixin } from '../mixins/base-mixin';
-import { getTccService } from '../services/tccServiceFactory';
+import { TccServiceFactory } from '../services/tccServiceFactory';
 
 class TeacherCourseCreation extends BaseMixin(LitElement) {
 
@@ -23,7 +23,7 @@ class TeacherCourseCreation extends BaseMixin(LitElement) {
 	constructor() {
 		super();
 
-		window.tccService = getTccService();
+		window.tccService = TccServiceFactory.getTccService();
 	}
 
 	connectedCallback() {
