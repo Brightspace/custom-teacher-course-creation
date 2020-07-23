@@ -1,9 +1,7 @@
 export class TccTestService {
 	constructor(patches) {
 		this.getAssociations = async() => [];
-
 		this.getDepartments = async() => [];
-
 		this.getRoles = async() => [];
 
 		if (patches) {

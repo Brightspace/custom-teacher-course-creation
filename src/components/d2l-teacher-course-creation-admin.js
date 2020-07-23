@@ -9,8 +9,6 @@ import { BaseMixin } from '../mixins/base-mixin';
 import d2lTableStyles from '../styles/d2lTableStyles';
 import { TccServiceFactory } from '../services/tccServiceFactory';
 
-// const tccService = getTccService();
-
 class TeacherCourseCreationAdmin extends BaseMixin(LitElement) {
 
 	static get properties() {

@@ -46,14 +46,13 @@ describe('d2l-teacher-course-creation-admin', () => {
 		});
 
 		it('should have all associations in table', async() => {
-			const patchedTestService = new TccTestService({
-				getAssociations: async() => [
+			setupTestData({
+				associations: [
 					newRandomAssociation(),
 					newRandomAssociation(),
 					newRandomAssociation()
 				]
 			});
-			getTccServiceStub.returns(patchedTestService);
 
 			const el = await fixture(defaultFixture);
 			const rows = el.shadowRoot.querySelectorAll('tbody > tr');
@@ -74,10 +73,9 @@ describe('d2l-teacher-course-creation-admin', () => {
 					Name: 'Administrator'
 				}
 			};
-			const patchedTestService = new TccTestService({
-				getAssociations: async() => [testAssociation]
+			setupTestData({
+				associations: [testAssociation]
 			});
-			getTccServiceStub.returns(patchedTestService);
 
 			const el = await fixture(defaultFixture);
 			const rows = el.shadowRoot.querySelectorAll('tbody > tr');
@@ -91,3 +89,11 @@ describe('d2l-teacher-course-creation-admin', () => {
 	});
 
 });
+
+function setupTestData({ associations }) {
+	const patches = {};
+	if (associations && Array.isArray(associations)) {
+		patches['getAssociations'] = async() => associations;
+	}
+	getTccServiceStub.returns(new TccTestService(patches));
+}
