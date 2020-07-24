@@ -27,4 +27,13 @@ export const BaseMixin = superclass => class extends RtlMixin(LocalizeMixin(supe
 	localize(key, params) {
 		return super.localize(key, params) || `{language term '${key}' not found}`;
 	}
+
+	changePage(page) {
+		const changePageEvent = new CustomEvent('change-page', {
+			detail: {page: page},
+			bubbles: true,
+			composed: true
+		});
+		this.dispatchEvent(changePageEvent);
+	}
 };

@@ -1,8 +1,9 @@
+import '../../../images/create-course-illustration';
 import '@brightspace-ui/core/components/button/button.js';
 import { css, html, LitElement } from 'lit-element/lit-element';
 import { BaseMixin } from '../../mixins/base-mixin';
 import { heading2Styles } from '@brightspace-ui/core/components/typography/styles.js';
-import { PAGES } from '../../helper';
+import { PAGES } from '../../consts';
 import { TccServiceFactory } from '../../services/tccServiceFactory';
 
 class TeacherCourseCreationWelcome extends BaseMixin(LitElement) {
@@ -39,27 +40,22 @@ class TeacherCourseCreationWelcome extends BaseMixin(LitElement) {
 	}
 
 	_changePage() {
-		const changePageEvent = new CustomEvent('change-page', {
-			detail: {page: PAGES.INPUT_PAGE},
-			bubbles: false,
-			composed: false
-		});
-		this.dispatchEvent(changePageEvent);
+		this.changePage(PAGES.INPUT_PAGE);
 	}
 
 	render() {
 		return html`
-			<img src="../../../images/create-course-illustration-01.svg" alt=${this.localize('tccWelcomeIllustrationAlt')}>
+			<tcc-create-course-illustration></tcc-create-course-illustration>
 
-			<h1 class="d2l-heading-2">${this.localize('tccWelcomeTitle')}</h1>
-			<div>${this.localize('tccWelcomeText')}</div>
+			<h1 class="d2l-heading-2">${this.localize('welcomeTitle')}</h1>
+			<div>${this.localize('welcomeText')}</div>
 
 			<d2l-button
 				class="tcc-welcome-button-get-started"
-				description=${this.localize('tccWelcomeButtonDescription')}
+				description=${this.localize('welcomeButtonDescription')}
 				@click=${this._changePage}
 			>
-				${this.localize('tccWelcomeButtonText')}
+				${this.localize('welcomeButtonText')}
 			</d2l-button>
 		`;
 	}

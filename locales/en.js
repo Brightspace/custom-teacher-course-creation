@@ -6,9 +6,9 @@ export const val = {
 	'columnSuffix': 'Suffix',
 	'columnRole': 'Role',
 	'tccToolName': 'Teacher Course Creation',
-	'tccWelcomeIllustrationAlt': 'Create course illustration',
-	'tccWelcomeTitle': 'Create a New Course!',
-	'tccWelcomeText': 'In just a couple steps, you\'ll be up and running with a new empty course shell that you can then enroll students into.',
-	'tccWelcomeButtonDescription': 'Get started creating a course',
-	'tccWelcomeButtonText': 'Get Started'
+	'welcomeButtonDescription': 'Get started creating a course',
+	'welcomeButtonText': 'Get Started',
+	'welcomeIllustrationAlt': 'Create course illustration',
+	'welcomeText': 'In just a couple steps, you\'ll be up and running with a new empty course shell that you can then enroll students into.',
+	'welcomeTitle': 'Create a New Course!'
 };
