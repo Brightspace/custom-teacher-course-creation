@@ -23,7 +23,6 @@ describe('d2l-teacher-course-creation-welcome', () => {
 			const el = await fixture(html`<d2l-tcc-welcome></d2l-tcc-welcome>`);
 
 			document.addEventListener('change-page', (event) => {
-				console.log('poulet');
 				expect(event.detail.page).to.equal(PAGES.INPUT_PAGE);
 			});
 

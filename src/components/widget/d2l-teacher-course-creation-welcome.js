@@ -24,6 +24,7 @@ class TeacherCourseCreationWelcome extends BaseMixin(LitElement) {
 			}
 			.tcc-welcome-button-get-started {
 				width: 100%;
+				max-width: 250px;
 				margin: 1rem 0px;
 			}
 		`];
@@ -53,8 +54,7 @@ class TeacherCourseCreationWelcome extends BaseMixin(LitElement) {
 			<d2l-button
 				class="tcc-welcome-button-get-started"
 				description=${this.localize('welcomeButtonDescription')}
-				@click=${this._changePage}
-			>
+				@click=${this._changePage}>
 				${this.localize('welcomeButtonText')}
 			</d2l-button>
 		`;

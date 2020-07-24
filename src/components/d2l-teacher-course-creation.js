@@ -51,36 +51,36 @@ class TeacherCourseCreation extends BaseMixin(LitElement) {
 		if (this.currentPage === PAGES.WELCOME_PAGE) {
 			return html `
 			<d2l-tcc-welcome
-				@change-page=${this._changePage}
-			></d2l-tcc-welcome>
+				@change-page=${this._changePage}>
+			</d2l-tcc-welcome>
 			`;
 		}
 		if (this.currentPage === PAGES.INPUT_PAGE) {
 			return html `
 			<d2l-tcc-input
-				@change-page=${this._changePage}
-			></d2l-tcc-input>
+				@change-page=${this._changePage}>
+			</d2l-tcc-input>
 			`;
 		}
 		if (this.currentPage === PAGES.CONFIRM_PAGE) {
 			return html `
 			<d2l-tcc-confirm
-				@change-page=${this._changePage}
-			></d2l-tcc-confirm>
+				@change-page=${this._changePage}>
+			</d2l-tcc-confirm>
 			`;
 		}
 		if (this.currentPage === PAGES.SUCCESS_PAGE) {
 			return html `
 			<d2l-tcc-success
-				@change-page=${this._changePage}
-			></d2l-tcc-success>
+				@change-page=${this._changePage}>
+			</d2l-tcc-success>
 			`;
 		}
 		if (this.currentPage === PAGES.ERROR_PAGE) {
 			return html `
 			<d2l-tcc-error
-				@change-page=${this._changePage}
-			></d2l-tcc-error>
+				@change-page=${this._changePage}>
+			</d2l-tcc-error>
 			`;
 		}
 	}
