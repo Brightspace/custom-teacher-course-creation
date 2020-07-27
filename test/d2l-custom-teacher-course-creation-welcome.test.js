@@ -22,11 +22,11 @@ describe('d2l-teacher-course-creation-welcome', () => {
 		it('button triggers change-page event', async() => {
 			const el = await fixture(html`<d2l-tcc-welcome></d2l-tcc-welcome>`);
 
-			document.addEventListener('change-page', (event) => {
+			el.addEventListener('change-page', (event) => {
 				expect(event.detail.page).to.equal(PAGES.INPUT_PAGE);
 			});
 
-			el.shadowRoot.querySelector('d2l-button').click();
+			el.shadowRoot.querySelector('.tcc-welcome-button-get-started').click();
 		});
 	});
 

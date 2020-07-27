@@ -100,6 +100,7 @@ class TeacherCourseCreationConfirm extends BaseMixin(LitElement) {
 			</div>
 
 			<d2l-button
+			class="tcc-confirm__finish-button"
 			primary
 			description=${this.localize('actionFinishDescription')}
 			@click=${this._finish}>
