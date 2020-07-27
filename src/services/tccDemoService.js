@@ -10,4 +10,7 @@ export class TccDemoService {
 	static async getRoles() {
 		return await fetch('../../data/roles.json').then(response => response.json());
 	}
+
+	static async saveAssociation() {
+	}
 }

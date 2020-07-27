@@ -4,6 +4,7 @@ import '@brightspace-ui/core/components/dropdown/dropdown';
 import '@brightspace-ui/core/components/dropdown/dropdown-menu';
 import '@brightspace-ui/core/components/menu/menu';
 import '@brightspace-ui/core/components/menu/menu-item';
+import './association-dialog';
 import { css, html, LitElement } from 'lit-element/lit-element';
 import { BaseMixin } from '../mixins/base-mixin';
 import d2lTableStyles from '../styles/d2lTableStyles';
@@ -40,16 +41,16 @@ class TeacherCourseCreationAdmin extends BaseMixin(LitElement) {
 		`;
 		return [
 			d2lTableStyles,
-			tccAdminStyles
+			tccAdminStyles,
 		];
 	}
 
 	constructor() {
 		super();
 
-		this.associations = [];
-		this.roles = [];
-		this.departments = [];
+		this.associations = Array();
+		this.roles = Array();
+		this.departments = Array();
 
 		this.tccService = TccServiceFactory.getTccService();
 	}
@@ -60,6 +61,8 @@ class TeacherCourseCreationAdmin extends BaseMixin(LitElement) {
 		this.roles = await this.tccService.getRoles();
 		this.departments = await this.tccService.getDepartments();
 		this._fetchAssociations();
+
+		this.associationDialog = this.shadowRoot.querySelector('#association-dialog');
 	}
 
 	async _fetchAssociations() {
@@ -73,28 +76,35 @@ class TeacherCourseCreationAdmin extends BaseMixin(LitElement) {
 	}
 
 	_handleAssociationEdit(event) {
-		//TODO: open an edit dialog
-		console.log(event);
+		const associationRowId = parseInt(event.target.getAttribute('data-association-row'));
+		const dialogAssociation =
+			this.associations.find(association => association.RowId === associationRowId);
+
+		console.log(dialogAssociation);
+		this.associationDialog.open(dialogAssociation);
 	}
 
 	_handleAssociationDelete(event) {
-		//TODO: open a delete dialog
-		console.log(event);
+		const associationRowId = parseInt(event.target.getAttribute('data-association-row'));
+		this.dialogAssociation =
+			this.associations.find(association => association.RowId === associationRowId);
+
+		console.log(JSON.stringify(this.dialogAssociation));
 	}
 
 	_renderActionChevron(associationRowId) {
 		return html`
 			<d2l-dropdown>
-				<d2l-button-icon text="${this.localize('options')}" icon="tier1:arrow-collapse" class="d2l-dropdown-opener"></d2l-button-icon>
+				<d2l-button-icon icon="tier1:arrow-collapse" class="d2l-dropdown-opener"></d2l-button-icon>
 				<d2l-dropdown-menu>
 					<d2l-menu>
 						<d2l-menu-item
-							data-association-id="${ associationRowId }"
+							data-association-row="${ associationRowId }"
 							text="${this.localize('actionEdit')}"
 							@click="${this._handleAssociationEdit}">
 						</d2l-menu-item>
 						<d2l-menu-item
-							data-association-id="${ associationRowId }"
+							data-association-row="${ associationRowId }"
 							text="${this.localize('actionDelete')}"
 							@click="${this._handleAssociationDelete}">
 						</d2l-menu-item>
@@ -134,9 +144,21 @@ class TeacherCourseCreationAdmin extends BaseMixin(LitElement) {
 		`;
 	}
 
+	_renderDialogs() {
+		return html`
+			<d2l-tcc-association-dialog
+				id="association-dialog"
+				.roles=${this.roles}
+				.departments=${this.departments}
+				>
+			</d2l-tcc-association-dialog>
+		`;
+	}
+
 	render() {
 		return html`
-			${ this.associations.length > 0 ? this._renderTable() : html`` }
+			${this.associations.length > 0 ? this._renderTable() : html``}
+			${this._renderDialogs()}
 		`;
 	}
 }
