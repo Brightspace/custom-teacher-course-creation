@@ -10,6 +10,8 @@ export const val = {
 	'inputNameLabel': 'Course Name',
 	'inputSelectLabel': 'Course Type',
 	'inputChooseTypePlaceholder': '-- Choose a Type --',
+	'inputNameInvalidErrorMsg': 'Please enter a course name',
+	'inputTypeInvalidErrorMsg': 'Please choose a course type',
 	'nextButtonText': 'Next',
 	'tccToolName': 'Teacher Course Creation',
 	'welcomeButtonDescription': 'Get started creating a course',

@@ -1,5 +1,6 @@
-import '@brightspace-ui/core/components/inputs/input-text';
 import '@brightspace-ui/core/components/button/button';
+import '@brightspace-ui/core/components/inputs/input-text';
+import '@brightspace-ui/core/components/tooltip/tooltip';
 import { bodySmallStyles, labelStyles } from '@brightspace-ui/core/components/typography/styles';
 import { css, html, LitElement } from 'lit-element/lit-element';
 import { DEFAULT_SELECT_OPTION_VALUE, PAGES } from '../../consts';
@@ -16,6 +17,15 @@ class TeacherCourseCreationInput extends BaseMixin(LitElement) {
 		return {
 			configuredDepartments: {
 				type: Array
+			},
+			nameIsInvalid: {
+				type: Boolean
+			},
+			typeIsInvalid: {
+				type: Boolean
+			},
+			pageData: {
+				type: Object
 			}
 		};
 	}
@@ -32,22 +42,24 @@ class TeacherCourseCreationInput extends BaseMixin(LitElement) {
 			:host([hidden]) {
 				display: none;
 			}
-			.flex-container {
+			.tcc-input__input-container {
 				display: flex;
 				flex-flow: column;
-				width: 100%;
 			}
-			.flex-item {
-				margin: 0.5em;
+			.tcc-input__input-container-item {
+				margin-bottom: 24px;
 			}
-			.flex-label {
-				margin-top: 0.5em;
-				margin-left: 0.5em;
-				margin-right: 0.5em;
+			.tcc-input__type-select-label {
+				margin-bottom: 0px;
 			}
-			.button-container {
+			.tcc-input__button-container {
 				justify-self: flex-start;
-			}` // should the flex-container and flex-item styles be global to this project?
+			}
+			.tcc-input__button {
+				margin-top: 24px;
+				margin-right: 12px;
+				margin-bottom: 0px;
+			}`
 		];
 	}
 
@@ -55,6 +67,8 @@ class TeacherCourseCreationInput extends BaseMixin(LitElement) {
 		super();
 
 		window.tccService = TccServiceFactory.getTccService();
+		this.nameIsInvalid = false;
+		this.typeIsInvalid = false;
 	}
 
 	async connectedCallback() {
@@ -69,10 +83,16 @@ class TeacherCourseCreationInput extends BaseMixin(LitElement) {
 	_handleNextClicked() {
 		const courseName = this.shadowRoot.getElementById(NAME_INPUT_ID).value;
 		const typeSelectElement = this.shadowRoot.getElementById(TYPE_SELECT_ID);
-		const departmentId = typeSelectElement.options[typeSelectElement.selectedIndex].value;
-		console.log(`Course Name: ${courseName} Department Id: ${departmentId}`);
+		const departmentId = parseInt(typeSelectElement.options[typeSelectElement.selectedIndex].value);
+		const departmentName = typeSelectElement.options[typeSelectElement.selectedIndex].text;
 
-		if (courseName.length > 0 && departmentId !== -1) {
+		this.nameIsInvalid = courseName.length === 0;
+		this.typeIsInvalid = departmentId === DEFAULT_SELECT_OPTION_VALUE;
+
+		if (!this.nameIsInvalid && !this.typeIsInvalid) {
+			this.pageData = {
+				courseName, departmentId, departmentName
+			};
 			this.changePage(PAGES.CONFIRM_PAGE);
 		}
 	}
@@ -91,35 +111,77 @@ class TeacherCourseCreationInput extends BaseMixin(LitElement) {
 		return configuredDepartmentOptions;
 	}
 
+	_renderNameInput() {
+		const inputTextTemplate = html`
+			<d2l-input-text
+				id=${NAME_INPUT_ID}
+				class="tcc-input__input-container-item tcc-input__name-input"
+				label="${this.localize('inputNameLabel')}*"
+				aria-invalid="${this.nameIsInvalid}">
+			</d2l-input-text>
+		`;
+
+		let tooltipTemplate = html``;
+		if (this.nameIsInvalid) {
+			tooltipTemplate = html`
+				<d2l-tooltip
+					for="${NAME_INPUT_ID}"
+					state="error"
+					align="start">
+						${this.localize('inputNameInvalidErrorMsg')}
+				</d2l-tooltip>
+			`;
+		}
+		return html`${inputTextTemplate}${tooltipTemplate}`;
+	}
+
+	_renderTypeSelect() {
+		const selectTempalte = html`
+			<select
+				id=${TYPE_SELECT_ID}
+				class="d2l-input-select tcc-input__input-container-item"
+				label=${this.localize('inputSelectLabel')}
+				aria-invalid="${this.typeIsInvalid}">
+					${this._renderConfiguredDepartments()}
+			</select>
+		`;
+
+		let tooltipTemplate = html``;
+		if (this.typeIsInvalid) {
+			tooltipTemplate = html`
+				<d2l-tooltip
+					for="${TYPE_SELECT_ID}"
+					state="error"
+					align="start">
+						${this.localize('inputTypeInvalidErrorMsg')}
+				</d2l-tooltip>
+			`;
+		}
+		return html`${selectTempalte}${tooltipTemplate}`;
+	}
+
 	render() {
 		return html`
-			<div class="flex-container">
-				<p class="d2l-body-small flex-item">
+			<div class="tcc-input__input-container">
+				<p class="d2l-body-small tcc-input__input-container-item">
 					${this.localize('inputDescription')}
 				</p>
-				<d2l-input-text
-					id=${NAME_INPUT_ID}
-					class="flex-item"
-					label="${this.localize('inputNameLabel')}*">
-				</d2l-input-text>
+				${this._renderNameInput()}
 				<label
 					for="course-type-select"
-					class="d2l-label-text flex-label">
+					class="d2l-label-text tcc-input__type-select-label">
 						${this.localize('inputSelectLabel')}*
 				</label>
-				<select
-					id=${TYPE_SELECT_ID}
-					class="d2l-input-select flex-item"
-					label=${this.localize('inputSelectLabel')}>
-						${this._renderConfiguredDepartments()}
-				</select>
-				<div class="button-container flex-item">
+				${this._renderTypeSelect()}
+				<div class="button-container tcc-input__input-container-item">
 					<d2l-button
+						class="tcc-input__button"
 						primary
 						@click=${this._handleNextClicked}>
 							${this.localize('nextButtonText')}
 					</d2l-button>
 					<d2l-button
+						class="tcc-input__button"
 						@click=${this._handleBackClicked}>
 							${this.localize('backButtonText')}
 					</d2l-button>
