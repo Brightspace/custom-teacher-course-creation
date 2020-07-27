@@ -42,9 +42,6 @@ class TeacherCourseCreationConfirm extends BaseMixin(LitElement) {
 			.tcc-confirm__course-type-div{
 				margin-top: 12px;
 			}
-			.tcc-confirm_back-button {
-				margin: 0px 12px;
-			}
 			p {
 				margin: 0px;
 				font-weight: bold;
@@ -109,7 +106,7 @@ class TeacherCourseCreationConfirm extends BaseMixin(LitElement) {
 				${this.localize('actionFinish')}
 			</d2l-button>
 			<d2l-button
-			class="tcc-confirm_back-button"
+			class="tcc-confirm__back-button"
 			description=${this.localize('actionBackDescription')}
 			@click=${this._back}>
 				${this.localize('actionBack')}

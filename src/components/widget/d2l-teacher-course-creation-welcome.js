@@ -41,7 +41,7 @@ class TeacherCourseCreationWelcome extends BaseMixin(LitElement) {
 	}
 
 	_changePage() {
-		this.changePage(PAGES.CONFIRM_PAGE);
+		this.changePage(PAGES.INPUT_PAGE);
 	}
 
 	render() {
