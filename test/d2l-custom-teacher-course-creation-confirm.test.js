@@ -47,8 +47,7 @@ describe('d2l-teacher-course-creation-confirm', () => {
 
 		it('finish button triggers change-page event', async() => {
 			const courseOrgUnitId = 6609;
-			const patches = {};
-			patches['createCourse'] = async() => courseOrgUnitId;
+			const patches = { createCourse: async() => courseOrgUnitId};
 			getTccServiceStub.returns(new TccTestService(patches));
 
 			const pageData = {
@@ -71,8 +70,7 @@ describe('d2l-teacher-course-creation-confirm', () => {
 
 		it('finish button with error triggers change-page event', async() => {
 			const errorMessage = 'Houston we have a problem';
-			const patches = {};
-			patches['createCourse'] = async() => {throw new Error(errorMessage);};
+			const patches = { createCourse: async() => {throw new Error(errorMessage);}};
 			getTccServiceStub.returns(new TccTestService(patches));
 
 			const pageData = {
