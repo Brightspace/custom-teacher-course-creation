@@ -14,6 +14,9 @@ class TeacherCourseCreation extends BaseMixin(LitElement) {
 		return {
 			currentPage: {
 				type: String
+			},
+			pageData: {
+				type: Object
 			}
 		};
 	}
@@ -73,7 +76,8 @@ class TeacherCourseCreation extends BaseMixin(LitElement) {
 		if (this.currentPage === PAGES.SUCCESS_PAGE) {
 			return html `
 			<d2l-tcc-success
-				@change-page=${this._changePage}>
+				@change-page=${this._changePage}
+				.pageData=${this.pageData}>
 			</d2l-tcc-success>
 			`;
 		}
