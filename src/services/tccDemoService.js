@@ -1,5 +1,5 @@
 export class TccDemoService {
-	static async CreateCourse() {
+	static async createCourse() {
 		return await fetch('../../data/course.json').then(response => response.json());
 	}
 

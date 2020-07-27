@@ -1,5 +1,5 @@
 export class TccService {
-	static async CreateCourse() {
+	static async createCourse() {
 
 	}
 
