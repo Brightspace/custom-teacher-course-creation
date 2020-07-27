@@ -21,10 +21,15 @@ class TeacherCourseCreationWelcome extends BaseMixin(LitElement) {
 			:host([hidden]) {
 				display: none;
 			}
-			.tcc-welcome-button-get-started {
+			.tcc-welcome__illustration {
+				margin-top: 1.5rem;
+			}
+			.tcc-welcome__text {
+				margin-bottom: 1.5rem;
+			}
+			.tcc-welcome__button-get-started {
 				width: 100%;
 				max-width: 250px;
-				margin: 1rem 0px;
 			}
 		`];
 	}
@@ -45,12 +50,22 @@ class TeacherCourseCreationWelcome extends BaseMixin(LitElement) {
 
 	render() {
 		return html`
+<<<<<<< HEAD
+=======
+			<div class="tcc-welcome__illustration">
+				<tcc-create-course-illustration>
+				</tcc-create-course-illustration>
+			</div>
+
+>>>>>>> f6c8097... Fixed UI
 
 			<h1 class="d2l-heading-2">${this.localize('welcomeTitle')}</h1>
-			<div>${this.localize('welcomeText')}</div>
+			<div class="tcc-welcome__text">
+				${this.localize('welcomeText')}
+			</div>
 
 			<d2l-button
-				class="tcc-welcome-button-get-started"
+				class="tcc-welcome__button-get-started"
 				description=${this.localize('welcomeButtonDescription')}
 				@click=${this._changePage}>
 				${this.localize('welcomeButtonText')}
