@@ -28,17 +28,17 @@ class TeacherCourseCreationSuccess extends BaseMixin(LitElement) {
 			:host([hidden]) {
 				display: none;
 			}
-			.tcc-success-title-container {
+			.tcc-success__title-container {
 				display: flex;
 				flex-direction: row;
 				align-items: baseline;
 			}
-			.tcc-success-title-icon {
+			.tcc-success__title-icon {
 				margin: 12px;
 				color: var(--d2l-color-feedback-success);
 				flex-shrink: 0;
 			}
-			.tcc-success-links-container {
+			.tcc-success__links-container {
 				display: flex;
 				flex-direction: column;
 				margin-bottom: 1.5rem;
@@ -47,7 +47,7 @@ class TeacherCourseCreationSuccess extends BaseMixin(LitElement) {
 				border-radius: 6px;
     			padding: 12px;
 			}
-			.tcc-success-text {
+			.tcc-success__text {
 				margin-bottom: 1.5rem;
 			}
 		`];
@@ -85,15 +85,15 @@ class TeacherCourseCreationSuccess extends BaseMixin(LitElement) {
 
 	render() {
 		return html`
-			<div class="tcc-success-title-container">
+			<div class="tcc-success__title-container">
 				<d2l-icon
-					class="tcc-success-title-icon"
+					class="tcc-success__title-icon"
 					icon="tier1:check-circle">
 				</d2l-icon>
 				<h1 class="d2l-heading-2">${this.localize('successTitleText')}</h1>
 			</div>
 
-			<div class="tcc-success-links-container">
+			<div class="tcc-success__links-container">
 				<d2l-link
 					href=${this._getCourseEnrollHref(this.generatedOrgUnitId)}>
 					${this.localize('successLinkEnrollStudents')}
@@ -108,12 +108,11 @@ class TeacherCourseCreationSuccess extends BaseMixin(LitElement) {
 				</d2l-link>
 			</div>
 
-			<div class="d2l-body-small tcc-success-text">
+			<div class="d2l-body-small tcc-success__text">
 				${this.localize('successResultText')}
 			</div>
 
 			<d2l-button
-				class="tcc-success-button-done"
 				description=${this.localize('successDoneButtonDescription')}
 				@click=${this._donePressed}
 				primary>
