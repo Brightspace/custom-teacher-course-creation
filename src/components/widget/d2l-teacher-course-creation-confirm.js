@@ -56,12 +56,6 @@ class TeacherCourseCreationConfirm extends BaseMixin(LitElement) {
 		super();
 
 		this.tccService = TccServiceFactory.getTccService();
-		if (!this.pageData) {
-			this.pageData = {
-				courseName: 'Human Osteology 301',
-				courseType: 'Anthropology'
-			};
-		}
 	}
 
 	connectedCallback() {
