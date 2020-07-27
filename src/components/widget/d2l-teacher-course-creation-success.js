@@ -62,7 +62,7 @@ class TeacherCourseCreationSuccess extends BaseMixin(LitElement) {
 	connectedCallback() {
 		super.connectedCallback();
 
-		if (this.pageData && 'generatedOrgUnitId' in this.pageData) {
+		if (this.pageData && this.pageData.generatedOrgUnitId) {
 			this.generatedOrgUnitId = this.pageData.generatedOrgUnitId;
 		}
 	}
@@ -76,11 +76,11 @@ class TeacherCourseCreationSuccess extends BaseMixin(LitElement) {
 	}
 
 	_getCourseEnrollHref(orgUnitId) {
-		return '/d2l/lms/classlist/classlist.d2l?ou='.concat(orgUnitId);
+		return `/d2l/lms/classlist/classlist.d2l?ou=${orgUnitId}`;
 	}
 
 	_getCourseHomepageHref(orgUnitId) {
-		return '/'.concat(orgUnitId);
+		return `/${orgUnitId}`;
 	}
 
 	render() {
