@@ -5,3 +5,5 @@ export const PAGES = {
 	SUCCESS_PAGE: 'success_page',
 	ERROR_PAGE: 'error_page'
 };
+
+export const DEFAULT_SELECT_OPTION_VALUE = -1;
