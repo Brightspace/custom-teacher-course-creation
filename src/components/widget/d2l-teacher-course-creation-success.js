@@ -103,6 +103,7 @@ class TeacherCourseCreationSuccess extends BaseMixin(LitElement) {
 					${this.localize('successLinkCourseHomepage')}
 				</d2l-link>
 				<d2l-link
+					class="tcc-success__another-course-link"
 					@click=${this._anotherCoursePressed}>
 					${this.localize('successLinkCreateCourse')}
 				</d2l-link>
