@@ -15,8 +15,8 @@ class TeacherCourseCreation extends BaseMixin(LitElement) {
 			currentPage: {
 				type: String
 			},
-			generatedOrgUnitId: {
-				type: String
+			pageData: {
+				type: Object
 			}
 		};
 	}
@@ -48,10 +48,6 @@ class TeacherCourseCreation extends BaseMixin(LitElement) {
 		if (event.detail && event.detail.page) {
 			this.currentPage = event.detail.page;
 		}
-
-		if (this.currentPage === PAGES.SUCCESS_PAGE) {
-			this.generatedOrgUnitId = '6609';
-		}
 	}
 
 	render() {
@@ -80,7 +76,7 @@ class TeacherCourseCreation extends BaseMixin(LitElement) {
 			return html `
 			<d2l-tcc-success
 				@change-page=${this._changePage}
-				generatedOrgUnitId=${this.generatedOrgUnitId}>
+				.pageData=${this.pageData}>
 			</d2l-tcc-success>
 			`;
 		}
