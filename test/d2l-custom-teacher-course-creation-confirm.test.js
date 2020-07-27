@@ -46,8 +46,9 @@ describe('d2l-teacher-course-creation-confirm', () => {
 		});
 
 		it('finish button triggers change-page event', async() => {
+			const courseOrgUnitId = 6609;
 			const patches = {};
-			patches['createCourse'] = async() => 6609;
+			patches['createCourse'] = async() => courseOrgUnitId;
 			getTccServiceStub.returns(new TccTestService(patches));
 
 			const pageData = {
@@ -62,15 +63,16 @@ describe('d2l-teacher-course-creation-confirm', () => {
 				expect(event.detail.pageData).to.not.be.null;
 				expect(event.detail.pageData.courseName).to.equal(pageData.courseName);
 				expect(event.detail.pageData.courseType).to.equal(pageData.courseType);
-				expect(event.detail.pageData.courseOrgUnitId).to.equal(6609);
+				expect(event.detail.pageData.courseOrgUnitId).to.equal(courseOrgUnitId);
 			});
 
 			el.shadowRoot.querySelector('.tcc-confirm__finish-button').click();
 		});
 
 		it('finish button with error triggers change-page event', async() => {
+			const errorMessage = 'Houston we have a problem';
 			const patches = {};
-			patches['createCourse'] = async() => {throw new Error('Houston we have a problem');};
+			patches['createCourse'] = async() => {throw new Error(errorMessage);};
 			getTccServiceStub.returns(new TccTestService(patches));
 
 			const pageData = {
@@ -85,7 +87,7 @@ describe('d2l-teacher-course-creation-confirm', () => {
 				expect(event.detail.pageData).to.not.be.null;
 				expect(event.detail.pageData.courseName).to.equal(pageData.courseName);
 				expect(event.detail.pageData.courseType).to.equal(pageData.courseType);
-				expect(event.detail.pageData.ErrorMessage).to.equal('Houston we have a problem');
+				expect(event.detail.pageData.ErrorMessage).to.equal(errorMessage);
 			});
 
 			el.shadowRoot.querySelector('.tcc-confirm__finish-button').click();
