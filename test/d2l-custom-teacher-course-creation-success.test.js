@@ -1,5 +1,5 @@
 import '../src/components/widget/d2l-teacher-course-creation-success.js';
-import { expect, fixture, html } from '@open-wc/testing';
+import { expect, fixture, fixtureCleanup, html } from '@open-wc/testing';
 import { PAGES } from '../src/consts.js';
 import { runConstructor } from '@brightspace-ui/core/tools/constructor-test-helper.js';
 
@@ -24,13 +24,13 @@ describe('d2l-teacher-course-creation-success', () => {
 		}
 
 		afterEach(() => {
-			document.removeEventListener('change-page', changePageToWelcome);
+			fixtureCleanup();
 		});
 
 		it('button triggers change-page event', async() => {
 			const el = await fixture(html`<d2l-tcc-success></d2l-tcc-success>`);
 
-			document.addEventListener('change-page', changePageToWelcome);
+			el.addEventListener('change-page', changePageToWelcome);
 
 			el.shadowRoot.querySelector('d2l-button').click();
 		});
@@ -42,14 +42,14 @@ describe('d2l-teacher-course-creation-success', () => {
 		}
 
 		afterEach(() => {
-			document.removeEventListener('change-page', changePageToInput);
+			fixtureCleanup();
 		});
 
 		it('Link triggers change-page event', async() => {
 			console.log(window.location.href);
 			const el = await fixture(html`<d2l-tcc-success></d2l-tcc-success>`);
 
-			document.addEventListener('change-page', changePageToInput);
+			el.addEventListener('change-page', changePageToInput);
 
 			el.shadowRoot.querySelector('.tcc-success__another-course-link').click();
 		});
@@ -59,7 +59,7 @@ describe('d2l-teacher-course-creation-success', () => {
 		it('course homepage href', async() => {
 			const el = await fixture(html`<d2l-tcc-success></d2l-tcc-success>`);
 
-			expect(el._getCourseHomepageHref('6609')).to.equal('/6609');
+			expect(el._getCourseHomepageHref('6609')).to.equal('/d2l/home/6609');
 		});
 
 		it('course enrollement href', async() => {

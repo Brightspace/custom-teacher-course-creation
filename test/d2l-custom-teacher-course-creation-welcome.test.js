@@ -1,5 +1,5 @@
 import '../src/components/widget/d2l-teacher-course-creation-welcome.js';
-import { expect, fixture, html } from '@open-wc/testing';
+import { expect, fixture, fixtureCleanup, html } from '@open-wc/testing';
 import { PAGES } from '../src/consts.js';
 import { runConstructor } from '@brightspace-ui/core/tools/constructor-test-helper.js';
 
@@ -23,14 +23,14 @@ describe('d2l-teacher-course-creation-welcome', () => {
 			expect(event.detail.page).to.equal(PAGES.INPUT_PAGE);
 		}
 
-		after(() => {
-			document.removeEventListener('change-page', changePageToInput);
+		afterEach(() => {
+			fixtureCleanup();
 		});
 
 		it('button triggers change-page event', async() => {
 			const el = await fixture(html`<d2l-tcc-welcome></d2l-tcc-welcome>`);
 
-			document.addEventListener('change-page', changePageToInput);
+			el.addEventListener('change-page', changePageToInput);
 
 			el.shadowRoot.querySelector('d2l-button').click();
 		});

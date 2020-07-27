@@ -80,7 +80,7 @@ class TeacherCourseCreationSuccess extends BaseMixin(LitElement) {
 	}
 
 	_getCourseHomepageHref(orgUnitId) {
-		return `/${orgUnitId}`;
+		return `/d2l/home/${orgUnitId}`;
 	}
 
 	render() {
