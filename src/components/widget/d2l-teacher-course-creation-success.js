@@ -76,7 +76,11 @@ class TeacherCourseCreationSuccess extends BaseMixin(LitElement) {
 	}
 
 	_getCourseEnrollHref(orgUnitId) {
-		return 'd2l/lms/classlist/classlist.d2l?ou='.concat(orgUnitId);
+		return '/d2l/lms/classlist/classlist.d2l?ou='.concat(orgUnitId);
+	}
+
+	_getCourseHomepageHref(orgUnitId) {
+		return '/'.concat(orgUnitId);
 	}
 
 	render() {
@@ -95,7 +99,7 @@ class TeacherCourseCreationSuccess extends BaseMixin(LitElement) {
 					${this.localize('successLinkEnrollStudents')}
 				</d2l-link>
 				<d2l-link
-					href=${this.generatedOrgUnitId}>
+					href=${this._getCourseHomepageHref(this.generatedOrgUnitId)}>
 					${this.localize('successLinkCourseHomepage')}
 				</d2l-link>
 				<d2l-link
