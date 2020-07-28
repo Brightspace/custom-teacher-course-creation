@@ -38,6 +38,10 @@ class TeacherCourseCreationAdmin extends BaseMixin(LitElement) {
 			:host([hidden]) {
 				display: none;
 			}
+
+			.add_new_button {
+				padding: 6px 0px;
+			}
 		`;
 		return [
 			d2lTableStyles,
@@ -133,10 +137,10 @@ class TeacherCourseCreationAdmin extends BaseMixin(LitElement) {
 		return html`
 			<table class="association-table">
 				<thead>
-					<th>${ this.localize('columnCourseType') }</th>
-					<th>${ this.localize('columnPrefix') }</th>
-					<th>${ this.localize('columnSuffix') }</th>
-					<th>${ this.localize('columnRole') }</th>
+					<th>${ this.localize('courseType') }</th>
+					<th>${ this.localize('prefix') }</th>
+					<th>${ this.localize('suffix') }</th>
+					<th>${ this.localize('role') }</th>
 				</thead>
 				<tbody>
 					${ this.associations.map(association => this._renderAssociationRow(association)) }
@@ -151,8 +155,7 @@ class TeacherCourseCreationAdmin extends BaseMixin(LitElement) {
 				id="association-dialog"
 				.roles=${this.roles}
 				.departments=${this.departments}
-				@association-dialog-save=${this._fetchAssociations}
-				>
+				@association-dialog-save=${this._fetchAssociations}>
 			</d2l-tcc-association-dialog>
 		`;
 	}
@@ -160,10 +163,10 @@ class TeacherCourseCreationAdmin extends BaseMixin(LitElement) {
 	render() {
 		return html`
 			<d2l-button-subtle
+				class="add_new_button"
 				icon="tier1:plus-large"
 				text="${this.localize('actionNew')}"
-				@click=${this._handleAssociationNew}
-				>
+				@click=${this._handleAssociationNew}>
 			</d2l-button-subtle>
 			${this.associations.length > 0 ? this._renderTable() : html``}
 			${this._renderDialogs()}

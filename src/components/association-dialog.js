@@ -3,6 +3,7 @@ import '@brightspace-ui/core/components/dialog/dialog.js';
 import '@brightspace-ui/core/components/inputs/input-text.js';
 import { css, html, LitElement } from 'lit-element/lit-element';
 import { BaseMixin } from '../mixins/base-mixin';
+import { DEFAULT_SELECT_OPTION_VALUE } from '../constants';
 import { inputLabelStyles } from '@brightspace-ui/core/components/inputs/input-label-styles.js';
 import { inputStyles } from '@brightspace-ui/core/components/inputs/input-styles';
 import { selectStyles } from '@brightspace-ui/core/components/inputs/input-select-styles.js';
@@ -149,7 +150,7 @@ class TccAssociationDialog extends BaseMixin(LitElement) {
 	}
 
 	_formIsValid() {
-		return Object.values(this.invalidFlags).filter(flag => flag === true).length === 0;
+		return !Object.values(this.invalidFlags).includes(true);
 	}
 
 	async _submitAssociation() {
@@ -172,35 +173,29 @@ class TccAssociationDialog extends BaseMixin(LitElement) {
 	}
 
 	_getEnteredPrefix() {
-		if (!this.associationForm.PrefixInput.value) {
-			this.invalidFlags.Prefix = true;
-		} else {
-			this.invalidFlags.Prefix = false;
-		}
-		return this.associationForm.PrefixInput.value;
+		const trimmedEntryValue = this.associationForm.PrefixInput.value && this.associationForm.PrefixInput.value.trim();
+		this.invalidFlags.Prefix = !trimmedEntryValue;
+		return trimmedEntryValue;
 	}
 
 	_getEnteredSuffix() {
-		if (!this.associationForm.SuffixInput.value) {
-			this.invalidFlags.Suffix = true;
-		} else {
-			this.invalidFlags.Suffix = false;
-		}
-		return this.associationForm.SuffixInput.value;
+		const trimmedEntryValue = this.associationForm.SuffixInput.value && this.associationForm.SuffixInput.value.trim();
+		this.invalidFlags.Suffix = !trimmedEntryValue;
+		return trimmedEntryValue;
 	}
 
 	_getSelectedOptionValue(selectElement) {
-		return parseInt(selectElement.options[selectElement.selectedIndex].value);
+		return selectElement.options[selectElement.selectedIndex].value;
 	}
 
 	_getSelectedDepartment() {
 		const selectedOrgUnitId = this._getSelectedOptionValue(this.associationForm.DepartmentSelect);
-		if (selectedOrgUnitId < 0) {
+		if (selectedOrgUnitId === DEFAULT_SELECT_OPTION_VALUE) {
 			this.invalidFlags.Department = true;
 			return {};
 		}
 		this.invalidFlags.Department = false;
-		const selectedDepartment = this.departments.find(department => parseInt(department.OrgUnitId) === selectedOrgUnitId);
+		const selectedDepartment = this.departments.find(department => department.OrgUnitId === selectedOrgUnitId);
 		return {
 			OrgUnitId: selectedDepartment.OrgUnitId,
 			Name: selectedDepartment.Name
@@ -209,12 +204,12 @@ class TccAssociationDialog extends BaseMixin(LitElement) {
 
 	_getSelectedRole() {
 		const selectedRoleId = this._getSelectedOptionValue(this.associationForm.RoleSelect);
-		if (selectedRoleId < 0) {
+		if (selectedRoleId === DEFAULT_SELECT_OPTION_VALUE) {
 			this.invalidFlags.Role = true;
 			return {};
 		}
 		this.invalidFlags.Role = false;
-		const selectedRole = this.roles.find(role => role.Identifier === selectedRoleId);
+		const selectedRole = this.roles.find(role => role.Identifier === parseInt(selectedRoleId));
 		return {
 			Id: selectedRole.Identifier,
 			Name: selectedRole.DisplayName
@@ -259,13 +254,12 @@ class TccAssociationDialog extends BaseMixin(LitElement) {
 				<div class="association_form">
 					<div class="association_form__input_group">
 						<label for="association-department">
-							${this.localize('dialogAssociationDepartmentLabel')}
+							${this.localize('department')}
 						</label>
 						<select
 							id="association-department"
 							class="d2l-input-select"
-							aria-invalid=${this.invalidFlags.Department}
-							>
+							aria-invalid="${this.invalidFlags.Department}">
 							<option value="-1">${this.localize('dialogAssociationDepartmentPlaceholder')}</option>
 							${this._renderDepartmentOptions()}
 						</select>
@@ -273,39 +267,36 @@ class TccAssociationDialog extends BaseMixin(LitElement) {
 
 					<div class="association_form__input_group">
 						<label for="association-prefix">
-							${this.localize('dialogAssociationPrefixLabel')}
+							${this.localize('prefix')}
 						</label>
 						<d2l-input-text
 							id="association-prefix"
 							value="${this.association.Prefix}"
 							placeholder="${this.localize('dialogAssociationPrefixPlaceholder')}"
-							aria-invalid=${this.invalidFlags.Prefix}
-							>
+							aria-invalid="${this.invalidFlags.Prefix}">
 						</d2l-input-text>
 					</div>
 
 					<div class="association_form__input_group">
 						<label for="association-suffix">
-							${this.localize('dialogAssociationSuffixLabel')}
+							${this.localize('suffix')}
 						</label>
 						<d2l-input-text
 							id="association-suffix"
 							value="${this.association.Suffix}"
-							aria-invalid=${this.invalidFlags.Suffix}
-							placeholder="${this.localize('dialogAssociationSuffixPlaceholder')}"
-							>
+							aria-invalid="${this.invalidFlags.Suffix}"
+							placeholder="${this.localize('dialogAssociationSuffixPlaceholder')}">
 						</d2l-input-text>
 					</div>
 
 					<div class="association_form__input_group">
 						<label for="association-role">
-							${this.localize('dialogAssociationRoleLabel')}
+							${this.localize('role')}
 						</label>
 						<select
 							id="association-role"
 							class="d2l-input-select"
-							aria-invalid=${this.invalidFlags.Role}
-							>
+							aria-invalid="${this.invalidFlags.Role}">
 							<option value="-1">${this.localize('dialogAssociationRolePlaceholder')}</option>
 							${this._renderRoleOptions()}
 						</select>
@@ -316,15 +307,13 @@ class TccAssociationDialog extends BaseMixin(LitElement) {
 							class="association_form__button"
 							slot="footer"
 							primary
-							@click=${this._submitAssociation}
-							>
+							@click=${this._submitAssociation}>
 							${this.localize('dialogAssociationSubmitButton')}
 						</d2l-button>
 						<d2l-button
 							class="association_form__button"
 							slot="footer"
-							@click=${this._close}
-							>
+							@click=${this._close}>
 							${this.localize('dialogAssociationCancelButton')}
 						</d2l-button>
 					</div>
