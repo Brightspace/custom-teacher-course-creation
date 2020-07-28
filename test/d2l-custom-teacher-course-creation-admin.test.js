@@ -10,12 +10,9 @@ const defaultFixture = html`
 <d2l-tcc-admin></d2l-tcc-admin>
 `;
 
-const getTccServiceStub = sinon.stub(TccServiceFactory, 'getTccService');
+let getTccServiceStub;
 
 describe('d2l-teacher-course-creation-admin', () => {
-	after(() => {
-		getTccServiceStub.restore();
-	});
 
 	describe('accessibility', () => {
 		it('should pass all axe tests', async() => {
@@ -32,10 +29,12 @@ describe('d2l-teacher-course-creation-admin', () => {
 
 	describe('serialize associations', () => {
 		beforeEach(() => {
+			getTccServiceStub = sinon.stub(TccServiceFactory, 'getTccService');
 			getTccServiceStub.returns(new TccTestService());
 		});
 
 		afterEach(() => {
+			getTccServiceStub.restore();
 			fixtureCleanup();
 		});
 

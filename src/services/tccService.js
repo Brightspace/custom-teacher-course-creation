@@ -14,6 +14,8 @@ export class TccService {
 			mode: 'cors'
 		};
 	}
+	static async createCourse() {
+	}
 	static async getAssociations() {
 		return await this._getRequest(Routes.CourseConfig());
 	}
@@ -39,4 +41,5 @@ export class TccService {
 	static async getRoles() {
 		return this._getRequest(Routes.Roles());
 	}
+
 }
