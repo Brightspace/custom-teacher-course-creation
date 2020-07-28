@@ -2,7 +2,7 @@ import '@brightspace-ui/core/components/button/button.js';
 import { css, html, LitElement } from 'lit-element/lit-element';
 import { BaseMixin } from '../../mixins/base-mixin';
 import { heading2Styles } from '@brightspace-ui/core/components/typography/styles.js';
-import { PAGES } from '../../consts';
+import { PAGES } from '../../constants';
 import { TccServiceFactory } from '../../services/tccServiceFactory';
 
 class TeacherCourseCreationWelcome extends BaseMixin(LitElement) {

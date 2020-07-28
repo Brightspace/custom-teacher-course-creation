@@ -3,7 +3,7 @@ import '@brightspace-ui/core/components/colors/colors.js';
 import { bodySmallStyles, heading2Styles } from '@brightspace-ui/core/components/typography/styles.js';
 import { css, html, LitElement } from 'lit-element/lit-element';
 import { BaseMixin } from '../../mixins/base-mixin';
-import { PAGES } from '../../consts';
+import { PAGES } from '../../constants';
 import { TccServiceFactory } from '../../services/tccServiceFactory';
 
 class TeacherCourseCreationError extends BaseMixin(LitElement) {
