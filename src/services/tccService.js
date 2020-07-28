@@ -23,15 +23,13 @@ export class TccService {
 		const departmentInfo = await this._getRequest(Routes.DepartmentInfo());
 		let bookmark = null;
 		let departments = [];
+		let pageInfo;
 		do {
 			const body = await this.getPagedDepartments(departmentInfo.Id, bookmark);
-			const pageInfo = body.PagingInfo;
+			pageInfo = body.PagingInfo;
 			departments = departments.concat(body.Items);
 			bookmark = pageInfo.Bookmark;
-			if (!pageInfo.HasMoreItems) {
-				break;
-			}
-		} while (bookmark);
+		} while (pageInfo.HasMoreItems);
 
 		return departments;
 	}
