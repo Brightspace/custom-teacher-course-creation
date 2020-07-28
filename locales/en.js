@@ -18,8 +18,6 @@ export const val = {
 	'courseName': 'Course Name',
 	'courseType': 'Course Type',
 	'inputDescription': 'Create a new course - choose a name and then select a department.',
-	'inputNameLabel': 'Course Name',
-	'inputSelectLabel': 'Course Type',
 	'inputChooseTypePlaceholder': '-- Choose a Type --',
 	'inputNameTooLongErrorMsg': 'The provided course name is longer than 128 characters',
 	'successDoneButtonDescription': 'Done creating course',

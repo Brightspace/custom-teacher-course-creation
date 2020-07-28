@@ -103,13 +103,12 @@ class TeacherCourseCreationInput extends BaseMixin(LitElement) {
 		const departmentId = typeSelectElement.options[typeSelectElement.selectedIndex].value;
 		const departmentName = typeSelectElement.options[typeSelectElement.selectedIndex].text;
 
-		this._validateValues(courseName, departmentId);
-		if (!this.nextDisabled) { // still validate in case the button was manually enabled
-			const pageData = {
-				courseName, departmentId, departmentName
-			};
-			this.changePage(PAGES.CONFIRM_PAGE, pageData);
-		}
+		if (!this._isValid(courseName, departmentId)) return;
+
+		const pageData = {
+			courseName, departmentId, departmentName
+		};
+		this.changePage(PAGES.CONFIRM_PAGE, pageData);
 	}
 
 	_handleBackClicked() {
@@ -121,15 +120,16 @@ class TeacherCourseCreationInput extends BaseMixin(LitElement) {
 		const typeSelectElement = this.shadowRoot.querySelector(`#${TYPE_SELECT_ID}`);
 		const departmentId = typeSelectElement.options[typeSelectElement.selectedIndex].value;
 
-		this._validateValues(courseName, departmentId);
+		this._isValid(courseName, departmentId);
 	}
 
-	_validateValues(courseName, departmentId) {
+	_isValid(courseName, departmentId) {
 		this.nameIsEmpty = courseName.length === 0;
 		this.nameIsTooLong = courseName.length > COURSE_NAME_MAX_LENGTH;
 		this.typeIsNotSelected = departmentId === DEFAULT_SELECT_OPTION_VALUE;
 
 		this.nextDisabled = this.nameIsEmpty || this.nameIsTooLong || this.typeIsNotSelected;
+		return !this.nextDisabled;
 	}
 
 	_renderConfiguredDepartments() {
@@ -148,7 +148,7 @@ class TeacherCourseCreationInput extends BaseMixin(LitElement) {
 			<d2l-input-text
 				id=${NAME_INPUT_ID}
 				class="tcc-input__input-container-item tcc-input__name-input"
-				label="${this.localize('inputNameLabel')} *"
+				label="${this.localize('courseName')} *"
 				aria-invalid="${this.nameIsTooLong}"
 				@input=${this._handleValueChanged}
 				value=${this.courseName}>
@@ -179,7 +179,7 @@ class TeacherCourseCreationInput extends BaseMixin(LitElement) {
 				<label
 					for="${TYPE_SELECT_ID}"
 					class="d2l-label-text tcc-input__type-select-label">
-						${this.localize('inputSelectLabel')} *
+						${this.localize('courseType')} *
 				</label>
 				<select
 					id=${TYPE_SELECT_ID}
