@@ -4,7 +4,7 @@ import { css, html, LitElement } from 'lit-element/lit-element';
 import { BaseMixin } from '../../mixins/base-mixin';
 import { heading2Styles } from '@brightspace-ui/core/components/typography/styles.js';
 import { inputLabelStyles } from '@brightspace-ui/core/components/inputs/input-label-styles.js';
-import { PAGES } from '../../consts';
+import { PAGES } from '../../constants';
 import { TccServiceFactory } from '../../services/tccServiceFactory';
 
 class TeacherCourseCreationConfirm extends BaseMixin(LitElement) {
@@ -66,7 +66,7 @@ class TeacherCourseCreationConfirm extends BaseMixin(LitElement) {
 
 	_finish() {
 		const data = this.pageData;
-		this.tccService.createCourse()
+		this.tccService.createCourse(data)
 			.then((id) => {
 				data.courseOrgUnitId = id;
 				this.changePage(PAGES.SUCCESS_PAGE, data);
@@ -95,7 +95,7 @@ class TeacherCourseCreationConfirm extends BaseMixin(LitElement) {
 						${this.localize('courseType')}
 					</label>
 					<p id="courseType">
-						${this.pageData.courseType}
+						${this.pageData.departmentName}
 					</p>
 				</div>
 			</div>

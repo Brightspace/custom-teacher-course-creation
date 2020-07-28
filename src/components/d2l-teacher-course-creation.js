@@ -6,7 +6,7 @@ import './widget/d2l-teacher-course-creation-success';
 import './widget/d2l-teacher-course-creation-error';
 import { css, html, LitElement } from 'lit-element/lit-element';
 import { BaseMixin } from '../mixins/base-mixin';
-import { PAGES } from '../consts';
+import { PAGES } from '../constants';
 import { TccServiceFactory } from '../services/tccServiceFactory';
 
 class TeacherCourseCreation extends BaseMixin(LitElement) {
@@ -46,6 +46,7 @@ class TeacherCourseCreation extends BaseMixin(LitElement) {
 		window.tccService = TccServiceFactory.getTccService();
 
 		this.currentPage = PAGES.WELCOME_PAGE;
+		this.pageData = null;
 	}
 
 	connectedCallback() {
@@ -53,13 +54,15 @@ class TeacherCourseCreation extends BaseMixin(LitElement) {
 	}
 
 	_changePage(event) {
-		if (event.detail && event.detail.page) {
+		if (event.detail) {
 			// This maintains the height of the widget when loading
 			if (event.detail.page === PAGES.LOADING_PAGE) {
 				this.pageHeight = parseInt(document.querySelector('d2l-tcc').clientHeight);
 			}
 
-			this.currentPage = event.detail.page;
+			const { detail: { page, pageData } } = event;
+			this.currentPage = page;
+			this.pageData = pageData;
 		}
 	}
 
@@ -74,7 +77,8 @@ class TeacherCourseCreation extends BaseMixin(LitElement) {
 		if (this.currentPage === PAGES.INPUT_PAGE) {
 			return html `
 			<d2l-tcc-input
-				@change-page=${this._changePage}>
+				@change-page=${this._changePage}
+				.pageData=${this.pageData}>
 			</d2l-tcc-input>
 			`;
 		}

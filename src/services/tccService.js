@@ -7,6 +7,10 @@ export class TccService {
 
 	}
 
+	static async getConfiguredDepartments() {
+
+	}
+
 	static async getDepartments() {
 
 	}

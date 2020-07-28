@@ -1,0 +1,30 @@
+[
+  {
+    "OrgId": "6606",
+    "Department": {
+        "OrgUnitId": "10000",
+        "Name": "IPSIS Test Department 1"
+    },
+    "Role": {
+        "RoleId": 595,
+        "Name": "Student"
+    },
+    "Prefix": "prefix",
+    "Suffix": "001",
+    "TemplateId": null
+  },
+  {
+    "OrgId": "6606",
+    "Department": {
+        "OrgUnitId": "12",
+        "Name": "Another Department"
+    },
+    "Role": {
+        "RoleId": 596,
+        "Name": "Instructor"
+    },
+    "Prefix": "prefix2",
+    "Suffix": "2020",
+    "TemplateId": null
+  }
+]

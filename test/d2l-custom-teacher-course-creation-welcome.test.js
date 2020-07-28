@@ -1,6 +1,6 @@
 import '../src/components/widget/d2l-teacher-course-creation-welcome.js';
 import { expect, fixture, fixtureCleanup, html } from '@open-wc/testing';
-import { PAGES } from '../src/consts.js';
+import { PAGES } from '../src/constants.js';
 import { runConstructor } from '@brightspace-ui/core/tools/constructor-test-helper.js';
 
 describe('d2l-teacher-course-creation-welcome', () => {

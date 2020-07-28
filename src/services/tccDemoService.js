@@ -13,6 +13,10 @@ export class TccDemoService {
 		return await fetch('../../data/associations.json').then(response => response.json());
 	}
 
+	static async getConfiguredDepartments() {
+		return await fetch('../../data/configuredDepartments.json').then(response => response.json());
+	}
+
 	static async getDepartments() {
 		return await fetch('../../data/departments.json').then(response => response.json());
 	}
