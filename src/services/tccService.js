@@ -19,6 +19,8 @@ export class TccService {
 	static async getAssociations() {
 		return await this._getRequest(Routes.CourseConfig());
 	}
+	static async getConfiguredDepartments() {
+	}
 	static async getDepartments() {
 		const departmentInfo = await this._getRequest(Routes.DepartmentInfo());
 		let bookmark = null;
