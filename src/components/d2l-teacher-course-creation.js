@@ -25,6 +25,7 @@ class TeacherCourseCreation extends BaseMixin(LitElement) {
 		return css`
 			:host {
 				display: inline-block;
+				width: 100%;
 			}
 			:host([hidden]) {
 				display: none;
