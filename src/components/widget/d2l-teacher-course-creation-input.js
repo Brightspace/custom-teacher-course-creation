@@ -89,7 +89,7 @@ class TeacherCourseCreationInput extends BaseMixin(LitElement) {
 		if (this.pageData && this.pageData.courseName && this.pageData.departmentId) {
 			this.courseName = this.pageData.courseName;
 			this.departmentId = this.pageData.departmentId;
-			this._validateValues(this.courseName, this.departmentId);
+			this._isValid(this.courseName, this.departmentId);
 		}
 	}
 
