@@ -50,14 +50,11 @@ class TeacherCourseCreationWelcome extends BaseMixin(LitElement) {
 
 	render() {
 		return html`
-<<<<<<< HEAD
-=======
 			<div class="tcc-welcome__illustration">
 				<tcc-create-course-illustration>
 				</tcc-create-course-illustration>
 			</div>
 
->>>>>>> f6c8097... Fixed UI
 
 			<h1 class="d2l-heading-2">${this.localize('welcomeTitle')}</h1>
 			<div class="tcc-welcome__text">
