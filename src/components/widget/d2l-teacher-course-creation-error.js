@@ -65,7 +65,7 @@ class TeacherCourseCreationError extends BaseMixin(LitElement) {
 	}
 
 	_backPressed() {
-		this.changePage(PAGES.INPUT_PAGE);
+		this.changePage(PAGES.INPUT_PAGE, this.pageData);
 	}
 
 	render() {
@@ -90,7 +90,7 @@ class TeacherCourseCreationError extends BaseMixin(LitElement) {
 				description=${this.localize('errorBackButtonDescription')}
 				@click=${this._backPressed}
 				primary>
-				${this.localize('errorBackButtonText')}
+				${this.localize('actionBack')}
 			</d2l-button>
 		`;
 	}

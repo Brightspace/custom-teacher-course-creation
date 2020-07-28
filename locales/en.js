@@ -10,7 +10,6 @@ export const val = {
 	'columnSuffix': 'Suffix',
 	'columnRole': 'Role',
 	'errorBackButtonDescription': 'Back to creating a course',
-	'errorBackButtonText': 'Back',
 	'errorResultText': 'Please try again later, or contact your Brightspace administrator and refer to the error description above.',
 	'errorTitleText': 'Uh oh!',
 	'confirmTitle': 'Is this correct?',
