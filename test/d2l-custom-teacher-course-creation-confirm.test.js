@@ -62,7 +62,7 @@ describe('d2l-teacher-course-creation-confirm', () => {
 				expect(event.detail.pageData).to.not.be.null;
 				expect(event.detail.pageData.courseName).to.equal(pageData.courseName);
 				expect(event.detail.pageData.courseType).to.equal(pageData.courseType);
-				expect(event.detail.pageData.generatedOrgUnitId).to.equal(courseOrgUnitId);
+				expect(event.detail.pageData.courseOrgUnitId).to.equal(courseOrgUnitId);
 			});
 
 			el.shadowRoot.querySelector('.tcc-confirm__finish-button').click();
@@ -85,7 +85,7 @@ describe('d2l-teacher-course-creation-confirm', () => {
 				expect(event.detail.pageData).to.not.be.null;
 				expect(event.detail.pageData.courseName).to.equal(pageData.courseName);
 				expect(event.detail.pageData.courseType).to.equal(pageData.courseType);
-				expect(event.detail.pageData.errorMessage).to.equal(errorMessage);
+				expect(event.detail.pageData.ErrorMessage).to.equal(errorMessage);
 			});
 
 			el.shadowRoot.querySelector('.tcc-confirm__finish-button').click();

@@ -14,7 +14,7 @@ class TeacherCourseCreationSuccess extends BaseMixin(LitElement) {
 			pageData: {
 				type: Object
 			},
-			generatedOrgUnitId: {
+			courseOrgUnitId: {
 				type: String
 			}
 		};
@@ -62,8 +62,8 @@ class TeacherCourseCreationSuccess extends BaseMixin(LitElement) {
 	connectedCallback() {
 		super.connectedCallback();
 
-		if (this.pageData && this.pageData.generatedOrgUnitId) {
-			this.generatedOrgUnitId = this.pageData.generatedOrgUnitId;
+		if (this.pageData && this.pageData.courseOrgUnitId) {
+			this.courseOrgUnitId = this.pageData.courseOrgUnitId;
 		}
 	}
 
@@ -95,11 +95,11 @@ class TeacherCourseCreationSuccess extends BaseMixin(LitElement) {
 
 			<div class="tcc-success__links-container">
 				<d2l-link
-					href=${this._getCourseEnrollHref(this.generatedOrgUnitId)}>
+					href=${this._getCourseEnrollHref(this.courseOrgUnitId)}>
 					${this.localize('successLinkEnrollStudents')}
 				</d2l-link>
 				<d2l-link
-					href=${this._getCourseHomepageHref(this.generatedOrgUnitId)}>
+					href=${this._getCourseHomepageHref(this.courseOrgUnitId)}>
 					${this.localize('successLinkCourseHomepage')}
 				</d2l-link>
 				<d2l-link

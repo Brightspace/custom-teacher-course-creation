@@ -59,8 +59,8 @@ class TeacherCourseCreationError extends BaseMixin(LitElement) {
 	connectedCallback() {
 		super.connectedCallback();
 
-		if (this.pageData && this.pageData.errorMessage) {
-			this.errorMessage = this.pageData.errorMessage;
+		if (this.pageData && this.pageData.ErrorMessage) {
+			this.errorMessage = this.pageData.ErrorMessage;
 		}
 	}
 
