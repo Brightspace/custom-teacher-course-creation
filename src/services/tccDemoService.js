@@ -1,5 +1,11 @@
+function sleep(ms) {
+	return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export class TccDemoService {
 	static async createCourse() {
+		await sleep(2000);
+
 		return await fetch('../../data/course.json').then(response => response.json());
 	}
 

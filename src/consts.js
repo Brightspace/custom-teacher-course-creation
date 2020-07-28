@@ -3,5 +3,6 @@ export const PAGES = {
 	INPUT_PAGE: 'input_page',
 	CONFIRM_PAGE: 'confirm_page',
 	SUCCESS_PAGE: 'success_page',
-	ERROR_PAGE: 'error_page'
+	ERROR_PAGE: 'error_page',
+	LOADING_PAGE: 'loading_page'
 };

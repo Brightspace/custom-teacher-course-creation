@@ -1,3 +1,4 @@
+import '@brightspace-ui/core/components/loading-spinner/loading-spinner.js';
 import './widget/d2l-teacher-course-creation-welcome';
 import './widget/d2l-teacher-course-creation-input';
 import './widget/d2l-teacher-course-creation-confirm';
@@ -17,6 +18,9 @@ class TeacherCourseCreation extends BaseMixin(LitElement) {
 			},
 			pageData: {
 				type: Object
+			},
+			pageHeight: {
+				type: Number
 			}
 		};
 	}
@@ -29,6 +33,9 @@ class TeacherCourseCreation extends BaseMixin(LitElement) {
 			}
 			:host([hidden]) {
 				display: none;
+			}
+			.tcc-widget__spinner {
+				display: flex;
 			}
 		`;
 	}
@@ -47,6 +54,11 @@ class TeacherCourseCreation extends BaseMixin(LitElement) {
 
 	_changePage(event) {
 		if (event.detail && event.detail.page) {
+			// This maintains the height of the widget when loading
+			if (event.detail.page === PAGES.LOADING_PAGE) {
+				this.pageHeight = parseInt(document.querySelector('d2l-tcc').clientHeight);
+			}
+
 			this.currentPage = event.detail.page;
 		}
 	}
@@ -88,6 +100,12 @@ class TeacherCourseCreation extends BaseMixin(LitElement) {
 				@change-page=${this._changePage}
 				.pageData=${this.pageData}>
 			</d2l-tcc-error>
+			`;
+		}
+		if (this.currentPage === PAGES.LOADING_PAGE) {
+			return html `
+			<d2l-loading-spinner class="tcc-widget__spinner" style="height: ${this.pageHeight}px;">
+			</d2l-loading-spinner>
 			`;
 		}
 	}

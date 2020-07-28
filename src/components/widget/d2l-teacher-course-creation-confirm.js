@@ -75,6 +75,7 @@ class TeacherCourseCreationConfirm extends BaseMixin(LitElement) {
 				data.ErrorMessage = error.message;
 				this.changePage(PAGES.ERROR_PAGE, data);
 			});
+		this.changePage(PAGES.LOADING_PAGE);
 	}
 
 	render() {
