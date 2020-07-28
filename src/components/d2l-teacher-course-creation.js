@@ -69,7 +69,8 @@ class TeacherCourseCreation extends BaseMixin(LitElement) {
 		if (this.currentPage === PAGES.CONFIRM_PAGE) {
 			return html `
 			<d2l-tcc-confirm
-				@change-page=${this._changePage}>
+				@change-page=${this._changePage}
+				.pageData=${this.pageData}>
 			</d2l-tcc-confirm>
 			`;
 		}

@@ -1,3 +1,5 @@
+import '@brightspace-ui/core/components/icons/icon.js';
+import '@brightspace-ui/core/components/colors/colors.js';
 import { bodySmallStyles, heading2Styles } from '@brightspace-ui/core/components/typography/styles.js';
 import { css, html, LitElement } from 'lit-element/lit-element';
 import { BaseMixin } from '../../mixins/base-mixin';
@@ -11,7 +13,7 @@ class TeacherCourseCreationError extends BaseMixin(LitElement) {
 			pageData: {
 				type: Object
 			},
-			errorDescriptionText: {
+			errorMessage: {
 				type: String
 			}
 		};
@@ -57,8 +59,8 @@ class TeacherCourseCreationError extends BaseMixin(LitElement) {
 	connectedCallback() {
 		super.connectedCallback();
 
-		if (this.pageData && 'errorDescriptionText' in this.pageData) {
-			this.errorDescriptionText = this.pageData.errorDescriptionText;
+		if (this.pageData && this.pageData.errorMessage) {
+			this.errorMessage = this.pageData.errorMessage;
 		}
 	}
 
@@ -77,7 +79,7 @@ class TeacherCourseCreationError extends BaseMixin(LitElement) {
 			</div>
 
 			<div class="tcc-error__description-container">
-				${this.errorDescriptionText}
+				${this.errorMessage}
 			</div>
 
 			<div class="d2l-body-small tcc-error__text">

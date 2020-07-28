@@ -68,11 +68,11 @@ class TeacherCourseCreationConfirm extends BaseMixin(LitElement) {
 		const data = this.pageData;
 		this.tccService.createCourse()
 			.then((id) => {
-				data.courseOrgUnitId = id;
+				data.generatedOrgUnitId = id;
 				this.changePage(PAGES.SUCCESS_PAGE, data);
 			})
 			.catch((error) => {
-				data.ErrorMessage = error.message;
+				data.errorMessage = error.message;
 				this.changePage(PAGES.ERROR_PAGE, data);
 			});
 	}
