@@ -31,7 +31,8 @@ export class TccService {
 				break;
 			}
 		} while (bookmark);
-		console.log(departments);
+
+		return departments;
 	}
 	static async getPagedDepartments(departmentTypeId, bookmark) {
 		return await this._getRequest(Routes.Departments(departmentTypeId, bookmark));
