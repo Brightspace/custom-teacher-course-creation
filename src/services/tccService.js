@@ -2,7 +2,6 @@ import { Routes } from './routes';
 
 export class TccService {
 	static _getRequest(url) {
-		console.log(url);
 		return fetch(url, this._options('GET')).then(r => r.json());
 	}
 	static _options(method) {
