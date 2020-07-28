@@ -254,6 +254,7 @@ class TccAssociationDialog extends BaseMixin(LitElement) {
 			<d2l-dialog
 				?opened=${this.associationDialogOpened}
 				title-text="${this._getDialogTitle()}"
+				@d2l-dialog-close=${this._close}
 				>
 				<div class="association_form">
 					<div class="association_form__input_group">
