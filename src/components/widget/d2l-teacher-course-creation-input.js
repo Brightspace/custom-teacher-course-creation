@@ -98,7 +98,7 @@ class TeacherCourseCreationInput extends BaseMixin(LitElement) {
 	}
 
 	_handleNextClicked() {
-		const courseName = this.shadowRoot.querySelector(`#${NAME_INPUT_ID}`).value;
+		const courseName = this.shadowRoot.querySelector(`#${NAME_INPUT_ID}`).value.trim();
 		const typeSelectElement = this.shadowRoot.querySelector(`#${TYPE_SELECT_ID}`);
 		const departmentId = typeSelectElement.options[typeSelectElement.selectedIndex].value;
 		const departmentName = typeSelectElement.options[typeSelectElement.selectedIndex].text;
@@ -117,7 +117,7 @@ class TeacherCourseCreationInput extends BaseMixin(LitElement) {
 	}
 
 	_handleValueChanged() {
-		const courseName = this.shadowRoot.querySelector(`#${NAME_INPUT_ID}`).value;
+		const courseName = this.shadowRoot.querySelector(`#${NAME_INPUT_ID}`).value.trim();
 		const typeSelectElement = this.shadowRoot.querySelector(`#${TYPE_SELECT_ID}`);
 		const departmentId = typeSelectElement.options[typeSelectElement.selectedIndex].value;
 
