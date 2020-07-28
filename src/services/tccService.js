@@ -1,4 +1,8 @@
 export class TccService {
+	static async createCourse() {
+
+	}
+
 	static async getAssociations() {
 
 	}
@@ -14,4 +18,5 @@ export class TccService {
 	static async getRoles() {
 
 	}
+
 }

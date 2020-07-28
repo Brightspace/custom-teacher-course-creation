@@ -3,7 +3,7 @@ import '@brightspace-ui/core/components/inputs/input-text';
 import '@brightspace-ui/core/components/tooltip/tooltip';
 import { bodySmallStyles, labelStyles } from '@brightspace-ui/core/components/typography/styles';
 import { css, html, LitElement } from 'lit-element/lit-element';
-import { DEFAULT_SELECT_OPTION_VALUE, PAGES } from '../../consts';
+import { DEFAULT_SELECT_OPTION_VALUE, PAGES } from '../../constants';
 import { BaseMixin } from '../../mixins/base-mixin';
 import { selectStyles } from '@brightspace-ui/core/components/inputs/input-select-styles';
 import { TccServiceFactory } from '../../services/tccServiceFactory';
@@ -23,9 +23,6 @@ class TeacherCourseCreationInput extends BaseMixin(LitElement) {
 			},
 			typeIsInvalid: {
 				type: Boolean
-			},
-			pageData: {
-				type: Object
 			}
 		};
 	}
@@ -45,6 +42,7 @@ class TeacherCourseCreationInput extends BaseMixin(LitElement) {
 			.tcc-input__input-container {
 				display: flex;
 				flex-flow: column;
+				align-items: flex-start;
 			}
 			.tcc-input__input-container-item {
 				margin-bottom: 24px;
@@ -90,10 +88,10 @@ class TeacherCourseCreationInput extends BaseMixin(LitElement) {
 		this.typeIsInvalid = departmentId === DEFAULT_SELECT_OPTION_VALUE;
 
 		if (!this.nameIsInvalid && !this.typeIsInvalid) {
-			this.pageData = {
+			const pageData = {
 				courseName, departmentId, departmentName
 			};
-			this.changePage(PAGES.CONFIRM_PAGE);
+			this.changePage(PAGES.CONFIRM_PAGE, pageData);
 		}
 	}
 
