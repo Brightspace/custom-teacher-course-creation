@@ -5,7 +5,7 @@ import './widget/d2l-teacher-course-creation-success';
 import './widget/d2l-teacher-course-creation-error';
 import { css, html, LitElement } from 'lit-element/lit-element';
 import { BaseMixin } from '../mixins/base-mixin';
-import { PAGES } from '../consts';
+import { PAGES } from '../constants';
 import { TccServiceFactory } from '../services/tccServiceFactory';
 
 class TeacherCourseCreation extends BaseMixin(LitElement) {
@@ -14,6 +14,9 @@ class TeacherCourseCreation extends BaseMixin(LitElement) {
 		return {
 			currentPage: {
 				type: String
+			},
+			pageData: {
+				type: Object
 			}
 		};
 	}
@@ -22,6 +25,7 @@ class TeacherCourseCreation extends BaseMixin(LitElement) {
 		return css`
 			:host {
 				display: inline-block;
+				width: 100%;
 			}
 			:host([hidden]) {
 				display: none;
@@ -35,6 +39,7 @@ class TeacherCourseCreation extends BaseMixin(LitElement) {
 		window.tccService = TccServiceFactory.getTccService();
 
 		this.currentPage = PAGES.WELCOME_PAGE;
+		this.pageData = null;
 	}
 
 	connectedCallback() {
@@ -42,8 +47,10 @@ class TeacherCourseCreation extends BaseMixin(LitElement) {
 	}
 
 	_changePage(event) {
-		if (event.detail && event.detail.page) {
-			this.currentPage = event.detail.page;
+		if (event.detail) {
+			const { detail: { page, pageData } } = event;
+			this.currentPage = page;
+			this.pageData = pageData;
 		}
 	}
 
@@ -58,28 +65,32 @@ class TeacherCourseCreation extends BaseMixin(LitElement) {
 		if (this.currentPage === PAGES.INPUT_PAGE) {
 			return html `
 			<d2l-tcc-input
-				@change-page=${this._changePage}>
+				@change-page=${this._changePage}
+				.pageData=${this.pageData}>
 			</d2l-tcc-input>
 			`;
 		}
 		if (this.currentPage === PAGES.CONFIRM_PAGE) {
 			return html `
 			<d2l-tcc-confirm
-				@change-page=${this._changePage}>
+				@change-page=${this._changePage}
+				.pageData=${this.pageData}>
 			</d2l-tcc-confirm>
 			`;
 		}
 		if (this.currentPage === PAGES.SUCCESS_PAGE) {
 			return html `
 			<d2l-tcc-success
-				@change-page=${this._changePage}>
+				@change-page=${this._changePage}
+				.pageData=${this.pageData}>
 			</d2l-tcc-success>
 			`;
 		}
 		if (this.currentPage === PAGES.ERROR_PAGE) {
 			return html `
 			<d2l-tcc-error
-				@change-page=${this._changePage}>
+				@change-page=${this._changePage}
+				.pageData=${this.pageData}>
 			</d2l-tcc-error>
 			`;
 		}

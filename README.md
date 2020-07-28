@@ -1,4 +1,4 @@
-# d2l-custom-teacher-course-creation
+# d2l-tcc and d2l-tcc-admin
 
 [![Dependabot badge](https://flat.badgen.net/dependabot/Brightspace/custom-teacher-course-creation?icon=dependabot)](https://app.dependabot.com/)
 [![Build status](https://travis-ci.com/brightspace/custom-teacher-course-creation.svg?branch=master)](https://travis-ci.com/@brightspace-ui/custom-teacher-course-creation)
