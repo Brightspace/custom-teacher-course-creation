@@ -1,4 +1,4 @@
-import '@brightspace-ui/core/components/button/button-icon';
+import '@brightspace-ui/core/components/button/button-subtle';
 import '@brightspace-ui/core/components/icons/icon';
 import '@brightspace-ui/core/components/dropdown/dropdown';
 import '@brightspace-ui/core/components/dropdown/dropdown-menu';
@@ -75,21 +75,22 @@ class TeacherCourseCreationAdmin extends BaseMixin(LitElement) {
 			});
 	}
 
+	_handleAssociationDelete(event) {
+		const associationRowId = parseInt(event.target.getAttribute('data-association-row'));
+		this.dialogAssociation =
+			this.associations.find(association => association.RowId === associationRowId);
+	}
+
 	_handleAssociationEdit(event) {
 		const associationRowId = parseInt(event.target.getAttribute('data-association-row'));
 		const dialogAssociation =
 			this.associations.find(association => association.RowId === associationRowId);
 
-		console.log(dialogAssociation);
 		this.associationDialog.open(dialogAssociation);
 	}
 
-	_handleAssociationDelete(event) {
-		const associationRowId = parseInt(event.target.getAttribute('data-association-row'));
-		this.dialogAssociation =
-			this.associations.find(association => association.RowId === associationRowId);
-
-		console.log(JSON.stringify(this.dialogAssociation));
+	_handleAssociationNew() {
+		this.associationDialog.open();
 	}
 
 	_renderActionChevron(associationRowId) {
@@ -150,6 +151,7 @@ class TeacherCourseCreationAdmin extends BaseMixin(LitElement) {
 				id="association-dialog"
 				.roles=${this.roles}
 				.departments=${this.departments}
+				@association-dialog-save=${this._fetchAssociations}
 				>
 			</d2l-tcc-association-dialog>
 		`;
@@ -157,6 +159,12 @@ class TeacherCourseCreationAdmin extends BaseMixin(LitElement) {
 
 	render() {
 		return html`
+			<d2l-button-subtle
+				icon="tier1:plus-large"
+				text="${this.localize('actionNew')}"
+				@click=${this._handleAssociationNew}
+				>
+			</d2l-button-subtle>
 			${this.associations.length > 0 ? this._renderTable() : html``}
 			${this._renderDialogs()}
 		`;
