@@ -98,15 +98,13 @@ class TeacherCourseCreationInput extends BaseMixin(LitElement) {
 	}
 
 	_handleNextClicked() {
-		const courseName = this.shadowRoot.getElementById(NAME_INPUT_ID).value;
-		const typeSelectElement = this.shadowRoot.getElementById(TYPE_SELECT_ID);
+		const courseName = this.shadowRoot.querySelector(`#${NAME_INPUT_ID}`).value;
+		const typeSelectElement = this.shadowRoot.querySelector(`#${TYPE_SELECT_ID}`);
 		const departmentId = typeSelectElement.options[typeSelectElement.selectedIndex].value;
 		const departmentName = typeSelectElement.options[typeSelectElement.selectedIndex].text;
 
-		this.nameIsEmpty = courseName.length === 0;
-		this.typeIsNotSelected = departmentId === DEFAULT_SELECT_OPTION_VALUE;
-
-		if (!this.nameIsEmpty && !this.typeIsNotSelected) {
+		this._validateValues(courseName, departmentId);
+		if (!this.nextDisabled) { // still validate in case the button was manually enabled
 			const pageData = {
 				courseName, departmentId, departmentName
 			};
@@ -179,7 +177,7 @@ class TeacherCourseCreationInput extends BaseMixin(LitElement) {
 				</p>
 				${this._renderNameInput()}
 				<label
-					for="course-type-select"
+					for="${TYPE_SELECT_ID}"
 					class="d2l-label-text tcc-input__type-select-label">
 						${this.localize('inputSelectLabel')} *
 				</label>

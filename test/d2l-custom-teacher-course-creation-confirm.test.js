@@ -7,11 +7,11 @@ import { TccServiceFactory } from '../src/services/tccServiceFactory';
 import { TccTestService } from './utilities/tccTestService';
 
 describe('d2l-teacher-course-creation-confirm', () => {
+	afterEach(() => {
+		fixtureCleanup();
+	});
 
 	describe('accessibility', () => {
-		afterEach(() => {
-			fixtureCleanup();
-		});
 		it('should pass all axe tests', async() => {
 			const el = await fixture(html`<d2l-tcc-confirm></d2l-tcc-confirm>`);
 			await expect(el).to.be.accessible();
@@ -25,10 +25,6 @@ describe('d2l-teacher-course-creation-confirm', () => {
 	});
 
 	describe('data binding', () => {
-		afterEach(() => {
-			fixtureCleanup();
-		});
-
 		it('should bind the properties', async() => {
 			const pageData = {
 				courseName: 'Test Course Name',
@@ -49,7 +45,6 @@ describe('d2l-teacher-course-creation-confirm', () => {
 
 		afterEach(() => {
 			getTccServiceStub.restore();
-			fixtureCleanup();
 		});
 
 		it('finish button triggers change-page event', async() => {
