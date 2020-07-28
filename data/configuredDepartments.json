@@ -1,10 +1,30 @@
 [
   {
-    "OrgUnitId": "10006",
-    "Name": "IPSIS Department New"
+    "OrgId": "6606",
+    "Department": {
+        "OrgUnitId": "10000",
+        "Name": "IPSIS Test Department 1"
+    },
+    "Role": {
+        "RoleId": 595,
+        "Name": "Student"
+    },
+    "Prefix": "prefix",
+    "Suffix": "001",
+    "TemplateId": null
   },
   {
-    "OrgUnitId": "2",
-    "Name": "Another Department"
+    "OrgId": "6606",
+    "Department": {
+        "OrgUnitId": "12",
+        "Name": "Another Department"
+    },
+    "Role": {
+        "RoleId": 596,
+        "Name": "Instructor"
+    },
+    "Prefix": "prefix2",
+    "Suffix": "2020",
+    "TemplateId": null
   }
 ]

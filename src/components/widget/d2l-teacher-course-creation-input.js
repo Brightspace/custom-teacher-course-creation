@@ -23,6 +23,15 @@ class TeacherCourseCreationInput extends BaseMixin(LitElement) {
 			},
 			typeIsInvalid: {
 				type: Boolean
+			},
+			pageData: {
+				type: Object
+			},
+			courseName: {
+				type: String
+			},
+			departmentId: {
+				type: String
 			}
 		};
 	}
@@ -42,16 +51,12 @@ class TeacherCourseCreationInput extends BaseMixin(LitElement) {
 			.tcc-input__input-container {
 				display: flex;
 				flex-flow: column;
-				align-items: flex-start;
 			}
 			.tcc-input__input-container-item {
 				margin-bottom: 24px;
 			}
 			.tcc-input__type-select-label {
 				margin-bottom: 0px;
-			}
-			.tcc-input__button-container {
-				justify-self: flex-start;
 			}
 			.tcc-input__button {
 				margin-top: 24px;
@@ -67,11 +72,17 @@ class TeacherCourseCreationInput extends BaseMixin(LitElement) {
 		window.tccService = TccServiceFactory.getTccService();
 		this.nameIsInvalid = false;
 		this.typeIsInvalid = false;
+		this.courseName = '';
+		this.departmentId = DEFAULT_SELECT_OPTION_VALUE;
 	}
 
 	async connectedCallback() {
 		super.connectedCallback();
 		await this.getConfiguredDepartments();
+		if (this.pageData && this.pageData.courseName && this.pageData.departmentId) {
+			this.courseName = this.pageData.courseName;
+			this.departmentId = this.pageData.departmentId;
+		}
 	}
 
 	async getConfiguredDepartments() {
@@ -81,7 +92,7 @@ class TeacherCourseCreationInput extends BaseMixin(LitElement) {
 	_handleNextClicked() {
 		const courseName = this.shadowRoot.getElementById(NAME_INPUT_ID).value;
 		const typeSelectElement = this.shadowRoot.getElementById(TYPE_SELECT_ID);
-		const departmentId = parseInt(typeSelectElement.options[typeSelectElement.selectedIndex].value);
+		const departmentId = typeSelectElement.options[typeSelectElement.selectedIndex].value;
 		const departmentName = typeSelectElement.options[typeSelectElement.selectedIndex].text;
 
 		this.nameIsInvalid = courseName.length === 0;
@@ -103,9 +114,10 @@ class TeacherCourseCreationInput extends BaseMixin(LitElement) {
 		let configuredDepartmentOptions = [
 			html`<option value=${DEFAULT_SELECT_OPTION_VALUE}>${this.localize('inputChooseTypePlaceholder')}</option>`
 		];
-		configuredDepartmentOptions = configuredDepartmentOptions.concat(this.configuredDepartments.map(department =>
-			html`<option value=${department.OrgUnitId}>${department.Name}</option>`
-		));
+		configuredDepartmentOptions = configuredDepartmentOptions.concat(
+			this.configuredDepartments.map(({ Department: { OrgUnitId, Name } }) =>
+				html`<option value=${OrgUnitId} ?selected="${OrgUnitId === this.departmentId}">${Name}</option>`
+			));
 		return configuredDepartmentOptions;
 	}
 
@@ -115,7 +127,8 @@ class TeacherCourseCreationInput extends BaseMixin(LitElement) {
 				id=${NAME_INPUT_ID}
 				class="tcc-input__input-container-item tcc-input__name-input"
 				label="${this.localize('inputNameLabel')}*"
-				aria-invalid="${this.nameIsInvalid}">
+				aria-invalid="${this.nameIsInvalid}"
+				value=${this.courseName}>
 			</d2l-input-text>
 		`;
 
@@ -173,15 +186,17 @@ class TeacherCourseCreationInput extends BaseMixin(LitElement) {
 				${this._renderTypeSelect()}
 				<div class="button-container tcc-input__input-container-item">
 					<d2l-button
+						id="tcc-input-next-button"
 						class="tcc-input__button"
 						primary
 						@click=${this._handleNextClicked}>
-							${this.localize('nextButtonText')}
+							${this.localize('actionNext')}
 					</d2l-button>
 					<d2l-button
+						id="tcc-input-back-button"
 						class="tcc-input__button"
 						@click=${this._handleBackClicked}>
-							${this.localize('backButtonText')}
+							${this.localize('actionBack')}
 					</d2l-button>
 				</div>
 			</div>
