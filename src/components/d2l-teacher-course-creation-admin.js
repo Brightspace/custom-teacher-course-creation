@@ -71,7 +71,7 @@ class TeacherCourseCreationAdmin extends BaseMixin(LitElement) {
 					associationsArray.map(association => association.RowId = i++);
 					this.associations = associationsArray;
 				} else {
-					this.associations = [];
+					this.associations = Array();
 				}
 			});
 	}
