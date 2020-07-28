@@ -2,8 +2,8 @@ import '@brightspace-ui/core/components/button/button';
 import '@brightspace-ui/core/components/inputs/input-text';
 import '@brightspace-ui/core/components/tooltip/tooltip';
 import { bodySmallStyles, labelStyles } from '@brightspace-ui/core/components/typography/styles';
+import { COURSE_NAME_MAX_LENGTH, DEFAULT_SELECT_OPTION_VALUE, PAGES } from '../../constants';
 import { css, html, LitElement } from 'lit-element/lit-element';
-import { DEFAULT_SELECT_OPTION_VALUE, PAGES } from '../../constants';
 import { BaseMixin } from '../../mixins/base-mixin';
 import { selectStyles } from '@brightspace-ui/core/components/inputs/input-select-styles';
 import { TccServiceFactory } from '../../services/tccServiceFactory';
@@ -18,10 +18,13 @@ class TeacherCourseCreationInput extends BaseMixin(LitElement) {
 			configuredDepartments: {
 				type: Array
 			},
-			nameIsInvalid: {
+			nameIsEmpty: {
 				type: Boolean
 			},
-			typeIsInvalid: {
+			nameIsTooLong: {
+				type: Boolean
+			},
+			typeIsNotSelected: {
 				type: Boolean
 			},
 			pageData: {
@@ -32,6 +35,9 @@ class TeacherCourseCreationInput extends BaseMixin(LitElement) {
 			},
 			departmentId: {
 				type: String
+			},
+			nextDisabled: {
+				type: Boolean
 			}
 		};
 	}
@@ -56,7 +62,7 @@ class TeacherCourseCreationInput extends BaseMixin(LitElement) {
 				margin-bottom: 24px;
 			}
 			.tcc-input__type-select-label {
-				margin-bottom: 0px;
+				margin-bottom: 6px;
 			}
 			.tcc-input__button {
 				margin-top: 24px;
@@ -70,10 +76,11 @@ class TeacherCourseCreationInput extends BaseMixin(LitElement) {
 		super();
 
 		window.tccService = TccServiceFactory.getTccService();
-		this.nameIsInvalid = false;
-		this.typeIsInvalid = false;
+		this.nameIsEmpty = false;
+		this.typeIsNotSelected = false;
 		this.courseName = '';
 		this.departmentId = DEFAULT_SELECT_OPTION_VALUE;
+		this.nextDisabled = true;
 	}
 
 	async connectedCallback() {
@@ -82,6 +89,7 @@ class TeacherCourseCreationInput extends BaseMixin(LitElement) {
 		if (this.pageData && this.pageData.courseName && this.pageData.departmentId) {
 			this.courseName = this.pageData.courseName;
 			this.departmentId = this.pageData.departmentId;
+			this._validateValues(this.courseName, this.departmentId);
 		}
 	}
 
@@ -95,10 +103,10 @@ class TeacherCourseCreationInput extends BaseMixin(LitElement) {
 		const departmentId = typeSelectElement.options[typeSelectElement.selectedIndex].value;
 		const departmentName = typeSelectElement.options[typeSelectElement.selectedIndex].text;
 
-		this.nameIsInvalid = courseName.length === 0;
-		this.typeIsInvalid = departmentId === DEFAULT_SELECT_OPTION_VALUE;
+		this.nameIsEmpty = courseName.length === 0;
+		this.typeIsNotSelected = departmentId === DEFAULT_SELECT_OPTION_VALUE;
 
-		if (!this.nameIsInvalid && !this.typeIsInvalid) {
+		if (!this.nameIsEmpty && !this.typeIsNotSelected) {
 			const pageData = {
 				courseName, departmentId, departmentName
 			};
@@ -108,6 +116,22 @@ class TeacherCourseCreationInput extends BaseMixin(LitElement) {
 
 	_handleBackClicked() {
 		this.changePage(PAGES.WELCOME_PAGE);
+	}
+
+	_handleValueChanged() {
+		const courseName = this.shadowRoot.querySelector(`#${NAME_INPUT_ID}`).value;
+		const typeSelectElement = this.shadowRoot.querySelector(`#${TYPE_SELECT_ID}`);
+		const departmentId = typeSelectElement.options[typeSelectElement.selectedIndex].value;
+
+		this._validateValues(courseName, departmentId);
+	}
+
+	_validateValues(courseName, departmentId) {
+		this.nameIsEmpty = courseName.length === 0;
+		this.nameIsTooLong = courseName.length > COURSE_NAME_MAX_LENGTH;
+		this.typeIsNotSelected = departmentId === DEFAULT_SELECT_OPTION_VALUE;
+
+		this.nextDisabled = this.nameIsEmpty || this.nameIsTooLong || this.typeIsNotSelected;
 	}
 
 	_renderConfiguredDepartments() {
@@ -126,49 +150,25 @@ class TeacherCourseCreationInput extends BaseMixin(LitElement) {
 			<d2l-input-text
 				id=${NAME_INPUT_ID}
 				class="tcc-input__input-container-item tcc-input__name-input"
-				label="${this.localize('inputNameLabel')}*"
-				aria-invalid="${this.nameIsInvalid}"
+				label="${this.localize('inputNameLabel')} *"
+				aria-invalid="${this.nameIsTooLong}"
+				@input=${this._handleValueChanged}
 				value=${this.courseName}>
 			</d2l-input-text>
 		`;
 
 		let tooltipTemplate = html``;
-		if (this.nameIsInvalid) {
+		if (this.nameIsTooLong) {
 			tooltipTemplate = html`
 				<d2l-tooltip
 					for="${NAME_INPUT_ID}"
 					state="error"
 					align="start">
-						${this.localize('inputNameInvalidErrorMsg')}
+						${this.localize('inputNameTooLongErrorMsg')}
 				</d2l-tooltip>
 			`;
 		}
 		return html`${inputTextTemplate}${tooltipTemplate}`;
-	}
-
-	_renderTypeSelect() {
-		const selectTempalte = html`
-			<select
-				id=${TYPE_SELECT_ID}
-				class="d2l-input-select tcc-input__input-container-item"
-				label=${this.localize('inputSelectLabel')}
-				aria-invalid="${this.typeIsInvalid}">
-					${this._renderConfiguredDepartments()}
-			</select>
-		`;
-
-		let tooltipTemplate = html``;
-		if (this.typeIsInvalid) {
-			tooltipTemplate = html`
-				<d2l-tooltip
-					for="${TYPE_SELECT_ID}"
-					state="error"
-					align="start">
-						${this.localize('inputTypeInvalidErrorMsg')}
-				</d2l-tooltip>
-			`;
-		}
-		return html`${selectTempalte}${tooltipTemplate}`;
 	}
 
 	render() {
@@ -181,14 +181,21 @@ class TeacherCourseCreationInput extends BaseMixin(LitElement) {
 				<label
 					for="course-type-select"
 					class="d2l-label-text tcc-input__type-select-label">
-						${this.localize('inputSelectLabel')}*
+						${this.localize('inputSelectLabel')} *
 				</label>
-				${this._renderTypeSelect()}
+				<select
+					id=${TYPE_SELECT_ID}
+					class="d2l-input-select tcc-input__input-container-item"
+					label=${this.localize('inputSelectLabel')}
+					@change=${this._handleValueChanged}>
+						${this._renderConfiguredDepartments()}
+				</select>
 				<div class="button-container tcc-input__input-container-item">
 					<d2l-button
 						id="tcc-input-next-button"
 						class="tcc-input__button"
 						primary
+						?disabled="${this.nextDisabled}"
 						@click=${this._handleNextClicked}>
 							${this.localize('actionNext')}
 					</d2l-button>

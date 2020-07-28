@@ -39,6 +39,7 @@ class TeacherCourseCreation extends BaseMixin(LitElement) {
 		window.tccService = TccServiceFactory.getTccService();
 
 		this.currentPage = PAGES.WELCOME_PAGE;
+		this.pageData = null;
 	}
 
 	connectedCallback() {

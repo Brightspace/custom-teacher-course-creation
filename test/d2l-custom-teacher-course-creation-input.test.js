@@ -83,6 +83,28 @@ describe('d2l-teacher-course-creation-input', () => {
 
 		});
 
+		it('next button disabled and tooltip showing with long name', async() => {
+
+			const pageData = {
+				courseName: 'This is longer than 128 This is longer than 128 This is longer than 128 This is longer than 128 This is longer than 128 This is longer than 128 ',
+				departmentId: '12'
+			};
+
+			const el = await fixture(html`<d2l-tcc-input .pageData="${pageData}"></d2l-tcc-input>`);
+
+			const inputName = el.shadowRoot.querySelector('#course-name-input');
+			expect(inputName.value).to.equal(pageData.courseName);
+			expect(inputName.getAttribute('aria-invalid')).to.equal('true');
+
+			expect(el.shadowRoot.querySelector('#tcc-input-next-button').disabled).to.be.true;
+		});
+
+		it('next button disabled with no input or type', async() => {
+
+			const el = await fixture(html`<d2l-tcc-input></d2l-tcc-input>`);
+			expect(el.shadowRoot.querySelector('#tcc-input-next-button').disabled).to.be.true;
+		});
+
 		it('next button triggers change-page event', async() => {
 
 			const pageData = {
