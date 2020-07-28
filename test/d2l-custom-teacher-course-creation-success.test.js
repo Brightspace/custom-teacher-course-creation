@@ -46,7 +46,6 @@ describe('d2l-teacher-course-creation-success', () => {
 		});
 
 		it('Link triggers change-page event', async() => {
-			console.log(window.location.href);
 			const el = await fixture(html`<d2l-tcc-success></d2l-tcc-success>`);
 
 			el.addEventListener('change-page', changePageToInput);
