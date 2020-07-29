@@ -8,7 +8,8 @@
   },
   "files": [
     "src/**",
-    "locales/**"
+    "locales/**",
+    "d2l-teacher-course-creation.serge.json"
   ],
   "scripts": {
     "lint": "npm run lint:eslint && npm run lint:lit",
