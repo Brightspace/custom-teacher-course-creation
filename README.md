@@ -8,7 +8,7 @@
 
 | Property | Type | Description |
 |--|--|--|
-| | | |
+|currentPage |string | [Page Constants](https://github.com/Brightspace/custom-teacher-course-creation/blob/master/src/constants.js#L1) |
 
 **Accessibility:**
 
