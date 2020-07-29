@@ -1,5 +1,5 @@
 import { html, LitElement } from 'lit-element/lit-element';
-import { BaseMixin } from '../src/mixins/base-mixin';
+import { BaseMixin } from '../mixins/base-mixin';
 
 class CreateCourseIllustration extends BaseMixin(LitElement) {
 
