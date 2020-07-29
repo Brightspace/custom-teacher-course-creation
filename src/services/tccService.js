@@ -27,12 +27,12 @@ export class TccService {
 		return options;
 	}
 
-	static _postRequest(url, body) {
-		return fetch(url, this._options('POST', body)).then(r => r.json());
+	static _postRequest(url, body, contentType) {
+		return fetch(url, this._options('POST', body, contentType)).then(r => r.json());
 	}
 
-	static _putRequest(url, body) {
-		return fetch(url, this._options('PUT', body)).then(r => r.json());
+	static _putRequest(url, body, contentType) {
+		return fetch(url, this._options('PUT', body, contentType)).then(r => r.json());
 	}
 
 	static async createCourse(orgUnitId, courseName) {
