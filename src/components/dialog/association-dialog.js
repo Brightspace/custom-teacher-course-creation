@@ -2,12 +2,12 @@ import '@brightspace-ui/core/components/button/button.js';
 import '@brightspace-ui/core/components/dialog/dialog.js';
 import '@brightspace-ui/core/components/inputs/input-text.js';
 import { css, html, LitElement } from 'lit-element/lit-element';
-import { BaseMixin } from '../mixins/base-mixin';
-import { DEFAULT_SELECT_OPTION_VALUE } from '../constants';
+import { BaseMixin } from '../../mixins/base-mixin';
+import { DEFAULT_SELECT_OPTION_VALUE } from '../../constants';
 import { inputLabelStyles } from '@brightspace-ui/core/components/inputs/input-label-styles.js';
 import { inputStyles } from '@brightspace-ui/core/components/inputs/input-styles';
 import { selectStyles } from '@brightspace-ui/core/components/inputs/input-select-styles.js';
-import { TccServiceFactory } from '../services/tccServiceFactory';
+import { TccServiceFactory } from '../../services/tccServiceFactory';
 
 const generateDefaultAssociation = () => {
 	return {
@@ -21,6 +21,15 @@ const generateDefaultAssociation = () => {
 			Id: -1,
 			Name: ''
 		}
+	};
+};
+
+const generateDefaultInvalidFlags = () => {
+	return {
+		Department: false,
+		Prefix: false,
+		Suffix: false,
+		Role: false
 	};
 };
 
@@ -99,27 +108,25 @@ class TccAssociationDialog extends BaseMixin(LitElement) {
 		this.associationDialogOpened = false;
 		this.isNewAssociation = false;
 		this.association = generateDefaultAssociation();
-		this.invalidFlags = {
-			Department: false,
-			Prefix: false,
-			Suffix: false,
-			Role: false
-		};
+		this.invalidFlags = generateDefaultInvalidFlags();
 	}
 
 	async open(associationToEdit) {
-		if (!associationToEdit) {
-			this._formReset();
-		} else {
-			this.association = associationToEdit;
-		}
-
-		this.associationDialogOpened = true;
-		await this.requestUpdate();
-
 		if (!this.associationForm) {
 			this.associationForm = this._formLoad();
 		}
+
+		if (associationToEdit) {
+			this.association = associationToEdit;
+			this.isNewAssociation = false;
+		} else {
+			this.association = generateDefaultAssociation();
+			this.isNewAssociation = true;
+		}
+		this._formReset();
+		await this.requestUpdate();
+
+		this.associationDialogOpened = true;
 	}
 
 	async _close() {
@@ -128,18 +135,11 @@ class TccAssociationDialog extends BaseMixin(LitElement) {
 
 	_formReset() {
 		this.isNewAssociation = true;
-		this.association = generateDefaultAssociation();
-
-		Object.keys(this.invalidFlags).map(
-			flag => this.invalidFlags[flag] = false
-		);
-
-		if (this.associationForm) {
-			this.associationForm.DepartmentSelect.selectedIndex = 0;
-			this.associationForm.RoleSelect.selectedIndex = 0;
-			this.associationForm.PrefixInput.value = '';
-			this.associationForm.SuffixInput.value = '';
-		}
+		this.invalidFlags = generateDefaultInvalidFlags();
+		this.associationForm.PrefixInput.value = this.association.Prefix;
+		this.associationForm.SuffixInput.value = this.association.Suffix;
+		this._setSelectedIndexByValue(this.associationForm.DepartmentSelect, this.association.Department.OrgUnitId);
+		this._setSelectedIndexByValue(this.associationForm.RoleSelect, this.association.Role.Id.toString());
 	}
 
 	_formLoad() {
@@ -156,10 +156,9 @@ class TccAssociationDialog extends BaseMixin(LitElement) {
 	}
 
 	async _submitAssociation() {
-		this._updateAssociationFromForm();
+		this._updateAssociationWithValidation();
 		if (this._formIsValid()) {
 			await this.tccService.saveAssociation(this.association);
-			this.isNewAssociation = false;
 			this.dispatchEvent(new Event('association-dialog-save'));
 			this._close();
 		} else {
@@ -167,7 +166,12 @@ class TccAssociationDialog extends BaseMixin(LitElement) {
 		}
 	}
 
-	_updateAssociationFromForm() {
+	_updateAssociationForReset() {
+		this.association.Prefix = this.associationForm.PrefixInput.value;
+		this.association.Suffix = this.associationForm.SuffixInput.value;
+	}
+
+	_updateAssociationWithValidation() {
 		this.association.Prefix = this._getEnteredPrefix();
 		this.association.Suffix = this._getEnteredSuffix();
 		this.association.Department = this._getSelectedDepartment();
@@ -224,25 +228,31 @@ class TccAssociationDialog extends BaseMixin(LitElement) {
 			this.localize('dialogAssociationTitleEdit');
 	}
 
-	_generateOption(value, text, selected) {
-		return html`<option value="${value}" ?selected=${selected}>${text}</option>`;
+	_setSelectedIndexByValue(selectElement, selectedValue) {
+		for (let i = 0; i < selectElement.options.length; i++) {
+			if (selectElement.options[i].value === selectedValue) {
+				selectElement.selectedIndex = i;
+				return;
+			}
+		}
+	}
+
+	_generateOption(value, text) {
+		return html`<option value="${value}">${text}</option>`;
 	}
 
 	_renderDepartmentOptions() {
 		const departmentOptions = this.departments.map(
-			department => {
-				const isSelected = department.OrgUnitId === this.association.Department.OrgUnitId;
-				return this._generateOption(department.OrgUnitId, department.Name, isSelected);
-			});
+			department => this._generateOption(department.OrgUnitId, department.Name)
+		);
+
 		return departmentOptions;
 	}
 
 	_renderRoleOptions() {
 		const roleOptions = this.roles.map(
-			role => {
-				const isSelected = role.Identifier === this.association.Role.Id;
-				return this._generateOption(role.Identifier, role.DisplayName, isSelected);
-			});
+			role => this._generateOption(role.Identifier, role.DisplayName)
+		);
 		return roleOptions;
 	}
 
@@ -251,8 +261,7 @@ class TccAssociationDialog extends BaseMixin(LitElement) {
 			<d2l-dialog
 				?opened=${this.associationDialogOpened}
 				title-text="${this._getDialogTitle()}"
-				@d2l-dialog-close=${this._close}
-				>
+				@d2l-dialog-close=${this._close}>
 				<div class="association_form">
 					<div class="association_form__input_group">
 						<label for="association-department">
@@ -268,24 +277,18 @@ class TccAssociationDialog extends BaseMixin(LitElement) {
 					</div>
 
 					<div class="association_form__input_group">
-						<label for="association-prefix">
-							${this.localize('prefix')}
-						</label>
 						<d2l-input-text
+							label="${this.localize('prefix')}"
 							id="association-prefix"
-							value="${this.association.Prefix}"
 							placeholder="${this.localize('dialogAssociationPrefixPlaceholder')}"
 							aria-invalid="${this.invalidFlags.Prefix}">
 						</d2l-input-text>
 					</div>
 
 					<div class="association_form__input_group">
-						<label for="association-suffix">
-							${this.localize('suffix')}
-						</label>
 						<d2l-input-text
+							label="${this.localize('suffix')}"
 							id="association-suffix"
-							value="${this.association.Suffix}"
 							aria-invalid="${this.invalidFlags.Suffix}"
 							placeholder="${this.localize('dialogAssociationSuffixPlaceholder')}">
 						</d2l-input-text>
