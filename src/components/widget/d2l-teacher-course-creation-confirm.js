@@ -66,7 +66,7 @@ class TeacherCourseCreationConfirm extends BaseMixin(LitElement) {
 
 	_finish() {
 		const data = this.pageData;
-		this.tccService.createCourse(data)
+		this.tccService.createCourse(data.departmentId, data.courseName)
 			.then((id) => {
 				data.courseOrgUnitId = id;
 				this.changePage(PAGES.SUCCESS_PAGE, data);

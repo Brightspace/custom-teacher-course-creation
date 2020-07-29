@@ -2,6 +2,9 @@ export class Routes {
 	static CourseConfig(orgUnitId) {
 		return `/d2l/api/customization/tcc/1.0/departmentCourseConfig/${orgUnitId || ''}`;
 	}
+	static CreateCourse(orgUnitId) {
+		return `api/customization/tcc/1.0/courseCreation/${orgUnitId}`;
+	}
 	static DepartmentInfo() {
 		return '/d2l/api/lp/1.23/outypes/department';
 	}

@@ -1,26 +1,50 @@
 import { Routes } from './routes';
 
+const XSRF_TOKEN = D2L.LP.Web.Authentication.Xsrf.GetXsrfToken();
+
 export class TccService {
 	static _getRequest(url) {
 		return fetch(url, this._options('GET')).then(r => r.json());
 	}
-	static _options(method) {
-		return {
+
+	static _options(method, body) {
+
+		const options = {
 			credentials: 'include',
 			headers: new Headers({
 				'Access-Control-Allow-Origin': '*',
+				'X-Csrf-Token': XSRF_TOKEN
 			}),
 			method,
-			mode: 'cors'
+			mode: 'cors',
 		};
+
+		if (body) {
+			options.headers['Content-Type'] = 'application/json';
+			options.body = JSON.stringify(body);
+		}
+		return options;
 	}
-	static async createCourse() {
+
+	static _postRequest(url, body) {
+		return fetch(url, this._options('POST', body)).then(r => r.json());
 	}
+
+	static _putRequest(url, body) {
+		return fetch(url, this._options('PUT', body)).then(r => r.json());
+	}
+
+	static async createCourse(orgUnitId, courseName) {
+		const body = {
+			courseName
+		};
+		return await this._postRequest(Routes.CreateCourse(orgUnitId), body);
+	}
+
 	static async getAssociations() {
 		return await this._getRequest(Routes.CourseConfig());
 	}
-	static async getConfiguredDepartments() {
-	}
+
 	static async getDepartments() {
 		const departmentInfo = await this._getRequest(Routes.DepartmentInfo());
 		let bookmark = null;
@@ -35,14 +59,21 @@ export class TccService {
 
 		return departments;
 	}
+
 	static async getPagedDepartments(departmentTypeId, bookmark) {
 		return await this._getRequest(Routes.Departments(departmentTypeId, bookmark));
 	}
+
 	static async getRoles() {
 		return this._getRequest(Routes.Roles());
 	}
 
-	static async saveAssociation() {
-
+	static async saveAssociation(orgUnitId, prefix, suffix, roleId) {
+		const body = {
+			prefix,
+			suffix,
+			roleId
+		};
+		return await this._putRequest(Routes.CourseConfig(orgUnitId), body);
 	}
 }
