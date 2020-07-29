@@ -1,10 +1,12 @@
 [
   {
-    "Id": 1,
-    "RoleName": "Instructor"
+    "Identifier": 1,
+    "DisplayName": "Instructor",
+    "Code": "Instructor"
   },
   {
-    "Id": 2,
-    "RoleName": "Administrator"
+    "Identifier": 2,
+    "DisplayName": "Administrator",
+    "Code": "Administrator"
   }
 ]
