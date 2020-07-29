@@ -124,7 +124,6 @@ class TccAssociationDialog extends BaseMixin(LitElement) {
 			this.isNewAssociation = true;
 		}
 		this._formReset();
-		await this.requestUpdate();
 
 		this.associationDialogOpened = true;
 	}
@@ -134,7 +133,6 @@ class TccAssociationDialog extends BaseMixin(LitElement) {
 	}
 
 	_formReset() {
-		this.isNewAssociation = true;
 		this.invalidFlags = generateDefaultInvalidFlags();
 		this.associationForm.PrefixInput.value = this.association.Prefix;
 		this.associationForm.SuffixInput.value = this.association.Suffix;
