@@ -7,7 +7,7 @@ export class TccService {
 		return fetch(url, this._options('GET')).then(r => r.json());
 	}
 
-	static _options(method, body) {
+	static _options(method, body, contentType) {
 
 		const options = {
 			credentials: 'include',
@@ -19,10 +19,11 @@ export class TccService {
 			mode: 'cors',
 		};
 
-		if (body) {
-			options.headers['Content-Type'] = 'application/json';
-			options.body = JSON.stringify(body);
+		if (body && contentType) {
+			options.headers.append('Content-Type', contentType);
+			options.body = body;
 		}
+
 		return options;
 	}
 
@@ -35,10 +36,9 @@ export class TccService {
 	}
 
 	static async createCourse(orgUnitId, courseName) {
-		const body = {
-			courseName
-		};
-		return await this._postRequest(Routes.CreateCourse(orgUnitId), body);
+		const formData = new FormData();
+		formData.append('courseName', courseName);
+		return await this._postRequest(Routes.CreateCourse(orgUnitId), formData, 'application/x-www-form-urlencoded');
 	}
 
 	static async getAssociations() {
@@ -74,6 +74,6 @@ export class TccService {
 			suffix,
 			roleId
 		};
-		return await this._putRequest(Routes.CourseConfig(orgUnitId), body);
+		return await this._putRequest(Routes.CourseConfig(orgUnitId), body, 'application/json');
 	}
 }
