@@ -1,24 +1,36 @@
 import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin';
 
+const baseUrl = import.meta.url;
+const langTerms = {};
 export const BaseMixin = superclass => class extends RtlMixin(LocalizeMixin(superclass)) {
 	static async getLocalizeResources(langs) {
-		const langPaths = {
-			'en-us': '../../locales/en.js',
-			'en': '../../locales/en.js'
-		};
-
-		for (const lang of langs) {
-			const langPath = langPaths[lang];
-			if (langPath) {
-				const langResources = await import(langPath);
-				if (langResources) {
-					return {
-						language: lang,
-						resources: langResources.val
-					};
-				}
+		for (let lang of langs) {
+			if (!lang) {
+				continue;
 			}
+			lang = lang.toLowerCase();
+			lang = lang.split('-')[0];
+			const langTermRelativeUrl = `../../locales/${lang}.js`;
+			const langTermUrl = `${new URL(langTermRelativeUrl, baseUrl)}`;
+			if (langTerms[langTermUrl]) {
+				return await langTerms[langTermUrl];
+			}
+
+			langTerms[langTermUrl] = (async() => {
+				const langResources = await import(langTermUrl);
+
+				if (!langResources) {
+					return;
+				}
+
+				return {
+					language: lang,
+					resources: langResources.val
+				};
+			})();
+
+			return await langTerms[langTermUrl];
 		}
 
 		return null;
