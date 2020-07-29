@@ -9,17 +9,19 @@ import { inputStyles } from '@brightspace-ui/core/components/inputs/input-styles
 import { selectStyles } from '@brightspace-ui/core/components/inputs/input-select-styles.js';
 import { TccServiceFactory } from '../services/tccServiceFactory';
 
-const DEFAULT_ASSOCIATION = {
-	Department: {
-		OrgUnitId: '-1',
-		Name: ''
-	},
-	Prefix: '',
-	Suffix: '',
-	Role: {
-		Id: -1,
-		Name: ''
-	}
+const generateDefaultAssociation = () => {
+	return {
+		Department: {
+			OrgUnitId: '-1',
+			Name: ''
+		},
+		Prefix: '',
+		Suffix: '',
+		Role: {
+			Id: -1,
+			Name: ''
+		}
+	};
 };
 
 class TccAssociationDialog extends BaseMixin(LitElement) {
@@ -96,7 +98,7 @@ class TccAssociationDialog extends BaseMixin(LitElement) {
 
 		this.associationDialogOpened = false;
 		this.isNewAssociation = false;
-		this.association = {...DEFAULT_ASSOCIATION};
+		this.association = generateDefaultAssociation();
 		this.invalidFlags = {
 			Department: false,
 			Prefix: false,
@@ -126,7 +128,7 @@ class TccAssociationDialog extends BaseMixin(LitElement) {
 
 	_formReset() {
 		this.isNewAssociation = true;
-		this.association = {...DEFAULT_ASSOCIATION};
+		this.association = generateDefaultAssociation();
 
 		Object.keys(this.invalidFlags).map(
 			flag => this.invalidFlags[flag] = false
