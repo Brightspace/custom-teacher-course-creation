@@ -45,6 +45,7 @@ class TeacherCourseCreationConfirm extends BaseMixin(LitElement) {
 			p {
 				margin: 0px;
 				font-weight: bold;
+				word-break: break-all;
 			}
 		`];
 	}
