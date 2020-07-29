@@ -53,10 +53,14 @@ class TeacherCourseCreation extends BaseMixin(LitElement) {
 		super.connectedCallback();
 	}
 
+	_isViewEmpty() {
+		return document.querySelector('d2l-tcc').shadowRoot.children[0].shadowRoot.children.length === 0;
+	}
+
 	_changePage(event) {
 		if (event.detail) {
 			// This maintains the height of the widget when loading
-			if (event.detail.page === PAGES.LOADING_PAGE) {
+			if (!this._isViewEmpty()) {
 				this.pageHeight = parseInt(document.querySelector('d2l-tcc').clientHeight);
 			}
 
@@ -108,7 +112,9 @@ class TeacherCourseCreation extends BaseMixin(LitElement) {
 		}
 		if (this.currentPage === PAGES.LOADING_PAGE) {
 			return html `
-			<d2l-loading-spinner class="tcc-widget__spinner" style="height: ${this.pageHeight}px;">
+			<d2l-loading-spinner
+				class="tcc-widget__spinner"
+				style="height: ${this.pageHeight}px;">
 			</d2l-loading-spinner>
 			`;
 		}

@@ -14,6 +14,8 @@ export class TccDemoService {
 	}
 
 	static async getConfiguredDepartments() {
+		await sleep(500);
+
 		return await fetch('../../data/configuredDepartments.json').then(response => response.json());
 	}
 

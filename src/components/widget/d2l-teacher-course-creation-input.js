@@ -77,15 +77,19 @@ class TeacherCourseCreationInput extends BaseMixin(LitElement) {
 
 		window.tccService = TccServiceFactory.getTccService();
 		this.nameIsEmpty = false;
+		this.nameIsTooLong = false;
 		this.typeIsNotSelected = false;
 		this.courseName = '';
 		this.departmentId = DEFAULT_SELECT_OPTION_VALUE;
 		this.nextDisabled = true;
+		this.configuredDepartments = [];
 	}
 
-	async connectedCallback() {
+	connectedCallback() {
 		super.connectedCallback();
-		await this.getConfiguredDepartments();
+
+		this.getConfiguredDepartments();
+
 		if (this.pageData && this.pageData.courseName && this.pageData.departmentId) {
 			this.courseName = this.pageData.courseName;
 			this.departmentId = this.pageData.departmentId;
@@ -93,8 +97,23 @@ class TeacherCourseCreationInput extends BaseMixin(LitElement) {
 		}
 	}
 
-	async getConfiguredDepartments() {
-		this.configuredDepartments = await window.tccService.getConfiguredDepartments();
+	getConfiguredDepartments() {
+
+		if (this.pageData && this.pageData.configuredDepartments) {
+			this.configuredDepartments = this.pageData.configuredDepartments;
+		} else {
+			const data = this.pageData ? this.pageData : {};
+			window.tccService.getConfiguredDepartments()
+				.then((departments) => {
+					data.configuredDepartments = departments;
+					this.changePage(PAGES.INPUT_PAGE, data);
+				})
+				.catch((error) => {
+					data.ErrorMessage = error.message;
+					this.changePage(PAGES.ERROR_PAGE, data);
+				});
+			this.changePage(PAGES.LOADING_PAGE);
+		}
 	}
 
 	_handleNextClicked() {
