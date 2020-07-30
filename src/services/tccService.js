@@ -1,6 +1,9 @@
 import { Routes } from './routes';
 
-const XSRF_TOKEN = D2L && D2L.LP && D2L.LP.Web && D2L.LP.Web.Authentication && D2L.LP.Web.Authentication.Xsrf && D2L.LP.Web.Authentication.Xsrf.GetXsrfToken && D2L.LP.Web.Authentication.Xsrf.GetXsrfToken() || '';
+const XSRF_TOKEN = D2L && D2L.LP && D2L.LP.Web && D2L.LP.Web.Authentication &&
+	D2L.LP.Web.Authentication.Xsrf &&
+	D2L.LP.Web.Authentication.Xsrf.GetXsrfToken &&
+	D2L.LP.Web.Authentication.Xsrf.GetXsrfToken() || '';
 
 export class TccService {
 	static _getRequest(url) {
