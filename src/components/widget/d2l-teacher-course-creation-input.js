@@ -91,7 +91,7 @@ class TeacherCourseCreationInput extends BaseMixin(LitElement) {
 	connectedCallback() {
 		super.connectedCallback();
 
-		this.getConfiguredDepartments();
+		this.getAssociations();
 
 		if (this.pageData && this.pageData.courseName && this.pageData.departmentId) {
 			this.courseName = this.pageData.courseName;
@@ -100,13 +100,13 @@ class TeacherCourseCreationInput extends BaseMixin(LitElement) {
 		}
 	}
 
-	getConfiguredDepartments() {
+	getAssociations() {
 
 		if (this.pageData && this.pageData.configuredDepartments) {
 			this.configuredDepartments = this.pageData.configuredDepartments;
 		} else {
 			const data = this.pageData ? this.pageData : {};
-			window.tccService.getConfiguredDepartments()
+			window.tccService.getAssociations()
 				.then((departments) => {
 					data.configuredDepartments = departments;
 					this.changePage(PAGES.INPUT_PAGE, data);
@@ -158,10 +158,12 @@ class TeacherCourseCreationInput extends BaseMixin(LitElement) {
 		let configuredDepartmentOptions = [
 			html`<option value=${DEFAULT_SELECT_OPTION_VALUE}>${this.localize('inputChooseTypePlaceholder')}</option>`
 		];
-		configuredDepartmentOptions = configuredDepartmentOptions.concat(
-			this.configuredDepartments.map(({ Department: { OrgUnitId, Name } }) =>
-				html`<option value=${OrgUnitId} ?selected="${OrgUnitId === this.departmentId}">${Name}</option>`
-			));
+		if (this.configuredDepartments) {
+			configuredDepartmentOptions = configuredDepartmentOptions.concat(
+				this.configuredDepartments.map(({ Department: { OrgUnitId, Name } }) =>
+					html`<option value=${OrgUnitId} ?selected="${OrgUnitId === this.departmentId}">${Name}</option>`
+				));
+		}
 		return configuredDepartmentOptions;
 	}
 

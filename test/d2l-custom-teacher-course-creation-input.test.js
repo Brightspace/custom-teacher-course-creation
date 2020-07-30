@@ -163,7 +163,7 @@ describe('d2l-teacher-course-creation-input', () => {
 	});
 
 	const _setupServiceStub = (stub) => {
-		const patches = { getConfiguredDepartments: async() => configuredDeparments };
+		const patches = { getAssociations: async() => configuredDeparments };
 		stub.returns(new TccTestService(patches));
 	};
 });
