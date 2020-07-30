@@ -134,7 +134,6 @@ class TeacherCourseCreationAdmin extends BaseMixin(LitElement) {
 
 	_handleAssociationEdit(event) {
 		const dialogAssociation = this._getAssociationByRowId(parseInt(event.target.getAttribute('data-association-row')));
-		console.log(dialogAssociation);
 
 		this.associationDialog.open(dialogAssociation);
 	}

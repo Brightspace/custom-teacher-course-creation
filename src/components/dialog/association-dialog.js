@@ -153,7 +153,6 @@ class TccAssociationDialog extends BaseMixin(LitElement) {
 
 		if (associationToEdit) {
 			this.association = deepCopy(associationToEdit);
-			console.log(this.association);
 			this.isNewAssociation = false;
 			this.nextDisabled = false;
 		} else {
