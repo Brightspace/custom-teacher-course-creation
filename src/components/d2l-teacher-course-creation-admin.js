@@ -94,10 +94,10 @@ class TeacherCourseCreationAdmin extends BaseMixin(LitElement) {
 		const getDepartmentsPromise = this.tccService.getDepartments();
 		const getAssociationsPromise = this.tccService.getAssociations();
 
-		await Promise.all([getRolesPromise, getDepartmentsPromise, getAssociationsPromise]).then((values) => {
-			this.roles = values[0];
-			this.departments = values[1];
-			this._mapAssociationsArray(values[2]);
+		await Promise.all([getRolesPromise, getDepartmentsPromise, getAssociationsPromise]).then(([roles, departments, associations]) => {
+			this.roles = roles;
+			this.departments = departments;
+			this._mapAssociationsArray(associations);
 
 			this.isLoading = false;
 		});
