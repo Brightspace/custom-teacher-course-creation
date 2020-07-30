@@ -59,14 +59,17 @@ class TeacherCourseCreationInput extends BaseMixin(LitElement) {
 				flex-flow: column;
 			}
 			.tcc-input__input-container-item {
-				margin-bottom: 24px;
+				margin-bottom: 30px;
 			}
 			.tcc-input__type-select-label {
 				margin-bottom: 6px;
 			}
 			.tcc-input__button {
-				margin-top: 24px;
+				margin-top: 30px;
 				margin-right: 12px;
+				margin-bottom: 0px;
+			}
+			.button-container {
 				margin-bottom: 0px;
 			}`
 		];
@@ -167,7 +170,8 @@ class TeacherCourseCreationInput extends BaseMixin(LitElement) {
 			<d2l-input-text
 				id=${NAME_INPUT_ID}
 				class="tcc-input__input-container-item tcc-input__name-input"
-				label="${this.localize('courseName')} *"
+				label="${this.localize('courseName')}"
+				required
 				aria-invalid="${this.nameIsTooLong}"
 				@input=${this._handleValueChanged}
 				value=${this.courseName}>

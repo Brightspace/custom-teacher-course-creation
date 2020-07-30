@@ -38,14 +38,14 @@ class TeacherCourseCreationError extends BaseMixin(LitElement) {
 				flex-shrink: 0;
 			}
 			.tcc-error__description-container {
-				margin-bottom: 1.5rem;
+				margin-bottom: 12px;
 				border: 2px solid var(--d2l-color-gypsum);
 				background-color: var(--d2l-color-sylvite);
 				border-radius: 6px;
     			padding: 12px;
 			}
 			.tcc-error__text {
-				margin-bottom: 1.5rem;
+				margin-bottom: 30px;
 			}
 		`];
 	}
@@ -73,7 +73,7 @@ class TeacherCourseCreationError extends BaseMixin(LitElement) {
 			<div class="tcc-error__title-container">
 				<d2l-icon
 					class="tcc-error__title-icon"
-					icon="tier1:alert">
+					icon="tier2:alert">
 				</d2l-icon>
 				<h1 class="d2l-heading-2">${this.localize('errorTitleText')}</h1>
 			</div>

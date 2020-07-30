@@ -114,6 +114,7 @@ class TeacherCourseCreation extends BaseMixin(LitElement) {
 			return html `
 			<d2l-loading-spinner
 				class="tcc-widget__spinner"
+				size=100
 				style="height: ${this.pageHeight}px;">
 			</d2l-loading-spinner>
 			`;

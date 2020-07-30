@@ -9,3 +9,4 @@ export const PAGES = {
 
 export const DEFAULT_SELECT_OPTION_VALUE = '-1';
 export const COURSE_NAME_MAX_LENGTH = 128;
+export const COURSE_PREFIX_SUFFIX_MAX_LENGTH = 10;

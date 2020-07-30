@@ -10,6 +10,8 @@ export class TccDemoService {
 	}
 
 	static async getAssociations() {
+		await sleep(2000);
+
 		return await fetch('../../data/associations.json').then(response => response.json());
 	}
 

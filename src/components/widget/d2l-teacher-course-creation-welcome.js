@@ -23,10 +23,10 @@ class TeacherCourseCreationWelcome extends BaseMixin(LitElement) {
 				display: none;
 			}
 			.tcc-welcome__illustration {
-				margin-top: 1.5rem;
+				margin-top: 48px;
 			}
 			.tcc-welcome__text {
-				margin-bottom: 1.5rem;
+				margin-bottom: 30px;
 			}
 			.tcc-welcome__button-get-started {
 				width: 100%;
