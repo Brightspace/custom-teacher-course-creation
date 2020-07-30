@@ -182,15 +182,20 @@ class TccAssociationDialog extends BaseMixin(LitElement) {
 		this.association.Role = this._getSelectedRole();
 	}
 
+	_validateTextInput(textInputValue) {
+		const validationRegex = /(,|:|%|&|#|\*|\?|<|>|\\|""|'|\|)/;
+		return validationRegex.test(textInputValue);
+	}
+
 	_getEnteredPrefix() {
 		const trimmedEntryValue = this.associationForm.PrefixInput.value && this.associationForm.PrefixInput.value.trim();
-		this.invalidFlags.Prefix = !trimmedEntryValue;
+		this.invalidFlags.Prefix = !trimmedEntryValue || this._validateTextInput(trimmedEntryValue);
 		return trimmedEntryValue;
 	}
 
 	_getEnteredSuffix() {
 		const trimmedEntryValue = this.associationForm.SuffixInput.value && this.associationForm.SuffixInput.value.trim();
-		this.invalidFlags.Suffix = !trimmedEntryValue;
+		this.invalidFlags.Suffix = !trimmedEntryValue || this._validateTextInput(trimmedEntryValue);
 		return trimmedEntryValue;
 	}
 

@@ -88,7 +88,6 @@ class TeacherCourseCreationAdmin extends BaseMixin(LitElement) {
 
 	async _deleteAssociation() {
 		if (this.dialogAssociation) {
-			console.log(this.dialogAssociation);
 			await this.tccService.deleteAssociation(this.dialogAssociation);
 			delete(this.dialogAssociation);
 			this._fetchAssociations();

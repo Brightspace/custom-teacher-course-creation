@@ -1,11 +1,11 @@
 [
   {
-    "Identifier": 1,
+    "Identifier": "1",
     "DisplayName": "Instructor",
     "Code": "Instructor"
   },
   {
-    "Identifier": 2,
+    "Identifier": "2",
     "DisplayName": "Administrator",
     "Code": "Administrator"
   }

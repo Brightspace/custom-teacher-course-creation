@@ -6,6 +6,10 @@ const XSRF_TOKEN = D2L && D2L.LP && D2L.LP.Web && D2L.LP.Web.Authentication &&
 	D2L.LP.Web.Authentication.Xsrf.GetXsrfToken() || '';
 
 export class TccService {
+	static _deleteRequest(url) {
+		return this._makeRequest(url, this._options('DELETE'));
+	}
+
 	static _getRequest(url) {
 		return this._makeRequest(url, this._options('GET'));
 	}
@@ -57,7 +61,8 @@ export class TccService {
 		return await this._postRequest(Routes.CreateCourse(orgUnitId), formData);
 	}
 
-	static async deleteAssociation() {
+	static async deleteAssociation(orgUnitId) {
+		return await this._deleteRequest(Routes.CourseConfig(orgUnitId));
 	}
 
 	static async getAssociations() {
