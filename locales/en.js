@@ -20,12 +20,15 @@ export const val = {
 	'dialogAssociationSuffixPlaceholder': 'Enter a suffix',
 	'dialogAssociationTitleEdit': 'Edit Course Type Association',
 	'dialogAssociationTitleNew': 'New Course Type Association',
+	'dialogDeleteTitle': 'Delete Course Type Association',
+	'dialogDeleteText': 'Are you sure you would like to delete this course type association?',
 	'errorBackButtonDescription': 'Back to creating a course',
 	'errorResultText': 'Please try again later, or contact your Brightspace administrator and refer to the error description above.',
 	'errorTitleText': 'Uh oh!',
 	'inputChooseTypePlaceholder': '-- Choose a Type --',
 	'inputDescription': 'Create a new course - choose a name and then select a department.',
 	'inputNameTooLongErrorMsg': 'The provided course name is longer than 128 characters',
+	'no': 'No',
 	'prefix': 'Prefix',
 	'role': 'Role',
 	'successDoneButtonDescription': 'Done creating course',
@@ -41,5 +44,6 @@ export const val = {
 	'welcomeButtonText': 'Get Started',
 	'welcomeIllustrationAlt': 'Create course illustration',
 	'welcomeText': 'In just a couple steps, you\'ll be up and running with a new empty course shell that you can then enroll students into.',
-	'welcomeTitle': 'Create a New Course!'
+	'welcomeTitle': 'Create a New Course!',
+	'yes': 'Yes'
 };

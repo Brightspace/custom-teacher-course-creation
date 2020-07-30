@@ -16,6 +16,8 @@ export class TccService {
 	}
 	static async createCourse() {
 	}
+	static async deleteAssociation() {
+	}
 	static async getAssociations() {
 		return await this._getRequest(Routes.CourseConfig());
 	}
