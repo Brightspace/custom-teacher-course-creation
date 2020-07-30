@@ -8,6 +8,8 @@ import '@brightspace-ui/core/components/menu/menu-item';
 import '@brightspace-ui/core/components/loading-spinner/loading-spinner.js';
 import './dialog/delete-dialog';
 import './dialog/association-dialog';
+import './create-course-admin-nothing-here-illustration';
+import { bodyStandardStyles, heading2Styles } from '@brightspace-ui/core/components/typography/styles.js';
 import { css, html, LitElement } from 'lit-element/lit-element';
 import { BaseMixin } from '../mixins/base-mixin';
 import d2lTableStyles from '../styles/d2lTableStyles';
@@ -54,10 +56,20 @@ class TeacherCourseCreationAdmin extends BaseMixin(LitElement) {
 				display: flex;
 				margin: 48px;
 			}
+
+			.tcc-admin__description-text {
+				margin-bottom: 30px;
+			}
+
+			.tcc-admin__message--empty-table {
+				text-align: center;
+			}
 		`;
 		return [
 			d2lTableStyles,
 			tccAdminStyles,
+			bodyStandardStyles,
+			heading2Styles
 		];
 	}
 
@@ -181,6 +193,16 @@ class TeacherCourseCreationAdmin extends BaseMixin(LitElement) {
 
 	_renderEmptyTable() {
 		return html`
+			<div class="tcc-admin__message--empty-table">
+				<tcc-admin-nothing-here-illustration>
+				</tcc-admin-nothing-here-illustration>
+				<h1 class="d2l-heading-2">
+					${this.localize('adminNothingTitle')}
+				</h1>
+				<div class="d2l-body-standard">
+					${this.localize('adminNothingMessage')}
+				</div>
+			</div>
 		`;
 	}
 
@@ -218,6 +240,9 @@ class TeacherCourseCreationAdmin extends BaseMixin(LitElement) {
 
 	_renderResults() {
 		return html`
+			<div class="tcc-admin__description-text d2l-body-standard">
+				${this.localize('adminDesc')}
+			</div>
 			<d2l-button-subtle
 				class="add_new_button"
 				icon="tier1:plus-large-thick"

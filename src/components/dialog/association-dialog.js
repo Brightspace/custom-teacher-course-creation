@@ -100,7 +100,7 @@ class TccAssociationDialog extends BaseMixin(LitElement) {
 			}
 
 			.association_form__button_group {
-				margin-top: 48px;
+				margin-top: 78px;
 			}
 
 			.association_form__button {
@@ -305,6 +305,12 @@ class TccAssociationDialog extends BaseMixin(LitElement) {
 					${this._renderDepartmentOptions()}
 
 				</select>
+				<d2l-tooltip
+					for=${DEPARTMENT_SELECTOR_ID}
+					state="info"
+					align="start">
+						${this.localize('adminCourseTypeDesc')}
+				</d2l-tooltip>
 			</div>
 		`;
 	}
@@ -331,6 +337,15 @@ class TccAssociationDialog extends BaseMixin(LitElement) {
 					state="error"
 					align="start">
 						${this.localize('prefixTooLongErrorMsg')}
+				</d2l-tooltip>
+			`;
+		} else {
+			tooltipTemplate = html`
+				<d2l-tooltip
+					for="${PREFIX_INPUT_ID}"
+					state="info"
+					align="start">
+						${this.localize('adminPrefixDesc')}
 				</d2l-tooltip>
 			`;
 		}
@@ -361,6 +376,15 @@ class TccAssociationDialog extends BaseMixin(LitElement) {
 						${this.localize('suffixTooLongErrorMsg')}
 				</d2l-tooltip>
 			`;
+		} else {
+			tooltipTemplate = html`
+				<d2l-tooltip
+					for="${SUFFIX_INPUT_ID}"
+					state="info"
+					align="start">
+						${this.localize('adminSuffixDesc')}
+				</d2l-tooltip>
+			`;
 		}
 		return html`${suffixInputTemplate}${tooltipTemplate}`;
 	}
@@ -383,6 +407,12 @@ class TccAssociationDialog extends BaseMixin(LitElement) {
 					${this._renderRoleOptions()}
 
 				</select>
+				<d2l-tooltip
+					for=${ROLE_SELECTOR_ID}
+					state="info"
+					align="start">
+						${this.localize('adminRoleDesc')}
+				</d2l-tooltip>
 			</div>
 		`;
 	}
