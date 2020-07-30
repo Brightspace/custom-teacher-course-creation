@@ -156,7 +156,13 @@ class TccAssociationDialog extends BaseMixin(LitElement) {
 	async _submitAssociation() {
 		this._updateAssociationWithValidation();
 		if (this._formIsValid()) {
-			await this.tccService.saveAssociation(this.association);
+			const {
+				Department: { OrgUnitId },
+				Prefix,
+				Suffix,
+				Role: { Id: RoleId }
+			} = this.association;
+			await this.tccService.saveAssociation(OrgUnitId, Prefix, Suffix, RoleId);
 			this.dispatchEvent(new Event('association-dialog-save'));
 			this._close();
 		} else {
@@ -199,9 +205,9 @@ class TccAssociationDialog extends BaseMixin(LitElement) {
 			return {};
 		}
 		this.invalidFlags.Department = false;
-		const selectedDepartment = this.departments.find(department => department.OrgUnitId === selectedOrgUnitId);
+		const selectedDepartment = this.departments.find(department => department.Identifier === selectedOrgUnitId);
 		return {
-			OrgUnitId: selectedDepartment.OrgUnitId,
+			OrgUnitId: selectedDepartment.Identifier,
 			Name: selectedDepartment.Name
 		};
 	}
@@ -213,7 +219,7 @@ class TccAssociationDialog extends BaseMixin(LitElement) {
 			return {};
 		}
 		this.invalidFlags.Role = false;
-		const selectedRole = this.roles.find(role => role.Identifier === parseInt(selectedRoleId));
+		const selectedRole = this.roles.find(role => role.Identifier === selectedRoleId);
 		return {
 			Id: selectedRole.Identifier,
 			Name: selectedRole.DisplayName
@@ -241,7 +247,7 @@ class TccAssociationDialog extends BaseMixin(LitElement) {
 
 	_renderDepartmentOptions() {
 		const departmentOptions = this.departments.map(
-			department => this._generateOption(department.OrgUnitId, department.Name)
+			department => this._generateOption(department.Identifier, department.Name)
 		);
 
 		return departmentOptions;

@@ -1,14 +1,14 @@
 [
   {
-    "OrgUnitId": "10006",
+    "Identifier": "10006",
     "Name": "IPSIS Department New"
   },
   {
-    "OrgUnitId": "2",
+    "Identifier": "2",
     "Name": "Another Department"
   },
   {
-    "OrgUnitId": "3",
+    "Identifier": "3",
     "Name": "Janitorial"
   }
 ]

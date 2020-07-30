@@ -10,14 +10,6 @@
 |--|--|--|
 |currentPage |string | [Page Constants](https://github.com/Brightspace/custom-teacher-course-creation/blob/master/src/constants.js#L1) |
 
-**Accessibility:**
-
-To make your usage of `d2l-custom-teacher-course-creation` accessible, use the following properties when applicable:
-
-| Attribute | Description |
-|--|--|
-| | |
-
 ## Developing, Testing and Contributing
 
 After cloning the repo, run `npm install` to install dependencies.
