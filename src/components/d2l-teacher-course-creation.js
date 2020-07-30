@@ -54,7 +54,11 @@ class TeacherCourseCreation extends BaseMixin(LitElement) {
 	}
 
 	_isViewEmpty() {
-		return document.querySelector('d2l-tcc').shadowRoot.children[0].shadowRoot.children.length === 0;
+		return document.querySelector('d2l-tcc')
+			&& document.querySelector('d2l-tcc').shadowRoot
+			&& document.querySelector('d2l-tcc').shadowRoot.children[0]
+			&& document.querySelector('d2l-tcc').shadowRoot.children[0].shadowRoot
+			&& document.querySelector('d2l-tcc').shadowRoot.children[0].shadowRoot.children.length === 0;
 	}
 
 	_changePage(event) {
