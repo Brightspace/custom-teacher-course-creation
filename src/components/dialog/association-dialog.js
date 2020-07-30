@@ -257,7 +257,7 @@ class TccAssociationDialog extends BaseMixin(LitElement) {
 		if (selectedRoleId === DEFAULT_SELECT_OPTION_VALUE) {
 			return {};
 		}
-		const selectedRole = this.roles.find(role => role.Identifier === parseInt(selectedRoleId));
+		const selectedRole = this.roles.find(role => role.Identifier === selectedRoleId);
 		return {
 			Id: selectedRole.Identifier,
 			Name: selectedRole.DisplayName

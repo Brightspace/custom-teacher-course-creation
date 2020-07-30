@@ -78,7 +78,7 @@ class TeacherCourseCreationInput extends BaseMixin(LitElement) {
 	constructor() {
 		super();
 
-		window.tccService = TccServiceFactory.getTccService();
+		this.tccService = TccServiceFactory.getTccService();
 		this.nameIsEmpty = false;
 		this.nameIsTooLong = false;
 		this.typeIsNotSelected = false;
@@ -106,8 +106,9 @@ class TeacherCourseCreationInput extends BaseMixin(LitElement) {
 			this.configuredDepartments = this.pageData.configuredDepartments;
 		} else {
 			const data = this.pageData ? this.pageData : {};
-			window.tccService.getAssociations()
+			this.tccService.getAssociations()
 				.then((departments) => {
+					// Adding the departments to the pageData so that when reloading this page we do not get stuck in an infinite loop
 					data.configuredDepartments = departments;
 					this.changePage(PAGES.INPUT_PAGE, data);
 				})

@@ -48,13 +48,6 @@ class TeacherCourseCreationAdmin extends BaseMixin(LitElement) {
 				padding: 6px 0px;
 			}
 
-			.admin-table__no-result {
-				border: 2px solid var(--d2l-color-gypsum);
-				background-color: var(--d2l-color-sylvite);
-				border-radius: 6px;
-				padding: 12px;
-			}
-
 			.tcc-admin__spinner {
 				display: flex;
 				margin: 48px;
@@ -83,12 +76,17 @@ class TeacherCourseCreationAdmin extends BaseMixin(LitElement) {
 
 		this.isLoading = true;
 
-		this.roles = await this.tccService.getRoles();
-		this.departments = await this.tccService.getDepartments();
-		const associationsArray = await this.tccService.getAssociations();
+		const getRolesPromise = this.tccService.getRoles();
+		const getDepartmentsPromise = this.tccService.getDepartments();
+		const getAssociationsPromise = this.tccService.getAssociations();
 
-		this.isLoading = false;
-		this._mapAssociationsArray(associationsArray);
+		await Promise.all([getRolesPromise, getDepartmentsPromise, getAssociationsPromise]).then((values) => {
+			this.roles = values[0];
+			this.departments = values[1];
+			this._mapAssociationsArray(values[2]);
+
+			this.isLoading = false;
+		});
 
 		this.associationDialog = this.shadowRoot.querySelector('#association-dialog');
 	}
@@ -169,9 +167,6 @@ class TeacherCourseCreationAdmin extends BaseMixin(LitElement) {
 
 	_renderEmptyTable() {
 		return html`
-			<div class="admin-table__no-result">
-				${this.localize('noResult')}
-			</div>
 		`;
 	}
 

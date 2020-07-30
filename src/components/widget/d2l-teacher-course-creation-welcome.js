@@ -38,7 +38,7 @@ class TeacherCourseCreationWelcome extends BaseMixin(LitElement) {
 	constructor() {
 		super();
 
-		window.tccService = TccServiceFactory.getTccService();
+		this.tccService = TccServiceFactory.getTccService();
 	}
 
 	connectedCallback() {
