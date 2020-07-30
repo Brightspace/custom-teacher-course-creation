@@ -74,6 +74,8 @@ class TeacherCourseCreationAdmin extends BaseMixin(LitElement) {
 		this.departments = Array();
 
 		this.tccService = TccServiceFactory.getTccService();
+
+		this.isLoading = true;
 	}
 
 	async connectedCallback() {
