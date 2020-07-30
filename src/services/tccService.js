@@ -23,7 +23,7 @@ export class TccService {
 			credentials: 'include',
 			headers: new Headers({
 				'Access-Control-Allow-Origin': '*',
-				'X-Csrf-Token': this.XsrfToken
+				'X-Csrf-Token': this.xsrfToken
 			}),
 			method,
 			mode: 'cors',
@@ -88,7 +88,7 @@ export class TccService {
 		};
 		return await this._putRequest(Routes.CourseConfig(orgUnitId), JSON.stringify(body), 'application/json');
 	}
-	static get XsrfToken() {
+	static get xsrfToken() {
 		return  D2L && D2L.LP && D2L.LP.Web && D2L.LP.Web.Authentication &&
 		D2L.LP.Web.Authentication.Xsrf &&
 		D2L.LP.Web.Authentication.Xsrf.GetXsrfToken &&

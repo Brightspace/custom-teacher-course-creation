@@ -7,7 +7,7 @@ import { TccServiceFactory } from '../src/services/tccServiceFactory';
 import { TccTestService } from './utilities/tccTestService';
 
 const TEST_DEPARTMENT_NAME = 'Another Department';
-const configuredDeparments = [
+const configuredDepartments = [
 	{
 		OrgId: '6606',
 		Department: {
@@ -46,7 +46,7 @@ describe('d2l-teacher-course-creation-input', () => {
 	describe('accessibility', () => {
 		it('should pass all axe tests', async() => {
 			const pageData = {
-				configuredDepartments: configuredDeparments
+				configuredDepartments: configuredDepartments
 			};
 
 			const el = await fixture(html`<d2l-tcc-input .pageData="${pageData}"></d2l-tcc-input>`);
@@ -75,7 +75,7 @@ describe('d2l-teacher-course-creation-input', () => {
 			const pageData = {
 				courseName: 'Test Course Name',
 				departmentId: '12',
-				configuredDepartments: configuredDeparments
+				configuredDepartments: configuredDepartments
 			};
 
 			const el = await fixture(html`<d2l-tcc-input .pageData="${pageData}"></d2l-tcc-input>`);
@@ -163,7 +163,7 @@ describe('d2l-teacher-course-creation-input', () => {
 	});
 
 	const _setupServiceStub = (stub) => {
-		const patches = { getAssociations: async() => configuredDeparments };
+		const patches = { getAssociations: async() => configuredDepartments };
 		stub.returns(new TccTestService(patches));
 	};
 });

@@ -81,26 +81,35 @@ class TeacherCourseCreationAdmin extends BaseMixin(LitElement) {
 	async connectedCallback() {
 		super.connectedCallback();
 
+		this.isLoading = true;
+
 		this.roles = await this.tccService.getRoles();
 		this.departments = await this.tccService.getDepartments();
-		this._fetchAssociations();
+		const associationsArray = await this.tccService.getAssociations();
+
+		this.isLoading = false;
+		this._mapAssociationsArray(associationsArray);
 
 		this.associationDialog = this.shadowRoot.querySelector('#association-dialog');
 	}
 
-	async _fetchAssociations() {
+	_mapAssociationsArray(associationsArray) {
+		let i = 0;
+		if (associationsArray) {
+			associationsArray.map(association => association.RowId = i++);
+			this.associations = associationsArray;
+		} else {
+			this.associations = Array();
+		}
+	}
+
+	async _refreshAssociations() {
 		this.isLoading = true;
 		this.tccService
 			.getAssociations()
 			.then(associationsArray => {
+				this._mapAssociationsArray(associationsArray);
 				this.isLoading = false;
-				let i = 0;
-				if (associationsArray) {
-					associationsArray.map(association => association.RowId = i++);
-					this.associations = associationsArray;
-				} else {
-					this.associations = Array();
-				}
 			});
 	}
 
@@ -188,7 +197,7 @@ class TeacherCourseCreationAdmin extends BaseMixin(LitElement) {
 				id="association-dialog"
 				.roles=${this.roles}
 				.departments=${this.departments}
-				@association-dialog-save=${this._fetchAssociations}>
+				@association-dialog-save=${this._refreshAssociations}>
 			</d2l-tcc-association-dialog>
 		`;
 	}

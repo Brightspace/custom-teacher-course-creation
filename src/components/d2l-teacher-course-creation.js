@@ -18,9 +18,6 @@ class TeacherCourseCreation extends BaseMixin(LitElement) {
 			},
 			pageData: {
 				type: Object
-			},
-			pageHeight: {
-				type: Number
 			}
 		};
 	}
@@ -36,6 +33,7 @@ class TeacherCourseCreation extends BaseMixin(LitElement) {
 			}
 			.tcc-widget__spinner {
 				display: flex;
+				min-height: 350px;
 			}
 		`;
 	}
@@ -53,21 +51,8 @@ class TeacherCourseCreation extends BaseMixin(LitElement) {
 		super.connectedCallback();
 	}
 
-	_isViewEmpty() {
-		return document.querySelector('d2l-tcc')
-			&& document.querySelector('d2l-tcc').shadowRoot
-			&& document.querySelector('d2l-tcc').shadowRoot.children[0]
-			&& document.querySelector('d2l-tcc').shadowRoot.children[0].shadowRoot
-			&& document.querySelector('d2l-tcc').shadowRoot.children[0].shadowRoot.children.length === 0;
-	}
-
 	_changePage(event) {
 		if (event.detail) {
-			// This maintains the height of the widget when loading
-			if (!this._isViewEmpty()) {
-				this.pageHeight = parseInt(document.querySelector('d2l-tcc').clientHeight);
-			}
-
 			const { detail: { page, pageData } } = event;
 			this.currentPage = page;
 			this.pageData = pageData;
@@ -118,8 +103,7 @@ class TeacherCourseCreation extends BaseMixin(LitElement) {
 			return html `
 			<d2l-loading-spinner
 				class="tcc-widget__spinner"
-				size=100
-				style="height: ${this.pageHeight}px;">
+				size=100>
 			</d2l-loading-spinner>
 			`;
 		}

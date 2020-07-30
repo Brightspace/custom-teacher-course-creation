@@ -69,7 +69,7 @@ class TeacherCourseCreationInput extends BaseMixin(LitElement) {
 				margin-right: 12px;
 				margin-bottom: 0px;
 			}
-			.button-container {
+			.tcc-input__button-container {
 				margin-bottom: 0px;
 			}`
 		];
@@ -213,7 +213,7 @@ class TeacherCourseCreationInput extends BaseMixin(LitElement) {
 					@change=${this._handleValueChanged}>
 						${this._renderConfiguredDepartments()}
 				</select>
-				<div class="button-container tcc-input__input-container-item">
+				<div class="tcc-input__button-container tcc-input__input-container-item">
 					<d2l-button
 						id="tcc-input-next-button"
 						class="tcc-input__button"
