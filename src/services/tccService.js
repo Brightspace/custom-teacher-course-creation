@@ -21,7 +21,7 @@ export class TccService {
 		return jsonResponse;
 	}
 
-	static _options(method, body, contentType) {
+	static _options(method, body) {
 
 		const options = {
 			credentials: 'include',
@@ -34,10 +34,8 @@ export class TccService {
 		};
 
 		if (body) {
-			options.body = body;
-		}
-		if (contentType) {
-			options.headers.append('Content-Type', contentType);
+			options.headers.append('Content-Type', 'application/json');
+			options.body = JSON.stringify(body);
 		}
 
 		return options;
@@ -52,9 +50,7 @@ export class TccService {
 	}
 
 	static async createCourse(orgUnitId, courseName) {
-		const formData = new FormData();
-		formData.append('courseName', courseName);
-		return await this._postRequest(Routes.CreateCourse(orgUnitId), formData);
+		return await this._postRequest(Routes.CreateCourse(orgUnitId), courseName);
 	}
 
 	static async getAssociations() {
@@ -90,6 +86,6 @@ export class TccService {
 			suffix,
 			roleId
 		};
-		return await this._putRequest(Routes.CourseConfig(orgUnitId), JSON.stringify(body), 'application/json');
+		return await this._putRequest(Routes.CourseConfig(orgUnitId), body);
 	}
 }
