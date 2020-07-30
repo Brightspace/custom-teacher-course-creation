@@ -3,6 +3,9 @@ export class TccDemoService {
 		return await fetch('../../data/course.json').then(response => response.json());
 	}
 
+	static async deleteAssociation() {
+	}
+
 	static async getAssociations() {
 		return await fetch('../../data/associations.json').then(response => response.json());
 	}

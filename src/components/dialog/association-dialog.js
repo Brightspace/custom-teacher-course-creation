@@ -317,13 +317,13 @@ class TccAssociationDialog extends BaseMixin(LitElement) {
 							slot="footer"
 							primary
 							@click=${this._submitAssociation}>
-							${this.localize('dialogAssociationSubmitButton')}
+							${this.localize('actionSubmit')}
 						</d2l-button>
 						<d2l-button
 							class="association_form__button"
 							slot="footer"
 							@click=${this._close}>
-							${this.localize('dialogAssociationCancelButton')}
+							${this.localize('actionCancel')}
 						</d2l-button>
 					</div>
 				</div>

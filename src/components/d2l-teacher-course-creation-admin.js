@@ -1,9 +1,11 @@
+import '@brightspace-ui/core/components/button/button';
 import '@brightspace-ui/core/components/button/button-subtle';
-import '@brightspace-ui/core/components/icons/icon';
 import '@brightspace-ui/core/components/dropdown/dropdown';
 import '@brightspace-ui/core/components/dropdown/dropdown-menu';
+import '@brightspace-ui/core/components/icons/icon';
 import '@brightspace-ui/core/components/menu/menu';
 import '@brightspace-ui/core/components/menu/menu-item';
+import './dialog/delete-dialog';
 import './dialog/association-dialog';
 import { css, html, LitElement } from 'lit-element/lit-element';
 import { BaseMixin } from '../mixins/base-mixin';
@@ -67,6 +69,7 @@ class TeacherCourseCreationAdmin extends BaseMixin(LitElement) {
 		this._fetchAssociations();
 
 		this.associationDialog = this.shadowRoot.querySelector('#association-dialog');
+		this.deleteDialog = this.shadowRoot.querySelector('#delete-dialog');
 	}
 
 	async _fetchAssociations() {
@@ -83,10 +86,21 @@ class TeacherCourseCreationAdmin extends BaseMixin(LitElement) {
 			});
 	}
 
+	async _deleteAssociation() {
+		if (this.dialogAssociation) {
+			console.log(this.dialogAssociation);
+			await this.tccService.deleteAssociation(this.dialogAssociation);
+			delete(this.dialogAssociation);
+			this._fetchAssociations();
+		}
+	}
+
 	_handleAssociationDelete(event) {
 		const associationRowId = parseInt(event.target.getAttribute('data-association-row'));
 		this.dialogAssociation =
 			this.associations.find(association => association.RowId === associationRowId);
+
+		this.deleteDialog.open();
 	}
 
 	_handleAssociationEdit(event) {
@@ -161,6 +175,11 @@ class TeacherCourseCreationAdmin extends BaseMixin(LitElement) {
 				.departments=${this.departments}
 				@association-dialog-save=${this._fetchAssociations}>
 			</d2l-tcc-association-dialog>
+
+			<d2l-tcc-delete-dialog
+				id="delete-dialog"
+				@delete-confirmed=${this._deleteAssociation}>
+			</d2l-tcc-delete-dialog>
 		`;
 	}
 
