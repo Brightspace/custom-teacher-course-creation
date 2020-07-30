@@ -1,0 +1,9 @@
+{
+  "name": "Custom Teacher Course Creation",
+  "source_dir": "locales",
+  "source_match": "\\.js$",
+  "output_file_path": "locales/%CULTURE%.js",
+  "parser_plugin": {
+    "plugin": "parse_js"
+  }
+}

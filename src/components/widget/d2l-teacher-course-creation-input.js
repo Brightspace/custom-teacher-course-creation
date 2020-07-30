@@ -85,7 +85,7 @@ class TeacherCourseCreationInput extends BaseMixin(LitElement) {
 
 	async connectedCallback() {
 		super.connectedCallback();
-		await this.getConfiguredDepartments();
+		await this.getAssociations();
 		if (this.pageData && this.pageData.courseName && this.pageData.departmentId) {
 			this.courseName = this.pageData.courseName;
 			this.departmentId = this.pageData.departmentId;
@@ -93,8 +93,8 @@ class TeacherCourseCreationInput extends BaseMixin(LitElement) {
 		}
 	}
 
-	async getConfiguredDepartments() {
-		this.configuredDepartments = await window.tccService.getConfiguredDepartments();
+	async getAssociations() {
+		this.configuredDepartments = await window.tccService.getAssociations();
 	}
 
 	_handleNextClicked() {
@@ -136,10 +136,12 @@ class TeacherCourseCreationInput extends BaseMixin(LitElement) {
 		let configuredDepartmentOptions = [
 			html`<option value=${DEFAULT_SELECT_OPTION_VALUE}>${this.localize('inputChooseTypePlaceholder')}</option>`
 		];
-		configuredDepartmentOptions = configuredDepartmentOptions.concat(
-			this.configuredDepartments.map(({ Department: { OrgUnitId, Name } }) =>
-				html`<option value=${OrgUnitId} ?selected="${OrgUnitId === this.departmentId}">${Name}</option>`
-			));
+		if (this.configuredDepartments) {
+			configuredDepartmentOptions = configuredDepartmentOptions.concat(
+				this.configuredDepartments.map(({ Department: { OrgUnitId, Name } }) =>
+					html`<option value=${OrgUnitId} ?selected="${OrgUnitId === this.departmentId}">${Name}</option>`
+				));
+		}
 		return configuredDepartmentOptions;
 	}
 
@@ -149,7 +151,7 @@ class TeacherCourseCreationInput extends BaseMixin(LitElement) {
 				id=${NAME_INPUT_ID}
 				class="tcc-input__input-container-item tcc-input__name-input"
 				label="${this.localize('courseName')} *"
-				aria-invalid="${this.nameIsTooLong}"
+				aria-invalid="${this.nameIsTooLong || false}"
 				@input=${this._handleValueChanged}
 				value=${this.courseName}>
 			</d2l-input-text>
