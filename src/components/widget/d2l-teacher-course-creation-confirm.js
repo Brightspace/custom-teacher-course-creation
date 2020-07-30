@@ -31,7 +31,7 @@ class TeacherCourseCreationConfirm extends BaseMixin(LitElement) {
 			}
 			.tcc-confirm__info-div {
 				padding: 12px 12px;
-				margin-bottom: 36px;
+				margin-bottom: 30px;
 				border-radius: 6px;
 				border: 2px solid var(--d2l-color-sylvite);
 				background-color: var(--d2l-color-regolith);
@@ -40,11 +40,12 @@ class TeacherCourseCreationConfirm extends BaseMixin(LitElement) {
 				margin: 0px 12px;
 			}
 			.tcc-confirm__course-type-div{
-				margin-top: 12px;
+				margin-top: 24px;
 			}
 			p {
 				margin: 0px;
 				font-weight: bold;
+				word-break: break-all;
 			}
 		`];
 	}
@@ -75,6 +76,7 @@ class TeacherCourseCreationConfirm extends BaseMixin(LitElement) {
 				data.ErrorMessage = error.message;
 				this.changePage(PAGES.ERROR_PAGE, data);
 			});
+		this.changePage(PAGES.LOADING_PAGE);
 	}
 
 	render() {

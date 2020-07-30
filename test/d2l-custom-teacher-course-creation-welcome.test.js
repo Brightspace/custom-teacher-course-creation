@@ -31,7 +31,7 @@ describe('d2l-teacher-course-creation-welcome', () => {
 			const el = await fixture(html`<d2l-tcc-welcome></d2l-tcc-welcome>`);
 			el.addEventListener('change-page', changePageToInput);
 
-			el.shadowRoot.querySelector('.tcc-welcome-button-get-started').click();
+			el.shadowRoot.querySelector('.tcc-welcome__button-get-started').click();
 		});
 	});
 

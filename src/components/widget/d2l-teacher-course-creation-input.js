@@ -59,14 +59,17 @@ class TeacherCourseCreationInput extends BaseMixin(LitElement) {
 				flex-flow: column;
 			}
 			.tcc-input__input-container-item {
-				margin-bottom: 24px;
+				margin-bottom: 30px;
 			}
 			.tcc-input__type-select-label {
 				margin-bottom: 6px;
 			}
 			.tcc-input__button {
-				margin-top: 24px;
+				margin-top: 30px;
 				margin-right: 12px;
+				margin-bottom: 0px;
+			}
+			.tcc-input__button-container {
 				margin-bottom: 0px;
 			}`
 		];
@@ -75,17 +78,21 @@ class TeacherCourseCreationInput extends BaseMixin(LitElement) {
 	constructor() {
 		super();
 
-		window.tccService = TccServiceFactory.getTccService();
+		this.tccService = TccServiceFactory.getTccService();
 		this.nameIsEmpty = false;
+		this.nameIsTooLong = false;
 		this.typeIsNotSelected = false;
 		this.courseName = '';
 		this.departmentId = DEFAULT_SELECT_OPTION_VALUE;
 		this.nextDisabled = true;
+		this.configuredDepartments = [];
 	}
 
-	async connectedCallback() {
+	connectedCallback() {
 		super.connectedCallback();
-		await this.getAssociations();
+
+		this.getAssociations();
+
 		if (this.pageData && this.pageData.courseName && this.pageData.departmentId) {
 			this.courseName = this.pageData.courseName;
 			this.departmentId = this.pageData.departmentId;
@@ -93,8 +100,24 @@ class TeacherCourseCreationInput extends BaseMixin(LitElement) {
 		}
 	}
 
-	async getAssociations() {
-		this.configuredDepartments = await window.tccService.getAssociations();
+	getAssociations() {
+
+		if (this.pageData && this.pageData.configuredDepartments) {
+			this.configuredDepartments = this.pageData.configuredDepartments;
+		} else {
+			const data = this.pageData ? this.pageData : {};
+			this.tccService.getAssociations()
+				.then((departments) => {
+					// Adding the departments to the pageData so that when reloading this page we do not get stuck in an infinite loop
+					data.configuredDepartments = departments;
+					this.changePage(PAGES.INPUT_PAGE, data);
+				})
+				.catch((error) => {
+					data.ErrorMessage = error.message;
+					this.changePage(PAGES.ERROR_PAGE, data);
+				});
+			this.changePage(PAGES.LOADING_PAGE);
+		}
 	}
 
 	_handleNextClicked() {
@@ -150,8 +173,9 @@ class TeacherCourseCreationInput extends BaseMixin(LitElement) {
 			<d2l-input-text
 				id=${NAME_INPUT_ID}
 				class="tcc-input__input-container-item tcc-input__name-input"
-				label="${this.localize('courseName')} *"
-				aria-invalid="${this.nameIsTooLong || false}"
+				label="${this.localize('courseName')}"
+				required
+				aria-invalid="${this.nameIsTooLong}"
 				@input=${this._handleValueChanged}
 				value=${this.courseName}>
 			</d2l-input-text>
@@ -190,7 +214,7 @@ class TeacherCourseCreationInput extends BaseMixin(LitElement) {
 					@change=${this._handleValueChanged}>
 						${this._renderConfiguredDepartments()}
 				</select>
-				<div class="button-container tcc-input__input-container-item">
+				<div class="tcc-input__button-container tcc-input__input-container-item">
 					<d2l-button
 						id="tcc-input-next-button"
 						class="tcc-input__button"

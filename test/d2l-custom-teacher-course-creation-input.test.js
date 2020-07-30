@@ -7,6 +7,36 @@ import { TccServiceFactory } from '../src/services/tccServiceFactory';
 import { TccTestService } from './utilities/tccTestService';
 
 const TEST_DEPARTMENT_NAME = 'Another Department';
+const configuredDepartments = [
+	{
+		OrgId: '6606',
+		Department: {
+			OrgUnitId: '10000',
+			Name: 'IPSIS Test Department 1'
+		},
+		Role: {
+			RoleId: 595,
+			Name: 'Student'
+		},
+		Prefix: 'prefix',
+		Suffix: '001',
+		TemplateId: null
+	},
+	{
+		OrgId: '6606',
+		Department: {
+			OrgUnitId: '12',
+			Name: TEST_DEPARTMENT_NAME
+		},
+		Role: {
+			RoleId: 596,
+			Name: 'Instructor'
+		},
+		Prefix: 'prefix2',
+		Suffix: '2020',
+		TemplateId: null
+	}
+];
 
 describe('d2l-teacher-course-creation-input', () => {
 	afterEach(() => {
@@ -15,7 +45,11 @@ describe('d2l-teacher-course-creation-input', () => {
 
 	describe('accessibility', () => {
 		it('should pass all axe tests', async() => {
-			const el = await fixture(html`<d2l-tcc-input></d2l-tcc-input>`);
+			const pageData = {
+				configuredDepartments: configuredDepartments
+			};
+
+			const el = await fixture(html`<d2l-tcc-input .pageData="${pageData}"></d2l-tcc-input>`);
 			await expect(el).to.be.accessible();
 		});
 	});
@@ -40,7 +74,8 @@ describe('d2l-teacher-course-creation-input', () => {
 		it('should bind the properties when properties are given', async() => {
 			const pageData = {
 				courseName: 'Test Course Name',
-				departmentId: '12'
+				departmentId: '12',
+				configuredDepartments: configuredDepartments
 			};
 
 			const el = await fixture(html`<d2l-tcc-input .pageData="${pageData}"></d2l-tcc-input>`);
@@ -128,37 +163,7 @@ describe('d2l-teacher-course-creation-input', () => {
 	});
 
 	const _setupServiceStub = (stub) => {
-		const configuredDeparments = [
-			{
-				OrgId: '6606',
-				Department: {
-					OrgUnitId: '10000',
-					Name: 'IPSIS Test Department 1'
-				},
-				Role: {
-					RoleId: 595,
-					Name: 'Student'
-				},
-				Prefix: 'prefix',
-				Suffix: '001',
-				TemplateId: null
-			},
-			{
-				OrgId: '6606',
-				Department: {
-					OrgUnitId: '12',
-					Name: TEST_DEPARTMENT_NAME
-				},
-				Role: {
-					RoleId: 596,
-					Name: 'Instructor'
-				},
-				Prefix: 'prefix2',
-				Suffix: '2020',
-				TemplateId: null
-			}
-		];
-		const patches = { getAssociations : async() => configuredDeparments };
+		const patches = { getAssociations: async() => configuredDepartments };
 		stub.returns(new TccTestService(patches));
 	};
 });

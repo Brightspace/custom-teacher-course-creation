@@ -59,12 +59,23 @@ describe('d2l-teacher-course-creation-confirm', () => {
 
 			const el = await fixture(html`<d2l-tcc-confirm .pageData="${pageData}"></d2l-tcc-confirm>`);
 
+			let triggers = 0;
+
 			el.addEventListener('change-page', (event) => {
-				expect(event.detail.page).to.equal(PAGES.SUCCESS_PAGE);
-				expect(event.detail.pageData).to.not.be.null;
-				expect(event.detail.pageData.courseName).to.equal(pageData.courseName);
-				expect(event.detail.pageData.departmentName).to.equal(pageData.departmentName);
-				expect(event.detail.pageData.courseOrgUnitId).to.equal(courseOrgUnitId);
+				expect(triggers).to.be.lessThan(2);
+
+				if (triggers === 0) {
+					expect(event.detail.page).to.equal(PAGES.LOADING_PAGE);
+					expect(event.detail.pageData).to.be.undefined;
+				} else if (triggers === 1) {
+					expect(event.detail.page).to.equal(PAGES.SUCCESS_PAGE);
+					expect(event.detail.pageData).to.not.be.null;
+					expect(event.detail.pageData.courseName).to.equal(pageData.courseName);
+					expect(event.detail.pageData.departmentName).to.equal(pageData.departmentName);
+					expect(event.detail.pageData.courseOrgUnitId).to.equal(courseOrgUnitId);
+				}
+
+				triggers += 1;
 			});
 
 			el.shadowRoot.querySelector('.tcc-confirm__finish-button').click();
@@ -82,12 +93,23 @@ describe('d2l-teacher-course-creation-confirm', () => {
 
 			const el = await fixture(html`<d2l-tcc-confirm .pageData="${pageData}"></d2l-tcc-confirm>`);
 
+			let triggers = 0;
+
 			el.addEventListener('change-page', (event) => {
-				expect(event.detail.page).to.equal(PAGES.ERROR_PAGE);
-				expect(event.detail.pageData).to.not.be.null;
-				expect(event.detail.pageData.courseName).to.equal(pageData.courseName);
-				expect(event.detail.pageData.departmentName).to.equal(pageData.departmentName);
-				expect(event.detail.pageData.ErrorMessage).to.equal(errorMessage);
+				expect(triggers).to.be.lessThan(2);
+
+				if (triggers === 0) {
+					expect(event.detail.page).to.equal(PAGES.LOADING_PAGE);
+					expect(event.detail.pageData).to.be.undefined;
+				} else if (triggers === 1) {
+					expect(event.detail.page).to.equal(PAGES.ERROR_PAGE);
+					expect(event.detail.pageData).to.not.be.null;
+					expect(event.detail.pageData.courseName).to.equal(pageData.courseName);
+					expect(event.detail.pageData.departmentName).to.equal(pageData.departmentName);
+					expect(event.detail.pageData.ErrorMessage).to.equal(errorMessage);
+				}
+
+				triggers += 1;
 			});
 
 			el.shadowRoot.querySelector('.tcc-confirm__finish-button').click();

@@ -1,4 +1,5 @@
 import '@brightspace-ui/core/components/button/button.js';
+import '../create-course-illustration';
 import { css, html, LitElement } from 'lit-element/lit-element';
 import { BaseMixin } from '../../mixins/base-mixin';
 import { heading2Styles } from '@brightspace-ui/core/components/typography/styles.js';
@@ -21,10 +22,15 @@ class TeacherCourseCreationWelcome extends BaseMixin(LitElement) {
 			:host([hidden]) {
 				display: none;
 			}
-			.tcc-welcome-button-get-started {
+			.tcc-welcome__illustration {
+				margin-top: 48px;
+			}
+			.tcc-welcome__text {
+				margin-bottom: 30px;
+			}
+			.tcc-welcome__button-get-started {
 				width: 100%;
 				max-width: 250px;
-				margin: 1rem 0px;
 			}
 		`];
 	}
@@ -32,7 +38,7 @@ class TeacherCourseCreationWelcome extends BaseMixin(LitElement) {
 	constructor() {
 		super();
 
-		window.tccService = TccServiceFactory.getTccService();
+		this.tccService = TccServiceFactory.getTccService();
 	}
 
 	connectedCallback() {
@@ -45,12 +51,19 @@ class TeacherCourseCreationWelcome extends BaseMixin(LitElement) {
 
 	render() {
 		return html`
+			<div class="tcc-welcome__illustration">
+				<tcc-create-course-illustration>
+				</tcc-create-course-illustration>
+			</div>
+
 
 			<h1 class="d2l-heading-2">${this.localize('welcomeTitle')}</h1>
-			<div>${this.localize('welcomeText')}</div>
+			<div class="tcc-welcome__text">
+				${this.localize('welcomeText')}
+			</div>
 
 			<d2l-button
-				class="tcc-welcome-button-get-started"
+				class="tcc-welcome__button-get-started"
 				description=${this.localize('welcomeButtonDescription')}
 				@click=${this._changePage}>
 				${this.localize('welcomeButtonText')}

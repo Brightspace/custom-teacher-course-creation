@@ -1,10 +1,5 @@
 import { Routes } from './routes';
 
-const XSRF_TOKEN = D2L && D2L.LP && D2L.LP.Web && D2L.LP.Web.Authentication &&
-	D2L.LP.Web.Authentication.Xsrf &&
-	D2L.LP.Web.Authentication.Xsrf.GetXsrfToken &&
-	D2L.LP.Web.Authentication.Xsrf.GetXsrfToken() || '';
-
 export class TccService {
 	static _deleteRequest(url) {
 		return this._makeRequest(url, this._options('DELETE'));
@@ -25,23 +20,21 @@ export class TccService {
 		return jsonResponse;
 	}
 
-	static _options(method, body, contentType) {
+	static _options(method, body) {
 
 		const options = {
 			credentials: 'include',
 			headers: new Headers({
 				'Access-Control-Allow-Origin': '*',
-				'X-Csrf-Token': XSRF_TOKEN
+				'X-Csrf-Token': this.xsrfToken
 			}),
 			method,
 			mode: 'cors',
 		};
 
 		if (body) {
-			options.body = body;
-		}
-		if (contentType) {
-			options.headers.append('Content-Type', contentType);
+			options.headers.append('Content-Type', 'application/json');
+			options.body = JSON.stringify(body);
 		}
 
 		return options;
@@ -56,9 +49,7 @@ export class TccService {
 	}
 
 	static async createCourse(orgUnitId, courseName) {
-		const formData = new FormData();
-		formData.append('courseName', courseName);
-		return await this._postRequest(Routes.CreateCourse(orgUnitId), formData);
+		return await this._postRequest(Routes.CreateCourse(orgUnitId), courseName);
 	}
 
 	static async deleteAssociation(orgUnitId) {
@@ -98,6 +89,12 @@ export class TccService {
 			suffix,
 			roleId
 		};
-		return await this._putRequest(Routes.CourseConfig(orgUnitId), JSON.stringify(body), 'application/json');
+		return await this._putRequest(Routes.CourseConfig(orgUnitId), body);
+	}
+	static get xsrfToken() {
+		return  D2L && D2L.LP && D2L.LP.Web && D2L.LP.Web.Authentication &&
+		D2L.LP.Web.Authentication.Xsrf &&
+		D2L.LP.Web.Authentication.Xsrf.GetXsrfToken &&
+		D2L.LP.Web.Authentication.Xsrf.GetXsrfToken() || '';
 	}
 }

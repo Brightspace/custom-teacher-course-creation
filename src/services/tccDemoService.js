@@ -1,5 +1,11 @@
+function sleep(ms) {
+	return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export class TccDemoService {
 	static async createCourse() {
+		await sleep(2000);
+
 		return await fetch('../../data/course.json').then(response => response.json());
 	}
 
@@ -7,11 +13,9 @@ export class TccDemoService {
 	}
 
 	static async getAssociations() {
-		return await fetch('../../data/associations.json').then(response => response.json());
-	}
+		await sleep(2000);
 
-	static async getConfiguredDepartments() {
-		return await fetch('../../data/configuredDepartments.json').then(response => response.json());
+		return await fetch('../../data/associations.json').then(response => response.json());
 	}
 
 	static async getDepartments() {

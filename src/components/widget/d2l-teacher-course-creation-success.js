@@ -41,14 +41,14 @@ class TeacherCourseCreationSuccess extends BaseMixin(LitElement) {
 			.tcc-success__links-container {
 				display: flex;
 				flex-direction: column;
-				margin-bottom: 1.5rem;
+				margin-bottom: 12px;
 				border: 2px solid var(--d2l-color-gypsum);
 				background-color: var(--d2l-color-sylvite);
 				border-radius: 6px;
     			padding: 12px;
 			}
 			.tcc-success__text {
-				margin-bottom: 1.5rem;
+				margin-bottom: 30px;
 			}
 		`];
 	}
@@ -56,7 +56,7 @@ class TeacherCourseCreationSuccess extends BaseMixin(LitElement) {
 	constructor() {
 		super();
 
-		window.tccService = TccServiceFactory.getTccService();
+		this.tccService = TccServiceFactory.getTccService();
 	}
 
 	connectedCallback() {
@@ -88,7 +88,7 @@ class TeacherCourseCreationSuccess extends BaseMixin(LitElement) {
 			<div class="tcc-success__title-container">
 				<d2l-icon
 					class="tcc-success__title-icon"
-					icon="tier1:check-circle">
+					icon="tier2:check-circle">
 				</d2l-icon>
 				<h1 class="d2l-heading-2">${this.localize('successTitleText')}</h1>
 			</div>
