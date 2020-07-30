@@ -36,6 +36,7 @@ class TeacherCourseCreationAdmin extends BaseMixin(LitElement) {
 	static get styles() {
 		const tccAdminStyles = css`
 			:host {
+				width: 100%;
 				display: inline-block;
 			}
 
