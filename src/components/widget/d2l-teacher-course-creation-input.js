@@ -151,7 +151,7 @@ class TeacherCourseCreationInput extends BaseMixin(LitElement) {
 				id=${NAME_INPUT_ID}
 				class="tcc-input__input-container-item tcc-input__name-input"
 				label="${this.localize('courseName')} *"
-				aria-invalid="${this.nameIsTooLong}"
+				aria-invalid="${this.nameIsTooLong || false}"
 				@input=${this._handleValueChanged}
 				value=${this.courseName}>
 			</d2l-input-text>
