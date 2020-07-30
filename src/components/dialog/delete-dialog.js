@@ -51,8 +51,8 @@ class TccDeleteDialog extends BaseMixin(LitElement) {
 				title-text="${this.localize('dialogDeleteTitle')}"
 				text="${this.localize('dialogDeleteText')}"
 				@d2l-dialog-close=${this._handleDialogClose}>
-				<d2l-button slot="footer" primary data-dialog-action="yes">${this.localize('yes')}</d2l-button>
-				<d2l-button slot="footer" data-dialog-action>${this.localize('no')}</d2l-button>
+				<d2l-button slot="footer" data-dialog-action="yes">${this.localize('actionDelete')}</d2l-button>
+				<d2l-button slot="footer" data-dialog-action>${this.localize('actionCancel')}</d2l-button>
 			</d2l-dialog-confirm>
 		`;
 	}
