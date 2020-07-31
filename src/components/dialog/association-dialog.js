@@ -33,7 +33,7 @@ const generateDefaultAssociation = () => {
 const deepCopy = (original) => {
 	const copy = {};
 	Object.keys(original).forEach(key =>
-		copy[key] = original[key]
+		copy[key] = deepCopy(original[key])
 	);
 	return copy;
 };
