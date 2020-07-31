@@ -24,7 +24,7 @@ const generateDefaultAssociation = () => {
 		Prefix: '',
 		Suffix: '',
 		Role: {
-			Id: -1,
+			RoleId: -1,
 			Name: ''
 		}
 	};
@@ -105,6 +105,7 @@ class TccAssociationDialog extends BaseMixin(LitElement) {
 
 			.association_form__button {
 				width: 102px;
+				margin-right: 12px;
 			}
 		`;
 		return [
@@ -160,7 +161,7 @@ class TccAssociationDialog extends BaseMixin(LitElement) {
 		this.associationForm.PrefixInput.value = this.association.Prefix;
 		this.associationForm.SuffixInput.value = this.association.Suffix;
 		this._setSelectedIndexByValue(this.associationForm.DepartmentSelect, this.association.Department.OrgUnitId);
-		this._setSelectedIndexByValue(this.associationForm.RoleSelect, this.association.Role.Id.toString());
+		this._setSelectedIndexByValue(this.associationForm.RoleSelect, this.association.Role.RoleId.toString());
 	}
 
 	_formLoad() {

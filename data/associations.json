@@ -8,7 +8,7 @@
       "Name": "IPSIS Department New"
     },
     "Role": {
-      "Id": 1,
+      "RoleId": 1,
       "Name": "Instructor"
     }
   },
@@ -21,7 +21,7 @@
       "Name": "Another Department"
     },
     "Role": {
-      "Id": 2,
+      "RoleId": 2,
       "Name": "Administrator"
     }
   }

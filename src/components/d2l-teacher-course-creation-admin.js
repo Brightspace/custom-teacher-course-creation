@@ -239,18 +239,37 @@ class TeacherCourseCreationAdmin extends BaseMixin(LitElement) {
 	}
 
 	_renderResults() {
-		return html`
+		const isEmpty = this.associations.length === 0;
+
+		const baseTemplate = html`
 			<div class="tcc-admin__description-text d2l-body-standard">
 				${this.localize('adminDesc')}
 			</div>
-			<d2l-button-subtle
-				class="add_new_button"
-				icon="tier1:plus-large-thick"
-				text="${this.localize('actionNew')}"
-				@click=${this._handleAssociationNew}>
-			</d2l-button-subtle>
-			${this.associations.length > 0 ? this._renderTable() : this._renderEmptyTable()}
 		`;
+
+		if (isEmpty) {
+			return html`
+				${baseTemplate}
+				<d2l-button
+					primary
+					class="add_new_button"
+					@click=${this._handleAssociationNew}>
+						${this.localize('actionNew')}
+				</d2l-button>
+				${this._renderEmptyTable()}
+			`;
+		} else {
+			return html`
+				${baseTemplate}
+				<d2l-button-subtle
+					class="add_new_button"
+					icon="tier1:plus-large-thick"
+					text="${this.localize('actionNew')}"
+					@click=${this._handleAssociationNew}>
+				</d2l-button-subtle>
+				${this._renderTable()}
+			`;
+		}
 	}
 
 	_renderSpinner() {
