@@ -14,6 +14,7 @@ class TeacherCourseCreationError extends BaseMixin(LitElement) {
 				type: Object
 			},
 			errorMessage: {
+				attribute: 'error-message',
 				type: String
 			},
 			hideBack: {
