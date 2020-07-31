@@ -117,7 +117,7 @@ class TeacherCourseCreationAdmin extends BaseMixin(LitElement) {
 	async _deleteAssociation() {
 		if (this.dialogAssociation) {
 			await this.tccService.deleteAssociation(this.dialogAssociation.Department.OrgUnitId);
-			delete(this.dialogAssociation);
+			this.dialogAssociation = null;
 			this._refreshAssociations();
 		}
 	}
