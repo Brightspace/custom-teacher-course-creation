@@ -24,7 +24,7 @@ const generateDefaultAssociation = () => {
 		Prefix: '',
 		Suffix: '',
 		Role: {
-			Id: -1,
+			RoleId: -1,
 			Name: ''
 		}
 	};
@@ -100,11 +100,13 @@ class TccAssociationDialog extends BaseMixin(LitElement) {
 			}
 
 			.association_form__button_group {
-				margin-top: 48px;
+				margin-top: 78px;
+				margin-bottom: 12px;
 			}
 
 			.association_form__button {
 				width: 102px;
+				margin-right: 12px;
 			}
 		`;
 		return [
@@ -160,7 +162,7 @@ class TccAssociationDialog extends BaseMixin(LitElement) {
 		this.associationForm.PrefixInput.value = this.association.Prefix;
 		this.associationForm.SuffixInput.value = this.association.Suffix;
 		this._setSelectedIndexByValue(this.associationForm.DepartmentSelect, this.association.Department.OrgUnitId);
-		this._setSelectedIndexByValue(this.associationForm.RoleSelect, this.association.Role.Id.toString());
+		this._setSelectedIndexByValue(this.associationForm.RoleSelect, this.association.Role.RoleId.toString());
 	}
 
 	_formLoad() {
@@ -305,6 +307,12 @@ class TccAssociationDialog extends BaseMixin(LitElement) {
 					${this._renderDepartmentOptions()}
 
 				</select>
+				<d2l-tooltip
+					for=${DEPARTMENT_SELECTOR_ID}
+					state="info"
+					align="start">
+						${this.localize('adminCourseTypeDesc')}
+				</d2l-tooltip>
 			</div>
 		`;
 	}
@@ -331,6 +339,15 @@ class TccAssociationDialog extends BaseMixin(LitElement) {
 					state="error"
 					align="start">
 						${this.localize('prefixTooLongErrorMsg')}
+				</d2l-tooltip>
+			`;
+		} else {
+			tooltipTemplate = html`
+				<d2l-tooltip
+					for="${PREFIX_INPUT_ID}"
+					state="info"
+					align="start">
+						${this.localize('adminPrefixDesc')}
 				</d2l-tooltip>
 			`;
 		}
@@ -361,6 +378,15 @@ class TccAssociationDialog extends BaseMixin(LitElement) {
 						${this.localize('suffixTooLongErrorMsg')}
 				</d2l-tooltip>
 			`;
+		} else {
+			tooltipTemplate = html`
+				<d2l-tooltip
+					for="${SUFFIX_INPUT_ID}"
+					state="info"
+					align="start">
+						${this.localize('adminSuffixDesc')}
+				</d2l-tooltip>
+			`;
 		}
 		return html`${suffixInputTemplate}${tooltipTemplate}`;
 	}
@@ -383,6 +409,12 @@ class TccAssociationDialog extends BaseMixin(LitElement) {
 					${this._renderRoleOptions()}
 
 				</select>
+				<d2l-tooltip
+					for=${ROLE_SELECTOR_ID}
+					state="info"
+					align="start">
+						${this.localize('adminRoleDesc')}
+				</d2l-tooltip>
 			</div>
 		`;
 	}

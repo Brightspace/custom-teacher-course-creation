@@ -7,10 +7,10 @@ import '@brightspace-ui/core/components/icons/icon';
 import '@brightspace-ui/core/components/menu/menu';
 import '@brightspace-ui/core/components/menu/menu-item';
 import '@brightspace-ui/core/components/loading-spinner/loading-spinner.js';
+import './create-course-admin-nothing-here-illustration';
 import './dialog/delete-dialog';
 import './dialog/association-dialog';
 import './widget/d2l-teacher-course-creation-error';
-import './create-course-admin-nothing-here-illustration';
 import { bodyStandardStyles, heading2Styles } from '@brightspace-ui/core/components/typography/styles.js';
 import { css, html, LitElement } from 'lit-element/lit-element';
 import { BaseMixin } from '../mixins/base-mixin';
@@ -122,8 +122,7 @@ class TeacherCourseCreationAdmin extends BaseMixin(LitElement) {
 			this._mapAssociationsArray(associations);
 
 		} catch (err) {
-			console.log(err.message);
-			this.permissionError = err.message.includes('forbidden') || err.message.includes('not authorized');
+			this.permissionError = err.message.toLowerCase().includes('forbidden') || err.message.toLowerCase().includes('not authorized');
 		}
 		this.isLoading = false;
 
@@ -278,8 +277,7 @@ class TeacherCourseCreationAdmin extends BaseMixin(LitElement) {
 				.errorMessage="${this.localize('adminPermissionsError')}"
 				.renderBack="${false}">
 				</d2l-tcc-error>`;
-		}
-		else if (isEmpty) {
+		} else if (isEmpty) {
 			return html`
 				<div class='tcc-admin__empty-table-wrapper'>
 					${baseTemplate}
