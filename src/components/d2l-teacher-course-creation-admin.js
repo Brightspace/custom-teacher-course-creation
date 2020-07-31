@@ -48,7 +48,7 @@ class TeacherCourseCreationAdmin extends BaseMixin(LitElement) {
 				display: none;
 			}
 
-			.add_new_button {
+			.tcc-admin__add-new-button {
 				padding: 6px 0px;
 			}
 
@@ -63,6 +63,20 @@ class TeacherCourseCreationAdmin extends BaseMixin(LitElement) {
 
 			.tcc-admin__message--empty-table {
 				text-align: center;
+			}
+
+			.d2l-heading-2.tcc-admin__nothing-title {
+				margin-top: 0;
+			}
+
+			.tcc-admin__empty-table-wrapper {
+				display: flex;
+				flex-direction: column;
+			}
+
+			.tcc-admin__get-started-button {
+				margin: 48px;
+				align-self: center;
 			}
 		`;
 		return [
@@ -196,7 +210,7 @@ class TeacherCourseCreationAdmin extends BaseMixin(LitElement) {
 			<div class="tcc-admin__message--empty-table">
 				<tcc-admin-nothing-here-illustration>
 				</tcc-admin-nothing-here-illustration>
-				<h1 class="d2l-heading-2">
+				<h1 class="d2l-heading-2 tcc-admin__nothing-title">
 					${this.localize('adminNothingTitle')}
 				</h1>
 				<div class="d2l-body-standard">
@@ -249,20 +263,22 @@ class TeacherCourseCreationAdmin extends BaseMixin(LitElement) {
 
 		if (isEmpty) {
 			return html`
-				${baseTemplate}
-				<d2l-button
-					primary
-					class="add_new_button"
-					@click=${this._handleAssociationNew}>
-						${this.localize('actionNew')}
-				</d2l-button>
-				${this._renderEmptyTable()}
+				<div class='tcc-admin__empty-table-wrapper'>
+					${baseTemplate}
+					${this._renderEmptyTable()}
+					<d2l-button
+						primary
+						class="tcc-admin__get-started-button"
+						@click=${this._handleAssociationNew}>
+							${this.localize('actionStart')}
+					</d2l-button>
+				</div>
 			`;
 		} else {
 			return html`
 				${baseTemplate}
 				<d2l-button-subtle
-					class="add_new_button"
+					class="tcc-admin__add-new-button"
 					icon="tier1:plus-large-thick"
 					text="${this.localize('actionNew')}"
 					@click=${this._handleAssociationNew}>
