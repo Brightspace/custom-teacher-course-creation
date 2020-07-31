@@ -152,25 +152,24 @@ class TeacherCourseCreationAdmin extends BaseMixin(LitElement) {
 
 	async _deleteAssociation() {
 		if (this.dialogAssociation) {
-			console.log(this.dialogAssociation);
-			await this.tccService.deleteAssociation(this.dialogAssociation);
-			delete(this.dialogAssociation);
-			this._fetchAssociations();
+			await this.tccService.deleteAssociation(this.dialogAssociation.Department.OrgUnitId);
+			this.dialogAssociation = null;
+			this._refreshAssociations();
 		}
 	}
 
+	_getAssociationByRowId(associationRowId) {
+		return this.associations.find(association => association.RowId === associationRowId);
+	}
+
 	_handleAssociationDelete(event) {
-		const associationRowId = parseInt(event.target.getAttribute('data-association-row'));
-		this.dialogAssociation =
-			this.associations.find(association => association.RowId === associationRowId);
+		this.dialogAssociation = this._getAssociationByRowId(parseInt(event.target.getAttribute('data-association-row')));
 
 		this.deleteDialog.open();
 	}
 
 	_handleAssociationEdit(event) {
-		const associationRowId = parseInt(event.target.getAttribute('data-association-row'));
-		const dialogAssociation =
-			this.associations.find(association => association.RowId === associationRowId);
+		const dialogAssociation = this._getAssociationByRowId(parseInt(event.target.getAttribute('data-association-row')));
 
 		this.associationDialog.open(dialogAssociation);
 	}

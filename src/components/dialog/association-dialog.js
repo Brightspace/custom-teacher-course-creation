@@ -30,6 +30,17 @@ const generateDefaultAssociation = () => {
 	};
 };
 
+const deepCopy = (original) => {
+	if (!original || !(original instanceof Object))
+		return original;
+
+	const copy = {};
+	Object.keys(original).forEach(key =>
+		copy[key] = deepCopy(original[key])
+	);
+	return copy;
+};
+
 class TccAssociationDialog extends BaseMixin(LitElement) {
 
 	static get properties() {
@@ -68,10 +79,16 @@ class TccAssociationDialog extends BaseMixin(LitElement) {
 			prefixIsEmpty: {
 				type: Boolean
 			},
+			prefixContainsSpecialCharacters: {
+				type: Boolean
+			},
 			suffixIsTooLong: {
 				type: Boolean
 			},
 			suffixIsEmpty: {
+				type: Boolean
+			},
+			suffixContainsSpecialCharacters: {
 				type: Boolean
 			},
 			roleIsNotSelected: {
@@ -140,7 +157,7 @@ class TccAssociationDialog extends BaseMixin(LitElement) {
 		}
 
 		if (associationToEdit) {
-			this.association = associationToEdit;
+			this.association = deepCopy(associationToEdit);
 			this.isNewAssociation = false;
 			this.nextDisabled = false;
 		} else {
@@ -180,13 +197,15 @@ class TccAssociationDialog extends BaseMixin(LitElement) {
 		this.departmentIsNotSelected = Object.keys(this.association.Department).length === 0 && this.association.Department.constructor === Object;
 		this.prefixIsEmpty = this.association.Prefix.length === 0;
 		this.prefixIsTooLong = this.association.Prefix.length > COURSE_PREFIX_SUFFIX_MAX_LENGTH;
+		this.prefixContainsSpecialCharacters = this._containsSpecialCharacters(this.association.Prefix);
 		this.suffixIsEmpty = this.association.Suffix.length === 0;
 		this.suffixIsTooLong = this.association.Suffix.length > COURSE_PREFIX_SUFFIX_MAX_LENGTH;
+		this.suffixContainsSpecialCharacters = this._containsSpecialCharacters(this.association.Suffix);
 		this.roleIsNotSelected = Object.keys(this.association.Role).length === 0 && this.association.Role.constructor === Object;
 
 		this.nextDisabled = this.departmentIsNotSelected
-			|| this.prefixIsEmpty || this.prefixIsTooLong
-			|| this.suffixIsEmpty || this.suffixIsTooLong
+			|| this.prefixIsEmpty || this.prefixIsTooLong || this.prefixContainsSpecialCharacters
+			|| this.suffixIsEmpty || this.suffixIsTooLong || this.suffixContainsSpecialCharacters
 			|| this.roleIsNotSelected;
 
 		return !this.nextDisabled;
@@ -213,6 +232,11 @@ class TccAssociationDialog extends BaseMixin(LitElement) {
 		this.association.Suffix = this._getEnteredSuffix();
 		this.association.Department = this._getSelectedDepartment();
 		this.association.Role = this._getSelectedRole();
+	}
+
+	_containsSpecialCharacters(textInputValue) {
+		const validationRegex = /(,|:|%|&|#|\*|\?|<|>|\\|""|'|\|)/;
+		return validationRegex.test(textInputValue);
 	}
 
 	_getSelectedOptionValue(selectElement) {
@@ -325,20 +349,24 @@ class TccAssociationDialog extends BaseMixin(LitElement) {
 					required
 					id=${PREFIX_INPUT_ID}
 					placeholder="${this.localize('dialogAssociationPrefixPlaceholder')}"
-					aria-invalid="${this.prefixIsTooLong}"
+					aria-invalid="${this.prefixIsTooLong || this.prefixContainsSpecialCharacters}"
 					@input=${this._handleValueChanged}>
 				</d2l-input-text>
 			</div>
 		`;
 
 		let tooltipTemplate = html``;
-		if (this.prefixIsTooLong) {
+		if (this.prefixIsTooLong || this.prefixContainsSpecialCharacters) {
+			const tooltipMessage = this.prefixIsTooLong ?
+				this.localize('prefixTooLongErrorMsg') :
+				this.localize('prefixHasSpecialCharactersErrorMsg');
+
 			tooltipTemplate = html`
 				<d2l-tooltip
 					for="${PREFIX_INPUT_ID}"
 					state="error"
 					align="start">
-						${this.localize('prefixTooLongErrorMsg')}
+						${tooltipMessage}
 				</d2l-tooltip>
 			`;
 		} else {
@@ -361,7 +389,7 @@ class TccAssociationDialog extends BaseMixin(LitElement) {
 					label="${this.localize('suffix')}"
 					required
 					id=${SUFFIX_INPUT_ID}
-					aria-invalid="${this.suffixIsTooLong}"
+					aria-invalid="${this.suffixIsTooLong || this.suffixContainsSpecialCharacters}"
 					placeholder="${this.localize('dialogAssociationSuffixPlaceholder')}"
 					@input=${this._handleValueChanged}>
 				</d2l-input-text>
@@ -369,13 +397,17 @@ class TccAssociationDialog extends BaseMixin(LitElement) {
 		`;
 
 		let tooltipTemplate = html``;
-		if (this.suffixIsTooLong) {
+		if (this.suffixIsTooLong || this.suffixContainsSpecialCharacters) {
+			const tooltipMessage = this.suffixIsTooLong ?
+				this.localize('suffixTooLongErrorMsg') :
+				this.localize('suffixHasSpecialCharactersErrorMsg');
+
 			tooltipTemplate = html`
 				<d2l-tooltip
 					for="${SUFFIX_INPUT_ID}"
 					state="error"
 					align="start">
-						${this.localize('suffixTooLongErrorMsg')}
+						${tooltipMessage}
 				</d2l-tooltip>
 			`;
 		} else {
