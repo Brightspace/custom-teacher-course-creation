@@ -9,10 +9,18 @@ export class TccService {
 	static async _makeRequest(url, options) {
 		const response = await fetch(url, options);
 
-		const jsonResponse = await response.json();
+		let errorMsg;
+		let jsonResponse;
+		const text = await response.text();
+		if (response.headers.get('Content-Type').includes('json')) {
+			jsonResponse = JSON.parse(text);
+			errorMsg = jsonResponse.detail || text;
+		} else {
+			errorMsg = text;
+		}
 
 		if (response.status >= 300) {
-			throw Error(jsonResponse.detail);
+			throw Error(errorMsg);
 		}
 		return jsonResponse;
 	}

@@ -15,6 +15,9 @@ class TeacherCourseCreationError extends BaseMixin(LitElement) {
 			},
 			errorMessage: {
 				type: String
+			},
+			renderBack: {
+				type: Boolean
 			}
 		};
 	}
@@ -54,6 +57,7 @@ class TeacherCourseCreationError extends BaseMixin(LitElement) {
 		super();
 
 		this.tccService = TccServiceFactory.getTccService();
+		this.renderBack = true;
 	}
 
 	connectedCallback() {
@@ -66,6 +70,17 @@ class TeacherCourseCreationError extends BaseMixin(LitElement) {
 
 	_backPressed() {
 		this.changePage(PAGES.INPUT_PAGE, this.pageData);
+	}
+
+	_renderBack() {
+		return !this.renderBack ? html`` : html`
+		<d2l-button
+			description=${this.localize('errorBackButtonDescription')}
+			@click=${this._backPressed}
+			primary>
+			${this.localize('actionBack')}
+		</d2l-button>
+	`;
 	}
 
 	render() {
@@ -85,13 +100,7 @@ class TeacherCourseCreationError extends BaseMixin(LitElement) {
 			<div class="d2l-body-small tcc-error__text">
 				${this.localize('errorResultText')}
 			</div>
-
-			<d2l-button
-				description=${this.localize('errorBackButtonDescription')}
-				@click=${this._backPressed}
-				primary>
-				${this.localize('actionBack')}
-			</d2l-button>
+			${this._renderBack()}
 		`;
 	}
 }
