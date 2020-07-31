@@ -38,7 +38,7 @@ class TccDeleteDialog extends BaseMixin(LitElement) {
 	}
 
 	_handleDialogClose(event) {
-		if (event.detail.action === 'delete') {
+		if (event.detail.action === DELETE_EVENT_ACTION) {
 			this.dispatchEvent(new Event('delete-confirmed'));
 		}
 		this._close();

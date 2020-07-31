@@ -31,6 +31,9 @@ const generateDefaultAssociation = () => {
 };
 
 const deepCopy = (original) => {
+	if (!original || !(original instanceof Object))
+		return original;
+
 	const copy = {};
 	Object.keys(original).forEach(key =>
 		copy[key] = deepCopy(original[key])
