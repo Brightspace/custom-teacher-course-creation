@@ -15,7 +15,7 @@ export const val = {
 	'adminRoleDesc': 'The role that the instructor will be enrolled in the course as',
 	'adminSuffixDesc': 'The suffix that will be added to the course code',
 	'adminNothingTitle': "There's Nothing Here Yet... Get Started!",
-	'adminNothingMessage': "This is where you'll find your department associations.",
+	'adminNothingMessage': "This is where you'll find your course type associations.",
 	'confirmTitle': 'Is this correct?',
 	'courseCode': 'Course Code',
 	'courseName': 'Course Name',
