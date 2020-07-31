@@ -272,8 +272,8 @@ class TeacherCourseCreationAdmin extends BaseMixin(LitElement) {
 		if (this.permissionError) {
 			return html`
 				<d2l-tcc-error
-				error-message="${this.localize('adminPermissionsError')}"
-				hide-back>
+					error-message="${this.localize('adminPermissionsError')}"
+					hide-back>
 				</d2l-tcc-error>`;
 		} else if (isEmpty) {
 			return html`
