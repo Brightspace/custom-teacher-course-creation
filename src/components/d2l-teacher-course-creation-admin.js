@@ -1,4 +1,3 @@
-/* eslint-disable lit/no-useless-template-literals */
 import '@brightspace-ui/core/components/button/button';
 import '@brightspace-ui/core/components/button/button-subtle';
 import '@brightspace-ui/core/components/dropdown/dropdown';
@@ -274,7 +273,7 @@ class TeacherCourseCreationAdmin extends BaseMixin(LitElement) {
 			return html`
 				<d2l-tcc-error
 				.errorMessage="${this.localize('adminPermissionsError')}"
-				.renderBack="${false}">
+				renderBack>
 				</d2l-tcc-error>`;
 		} else if (isEmpty) {
 			return html`

@@ -16,7 +16,7 @@ class TeacherCourseCreationError extends BaseMixin(LitElement) {
 			errorMessage: {
 				type: String
 			},
-			renderBack: {
+			hideBack: {
 				type: Boolean
 			}
 		};
@@ -57,7 +57,7 @@ class TeacherCourseCreationError extends BaseMixin(LitElement) {
 		super();
 
 		this.tccService = TccServiceFactory.getTccService();
-		this.renderBack = true;
+		this.hideBack = false;
 	}
 
 	connectedCallback() {
@@ -73,7 +73,7 @@ class TeacherCourseCreationError extends BaseMixin(LitElement) {
 	}
 
 	_renderBack() {
-		return !this.renderBack ? html`` : html`
+		return !this.hideBack ? html`` : html`
 		<d2l-button
 			description=${this.localize('errorBackButtonDescription')}
 			@click=${this._backPressed}
