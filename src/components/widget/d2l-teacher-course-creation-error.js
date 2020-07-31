@@ -17,6 +17,7 @@ class TeacherCourseCreationError extends BaseMixin(LitElement) {
 				type: String
 			},
 			hideBack: {
+				attribute: 'hide-back',
 				type: Boolean
 			}
 		};
@@ -73,7 +74,7 @@ class TeacherCourseCreationError extends BaseMixin(LitElement) {
 	}
 
 	_renderBack() {
-		return !this.hideBack ? html`` : html`
+		return this.hideBack ? html`` : html`
 		<d2l-button
 			description=${this.localize('errorBackButtonDescription')}
 			@click=${this._backPressed}
