@@ -58,7 +58,7 @@ class TeacherCourseCreationAdmin extends BaseMixin(LitElement) {
 			}
 
 			.tcc-admin__description-text {
-				margin-bottom: 30px;
+				margin-bottom: 0px;
 			}
 
 			.tcc-admin__message--empty-table {
@@ -67,6 +67,7 @@ class TeacherCourseCreationAdmin extends BaseMixin(LitElement) {
 
 			.d2l-heading-2.tcc-admin__nothing-title {
 				margin-top: 0;
+				margin-bottom: 18px;
 			}
 
 			.tcc-admin__empty-table-wrapper {
@@ -75,7 +76,7 @@ class TeacherCourseCreationAdmin extends BaseMixin(LitElement) {
 			}
 
 			.tcc-admin__get-started-button {
-				margin: 48px;
+				margin: 12px;
 				align-self: center;
 			}
 		`;

@@ -101,6 +101,7 @@ class TccAssociationDialog extends BaseMixin(LitElement) {
 
 			.association_form__button_group {
 				margin-top: 78px;
+				margin-bottom: 12px;
 			}
 
 			.association_form__button {
