@@ -333,8 +333,7 @@ class TccAssociationDialog extends BaseMixin(LitElement) {
 				</select>
 				<d2l-tooltip
 					for=${DEPARTMENT_SELECTOR_ID}
-					state="info"
-					align="start">
+					state="info">
 						${this.localize('adminCourseTypeDesc')}
 				</d2l-tooltip>
 			</div>
@@ -364,8 +363,7 @@ class TccAssociationDialog extends BaseMixin(LitElement) {
 			tooltipTemplate = html`
 				<d2l-tooltip
 					for="${PREFIX_INPUT_ID}"
-					state="error"
-					align="start">
+					state="error">
 						${tooltipMessage}
 				</d2l-tooltip>
 			`;
@@ -373,8 +371,7 @@ class TccAssociationDialog extends BaseMixin(LitElement) {
 			tooltipTemplate = html`
 				<d2l-tooltip
 					for="${PREFIX_INPUT_ID}"
-					state="info"
-					align="start">
+					state="info">
 						${this.localize('adminPrefixDesc')}
 				</d2l-tooltip>
 			`;
@@ -405,8 +402,7 @@ class TccAssociationDialog extends BaseMixin(LitElement) {
 			tooltipTemplate = html`
 				<d2l-tooltip
 					for="${SUFFIX_INPUT_ID}"
-					state="error"
-					align="start">
+					state="error">
 						${tooltipMessage}
 				</d2l-tooltip>
 			`;
@@ -414,8 +410,7 @@ class TccAssociationDialog extends BaseMixin(LitElement) {
 			tooltipTemplate = html`
 				<d2l-tooltip
 					for="${SUFFIX_INPUT_ID}"
-					state="info"
-					align="start">
+					state="info">
 						${this.localize('adminSuffixDesc')}
 				</d2l-tooltip>
 			`;
@@ -443,8 +438,7 @@ class TccAssociationDialog extends BaseMixin(LitElement) {
 				</select>
 				<d2l-tooltip
 					for=${ROLE_SELECTOR_ID}
-					state="info"
-					align="start">
+					state="info">
 						${this.localize('adminRoleDesc')}
 				</d2l-tooltip>
 			</div>
