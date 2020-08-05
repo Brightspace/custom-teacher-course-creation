@@ -2,7 +2,7 @@ import { Routes } from './routes';
 
 export class TccService {
 	static _deleteRequest(url) {
-		fetch(url, this._options('DELETE'));
+		return fetch(url, this._options('DELETE'));
 	}
 
 	static _getRequest(url) {
