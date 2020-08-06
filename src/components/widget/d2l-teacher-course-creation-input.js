@@ -177,7 +177,8 @@ class TeacherCourseCreationInput extends BaseMixin(LitElement) {
 				required
 				aria-invalid="${this.nameIsTooLong}"
 				@input=${this._handleValueChanged}
-				value=${this.courseName}>
+				value=${this.courseName}
+				novalidate>
 			</d2l-input-text>
 		`;
 

@@ -349,7 +349,8 @@ class TccAssociationDialog extends BaseMixin(LitElement) {
 					id=${PREFIX_INPUT_ID}
 					placeholder="${this.localize('dialogAssociationPrefixPlaceholder')}"
 					aria-invalid="${this.prefixIsTooLong || this.prefixContainsSpecialCharacters}"
-					@input=${this._handleValueChanged}>
+					@input=${this._handleValueChanged}
+					novalidate>
 				</d2l-input-text>
 			</div>
 		`;
@@ -388,7 +389,8 @@ class TccAssociationDialog extends BaseMixin(LitElement) {
 					id=${SUFFIX_INPUT_ID}
 					aria-invalid="${this.suffixIsTooLong || this.suffixContainsSpecialCharacters}"
 					placeholder="${this.localize('dialogAssociationSuffixPlaceholder')}"
-					@input=${this._handleValueChanged}>
+					@input=${this._handleValueChanged}
+					novalidate>
 				</d2l-input-text>
 			</div>
 		`;
