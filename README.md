@@ -1,6 +1,5 @@
 # d2l-tcc and d2l-tcc-admin
 
-
 [![Dependabot badge](https://flat.badgen.net/dependabot/Brightspace/custom-teacher-course-creation?icon=dependabot)](https://app.dependabot.com/)
 [![Build status](https://travis-ci.com/brightspace/custom-teacher-course-creation.svg?branch=master)](https://travis-ci.com/brightspace/custom-teacher-course-creation)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
@@ -59,7 +58,7 @@ All version changes should obey [semantic versioning](https://semver.org/) rules
 
 This component uses the [semantic-release](https://github.com/semantic-release/semantic-release) library to manage GitHub releases. The commit message format for initiating releases follows the [ESLint Convention](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-eslint).
 
-Supported commit prefixes:
+Supported commit prefixes
 | Commit prefix | Version Increase |
 | ------------- | ---------------- |
 | `Docs:`       | `PATCH`          |
