@@ -61,7 +61,7 @@ export class TccService {
 	}
 
 	static async deleteAssociation(orgUnitId) {
-		return await this._deleteRequest(Routes.CourseConfig(orgUnitId));
+		return await this._deleteRequest(Routes.OrgUnitCourseConfig(orgUnitId));
 	}
 
 	static async getAssociations() {
@@ -97,7 +97,7 @@ export class TccService {
 			suffix,
 			roleId
 		};
-		return await this._putRequest(Routes.CourseConfig(orgUnitId), body);
+		return await this._putRequest(Routes.OrgUnitCourseConfig(orgUnitId), body);
 	}
 	static get xsrfToken() {
 		return  D2L && D2L.LP && D2L.LP.Web && D2L.LP.Web.Authentication &&

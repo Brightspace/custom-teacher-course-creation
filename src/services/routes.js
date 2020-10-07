@@ -1,6 +1,6 @@
 export class Routes {
-	static CourseConfig(orgUnitId) {
-		return `/d2l/api/customization/tcc/1.0/departmentCourseConfig/${orgUnitId || ''}?sortResults=true`;
+	static CourseConfig() {
+		return '/d2l/api/customization/tcc/1.0/departmentCourseConfig?sortResults=true';
 	}
 	static CreateCourse(orgUnitId) {
 		return `/d2l/api/customization/tcc/1.0/courseCreation/${orgUnitId}`;
@@ -10,6 +10,9 @@ export class Routes {
 	}
 	static Departments(orgUnitType, bookmark) {
 		return `/d2l/api/lp/1.23/orgstructure/?OrgUnitType=${orgUnitType}&Bookmark=${bookmark}`;
+	}
+	static OrgUnitCourseConfig(orgUnitId) {
+		return `/d2l/api/customization/tcc/1.0/departmentCourseConfig/${orgUnitId}`;
 	}
 	static Roles() {
 		return '/d2l/api/lp/1.23/roles/';
