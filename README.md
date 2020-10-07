@@ -58,7 +58,7 @@ All version changes should obey [semantic versioning](https://semver.org/) rules
 
 This component uses the [semantic-release](https://github.com/semantic-release/semantic-release) library to manage GitHub releases. The commit message format for initiating releases follows the [ESLint Convention](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-eslint).
 
-Supported commit prefixes
+Supported commit prefixes:
 | Commit prefix | Version Increase |
 | ------------- | ---------------- |
 | `Docs:`       | `PATCH`          |
