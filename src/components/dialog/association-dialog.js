@@ -111,15 +111,17 @@ class TccAssociationDialog extends BaseMixin(LitElement) {
 			}
 
 			.input_group {
+				margin-top: 12px;
 				margin-bottom: 24px;
 				display: flex;
 				flex-direction: column;
 			}
 
 			.xfix_group {
+				margin-top: 12px;
+				margin-bottom: 24px;
 				display: flex;
 				flex-direction: row;
-				margin-bottom: 24px;
 			}
 
 			.xfix_input_group {
@@ -428,7 +430,7 @@ class TccAssociationDialog extends BaseMixin(LitElement) {
 				?opened=${this.associationDialogOpened}
 				title-text="${this._getDialogTitle()}"
 				@d2l-dialog-close=${this._close}>
-				<div class="">
+				<div>
 					${this.localize('dialogAssociationDescription')}
 
 					${this._renderDepartmentSelector()}
