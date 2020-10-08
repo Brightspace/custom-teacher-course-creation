@@ -1,6 +1,6 @@
 export class Routes {
 	static CourseConfig() {
-		return '/d2l/api/customization/tcc/1.0/departmentCourseConfig?sortResults=true';
+		return '/d2l/api/customization/tcc/1.0/departmentCourseConfig/?sortResults=true';
 	}
 	static CreateCourse(orgUnitId) {
 		return `/d2l/api/customization/tcc/1.0/courseCreation/${orgUnitId}`;
