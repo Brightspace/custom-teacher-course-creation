@@ -117,28 +117,28 @@ class TccAssociationDialog extends BaseMixin(LitElement) {
 				flex-direction: column;
 			}
 
-			.xfix_group {
+			.prefix_suffix_group {
 				margin-top: 12px;
 				margin-bottom: 24px;
 				display: flex;
 				flex-direction: row;
 			}
 
-			.xfix_input_group {
+			.prefix_input_group, .suffix_input_group {
 				width: 45%;
 			}
 
-			.xfix_input_group__info-label {
+			.prefix_input_group__info_label, .suffix_input_group__info_label {
 				font-style: italic;
 				color: grey;
 				font-size: 0.7rem;
 			}
 
-			.xfix_input_group__prefix {
+			.prefix_input_group {
 				padding-right: 5%;
 			}
 
-			.xfix_input_group__suffix {
+			.suffix_input_group {
 				padding-left: 5%;
 			}
 
@@ -360,7 +360,7 @@ class TccAssociationDialog extends BaseMixin(LitElement) {
 
 	_renderPrefixInput() {
 		const prefixInputTemplate = html`
-			<div class="xfix_input_group xfix_input_group__prefix">
+			<div class="prefix_input_group">
 				<d2l-input-text
 					label="${this.localize('prefix')}"
 					required
@@ -371,19 +371,34 @@ class TccAssociationDialog extends BaseMixin(LitElement) {
 					novalidate>
 				</d2l-input-text>
 				<label
-					class="xfix_input_group__info-label"
+					class="prefix_input_group__info_label"
 					for=${PREFIX_INPUT_ID}>
 					${this.localize('dialogAssociationPrefixDescription')}
 				</label>
 			</div>
 		`;
 
-		return html`${prefixInputTemplate}`;
+		let tooltipTemplate = html``;
+		if (this.prefixIsTooLong || this.prefixContainsSpecialCharacters) {
+			const tooltipMessage = this.prefixIsTooLong ?
+				this.localize('prefixTooLongErrorMsg') :
+				this.localize('prefixHasSpecialCharactersErrorMsg');
+
+			tooltipTemplate = html`
+				<d2l-tooltip
+					for="${PREFIX_INPUT_ID}"
+					state="error">
+						${tooltipMessage}
+				</d2l-tooltip>
+			`;
+		}
+
+		return html`${prefixInputTemplate}${tooltipTemplate}`;
 	}
 
 	_renderSuffixInput() {
 		const suffixInputTemplate = html`
-			<div class="xfix_input_group xfix_input_group__suffix">
+			<div class="suffix_input_group">
 				<d2l-input-text
 					label="${this.localize('suffix')}"
 					required
@@ -394,14 +409,29 @@ class TccAssociationDialog extends BaseMixin(LitElement) {
 					novalidate>
 				</d2l-input-text>
 				<label
-					class="xfix_input_group__info-label"
+					class="suffix_input_group__info_label"
 					for=${SUFFIX_INPUT_ID}>
 					${this.localize('dialogAssociationSuffixDescription')}
 				</label>
 			</div>
 		`;
 
-		return html`${suffixInputTemplate}`;
+		let tooltipTemplate = html``;
+		if (this.suffixIsTooLong || this.suffixContainsSpecialCharacters) {
+			const tooltipMessage = this.suffixIsTooLong ?
+				this.localize('suffixTooLongErrorMsg') :
+				this.localize('suffixHasSpecialCharactersErrorMsg');
+
+			tooltipTemplate = html`
+				<d2l-tooltip
+					for="${SUFFIX_INPUT_ID}"
+					state="error">
+						${tooltipMessage}
+				</d2l-tooltip>
+			`;
+		}
+
+		return html`${suffixInputTemplate}${tooltipTemplate}`;
 	}
 
 	_renderRoleSelector() {
@@ -434,7 +464,7 @@ class TccAssociationDialog extends BaseMixin(LitElement) {
 					${this.localize('dialogAssociationDescription')}
 
 					${this._renderDepartmentSelector()}
-					<div class="xfix_group">
+					<div class="prefix_suffix_group">
 						${this._renderPrefixInput()}
 						${this._renderSuffixInput()}
 					</div>
