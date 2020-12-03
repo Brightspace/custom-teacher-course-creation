@@ -7,7 +7,7 @@ export const val = {
 	'actionFinish': '結束',
 	'actionFinishDescription': '提交要建立的課程',
 	'actionNew': '新增',
-	'actionNext': '下一步',
+	'actionNext': '下一個',
 	'actionStart': '開始使用',
 	'actionSubmit': '提交',
 	'adminCourseTypeDesc': '預定建立的課程所隸屬的課程類型系所',

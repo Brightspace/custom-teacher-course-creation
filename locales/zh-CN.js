@@ -7,7 +7,7 @@ export const val = {
 	'actionFinish': '完成',
 	'actionFinishDescription': '提交课程以进行创建',
 	'actionNew': '新增',
-	'actionNext': '下一步',
+	'actionNext': '下一个',
 	'actionStart': '开始',
 	'actionSubmit': '提交',
 	'adminCourseTypeDesc': '将在其下创建课程的课程类型的学科',

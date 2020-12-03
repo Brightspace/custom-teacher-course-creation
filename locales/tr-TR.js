@@ -2,7 +2,7 @@ export const val = {
 	'actionBack': 'Geri',
 	'actionBackDescription': 'Ders giriş ekranına geri dön',
 	'actionCancel': 'İptal',
-	'actionDelete': 'Sil',
+	'actionDelete': 'Sil:',
 	'actionEdit': 'Düzenle',
 	'actionFinish': 'Bitir',
 	'actionFinishDescription': 'Dersi oluşturmak üzere gönder',
