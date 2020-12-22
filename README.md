@@ -38,7 +38,7 @@ npm run lint:lit
 ### Testing
 
 ```shell
-# lint, unit test and visual-diff test
+# lint, unit test
 npm test
 
 # lint only

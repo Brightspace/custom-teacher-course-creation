@@ -17,9 +17,6 @@
     "lint:lit": "lit-analyzer custom-teacher-course-creation.js demo test",
     "start": "es-dev-server --app-index demo/index.html --node-resolve --dedupe --open --watch",
     "test": "npm run test:headless && npm run lint",
-    "test:diff": "mocha ./**/*.visual-diff.js -t 40000",
-    "test:diff:golden": "mocha ./**/*.visual-diff.js -t 40000 --golden",
-    "test:diff:golden:commit": "commit-goldens",
     "test:headless": "karma start",
     "test:headless:watch": "karma start --auto-watch=true --single-run=false",
     "test:sauce": "karma start karma.sauce.conf.js"
@@ -27,11 +24,11 @@
   "author": "D2L Corporation",
   "license": "Apache-2.0",
   "devDependencies": {
-    "@brightspace-ui/visual-diff": "^1",
     "@open-wc/testing": "^2",
     "@open-wc/testing-karma": "^3",
     "@semantic-release/git": "^9.0.0",
     "@semantic-release/github": "^7.0.7",
+    "@webcomponents/webcomponentsjs": "^2",
     "babel-eslint": "^10",
     "conventional-changelog-eslint": "^3.0.8",
     "deepmerge": "^3",
@@ -43,13 +40,11 @@
     "eslint-plugin-sort-class-members": "^1",
     "karma-sauce-launcher": "^2",
     "lit-analyzer": "^1",
-    "puppeteer": "^4",
     "semantic-release": "^17.2.3",
     "sinon": "^9.0.2"
   },
   "dependencies": {
     "@brightspace-ui/core": "^1",
-    "@webcomponents/webcomponentsjs": "^2",
     "lit-element": "^2"
   },
   "release": {
