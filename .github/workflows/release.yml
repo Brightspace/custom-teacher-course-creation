@@ -10,6 +10,10 @@ jobs:
     timeout-minutes: 10
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: Brightspace/third-party-actions@actions/checkout
+        with:
+          persist-credentials: false
       - name: Semantic Release
         uses: BrightspaceUI/actions/semantic-release@master
         with:
