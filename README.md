@@ -56,7 +56,7 @@ npm run test:headless:watch
 
 All version changes should obey [semantic versioning](https://semver.org/) rules.
 
-This component uses the [semantic-release](https://github.com/BrightspaceUI/actions/tree/master/semantic-release) GitHub action to manage GitHub releases. The commit message format for initiating releases follows the is specifi
+This component uses the [semantic-release](https://github.com/BrightspaceUI/actions/tree/master/semantic-release) GitHub action to manage GitHub releases. The commit message format for initiating releases is specified in that [semantic-release](https://github.com/BrightspaceUI/actions/tree/master/semantic-release) GitHub action.
 
 Supported commit prefixes:
 | Commit prefix        | Version Increase |
