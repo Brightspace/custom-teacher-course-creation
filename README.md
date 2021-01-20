@@ -1,8 +1,8 @@
 # d2l-tcc and d2l-tcc-admin
 
 [![Dependabot badge](https://flat.badgen.net/dependabot/Brightspace/custom-teacher-course-creation?icon=dependabot)](https://app.dependabot.com/)
-[![Build status](https://travis-ci.com/brightspace/custom-teacher-course-creation.svg?branch=master)](https://travis-ci.com/brightspace/custom-teacher-course-creation)
-[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
+[![Release Badge](https://github.com/Brightspace/custom-teacher-course-creation/workflows/release/badge.svg)](https://github.com/Brightspace/custom-teacher-course-creation/actions?query=workflow%3Arelease)
+[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/BrightspaceUI/actions/tree/master/semantic-release)
 
 **Properties:**
 
@@ -56,15 +56,14 @@ npm run test:headless:watch
 
 All version changes should obey [semantic versioning](https://semver.org/) rules.
 
-This component uses the [semantic-release](https://github.com/semantic-release/semantic-release) library to manage GitHub releases. The commit message format for initiating releases follows the [ESLint Convention](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-eslint).
+This component uses the [semantic-release](https://github.com/BrightspaceUI/actions/tree/master/semantic-release) GitHub action to manage GitHub releases. The commit message format for initiating releases is specified in that [semantic-release](https://github.com/BrightspaceUI/actions/tree/master/semantic-release) GitHub action.
 
 Supported commit prefixes:
-| Commit prefix | Version Increase |
-| ------------- | ---------------- |
-| `Docs:`       | `PATCH`          |
-| `New:`        | `PATCH`          |
-| `Fix:`        | `PATCH`          |
-| `Update:`     | `MINOR`          |
-| `Breaking:`   | `MAJOR`          |
+| Commit prefix        | Version Increase |
+| -------------------- | ---------------- |
+| `fix:`               | `PATCH`          |
+| `perf:`              | `PATCH`          |
+| `feat:`              | `MINOR`          |
+| `BREAKING CHANGE:`   | `MAJOR`          |
 
-Example commit: `Update: Adding error page` will increment the `MINOR` version.
+Example commit: `feat: Adding error page` will increment the `MINOR` version.

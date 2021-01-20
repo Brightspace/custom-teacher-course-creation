@@ -26,8 +26,6 @@
   "devDependencies": {
     "@open-wc/testing": "^2",
     "@open-wc/testing-karma": "^3",
-    "@semantic-release/git": "^9.0.0",
-    "@semantic-release/github": "^7.0.7",
     "@webcomponents/webcomponentsjs": "^2",
     "babel-eslint": "^10",
     "conventional-changelog-eslint": "^3.0.8",
@@ -40,53 +38,10 @@
     "eslint-plugin-sort-class-members": "^1",
     "karma-sauce-launcher": "^2",
     "lit-analyzer": "^1",
-    "semantic-release": "^17.2.3",
     "sinon": "^9.0.2"
   },
   "dependencies": {
     "@brightspace-ui/core": "^1",
     "lit-element": "^2"
-  },
-  "release": {
-    "plugins": [
-      [
-        "@semantic-release/commit-analyzer",
-        {
-          "preset": "eslint",
-          "releaseRules": [
-            {
-              "tag": "Docs",
-              "release": "patch"
-            },
-            {
-              "tag": "New",
-              "release": "patch"
-            }
-          ]
-        }
-      ],
-      [
-        "@semantic-release/npm",
-        {
-          "npmPublish": false
-        }
-      ],
-      "@semantic-release/github",
-      [
-        "@semantic-release/release-notes-generator",
-        {
-          "preset": "eslint"
-        }
-      ],
-      [
-        "@semantic-release/git",
-        {
-          "assets": [
-            "package.json"
-          ],
-          "message": "Chore: Updating version to ${nextRelease.version} [skip ci]"
-        }
-      ]
-    ]
   }
 }
