@@ -2,7 +2,7 @@
   "name": "d2l-teacher-course-creation",
   "description": "Teacher Course Creation",
   "repository": "https://github.com/Brightspace/custom-teacher-course-creation.git",
-  "version": "1.6.10",
+  "version": "1.6.11",
   "publishConfig": {
     "access": "public"
   },
