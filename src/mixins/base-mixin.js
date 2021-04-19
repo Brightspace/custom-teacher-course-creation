@@ -36,6 +36,9 @@ export const BaseMixin = superclass => class extends RtlMixin(LocalizeMixin(supe
 				case 'fr-FR':
 					translations = await import('../../locales/fr-FR.js');
 					break;
+				case 'fr-ON':
+					translations = await import('../../locales/fr-ON.js');
+					break;
 				case 'ja-JP':
 					translations = await import('../../locales/ja-JP.js');
 					break;
