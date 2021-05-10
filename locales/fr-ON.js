@@ -57,7 +57,7 @@ export const val = {
 	"successLinkCourseHomepage": "Aller à la page d’accueil du cours",
 	"successLinkCreateCourse": "Créer un autre cours",
 	"successLinkEnrollStudents": "Inscrire des élèves dans des listes d’inscrits au cours",
-	"successResultText": "Votre nouveau cours vide a été créé. Vous pouvez inscrire des étudiants à votre cours, visiter la page d’accueil principale du cours ou créer un autre cours.",
+	"successResultText": "Votre nouveau cours vide a été créé. Vous pouvez inscrire des élèves à votre cours, visiter la page d’accueil principale du cours ou créer un autre cours.",
 	"successTitleText": "Création réussie",
 	"suffix": "Suffixe",
 	"suffixTooLongErrorMsg": "Le suffixe fourni est supérieur à 10 caractères",
@@ -66,6 +66,6 @@ export const val = {
 	"welcomeButtonDescription": "Commencer à créer un cours",
 	"welcomeButtonText": "Commencer",
 	"welcomeIllustrationAlt": "Créer une illustration de cours",
-	"welcomeText": "En seulement quelques étapes, vous serez prêt à utiliser un nouveau modèle de cours vide auquel vous pourrez ensuite inscrire les étudiants.",
+	"welcomeText": "En seulement quelques étapes, vous serez prêt à utiliser un nouveau modèle de cours vide auquel vous pourrez ensuite inscrire les élèves.",
 	"welcomeTitle": "Créer un nouveau cours!"
 };
