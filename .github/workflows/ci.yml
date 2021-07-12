@@ -31,6 +31,6 @@ jobs:
           test-type: karma
           test-script: test:sauce
           token: ${{ secrets.GITHUB_TOKEN }}
-          env:
-            SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY_DESIRE2LEARN }}
-            SAUCE_USERNAME: Desire2Learn
+        env:
+          SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY_DESIRE2LEARN }}
+          SAUCE_USERNAME: Desire2Learn
