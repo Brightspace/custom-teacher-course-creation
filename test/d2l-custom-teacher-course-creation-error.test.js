@@ -32,7 +32,7 @@ describe('d2l-teacher-course-creation-error', () => {
 			const el = await fixture(html`<d2l-tcc-error .pageData="${pageData}"></d2l-tcc-error>`);
 
 			el.addEventListener('change-page', (event) => {
-				expect(event.detail.page).to.equal(PAGES.INPUT_PAGE);
+				expect(event.detail.page).to.equal(42);
 				expect(event.detail.pageData.courseName).to.equal(pageData.courseName);
 				expect(event.detail.pageData.courseType).to.equal(pageData.courseType);
 			});
