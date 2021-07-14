@@ -14,7 +14,7 @@ describe('d2l-teacher-course-creation-error', () => {
 		it('should pass all axe tests', async() => {
 			const el = await fixture(html`<d2l-tcc-error></d2l-tcc-error>`);
 			await expect(el).to.be.accessible();
-		}).timeout(10);
+		});
 	});
 
 	describe('constructor', () => {

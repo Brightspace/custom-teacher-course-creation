@@ -18,7 +18,6 @@ jobs:
           repository: Brightspace/unit-test-action
           path: .github/actions/unit-test-action
           token: ${{ secrets.D2L_GITHUB_TOKEN }}
-          ref: fix-karma
       - name: Setup Node
         uses: Brightspace/third-party-actions@actions/setup-node
       - name: Install dependencies
