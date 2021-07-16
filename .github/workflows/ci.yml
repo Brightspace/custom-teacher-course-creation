@@ -13,11 +13,6 @@ jobs:
     steps:
       - name: Checkout
         uses: Brightspace/third-party-actions@actions/checkout
-      - uses: Brightspace/third-party-actions@actions/checkout
-        with:
-          repository: Brightspace/unit-test-action
-          path: .github/actions/unit-test-action
-          token: ${{ secrets.D2L_GITHUB_TOKEN }}
       - name: Setup Node
         uses: Brightspace/third-party-actions@actions/setup-node
       - name: Install dependencies
@@ -25,7 +20,7 @@ jobs:
       - name: Lint
         run: npm run lint
       - name: Unit Tests (SauceLabs)
-        uses: ./.github/actions/unit-test-action
+        uses: Brightspace/unit-test-action@v0.0.2
         with:
           test-type: karma
           test-script: test:sauce
