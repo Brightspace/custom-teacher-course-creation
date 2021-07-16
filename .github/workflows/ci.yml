@@ -20,7 +20,11 @@ jobs:
       - name: Lint
         run: npm run lint
       - name: Unit Tests (SauceLabs)
-        run: npm run test:sauce
+        uses: Brightspace/unit-test-action@v1.0.0
+        with:
+          test-type: karma
+          test-script: test:sauce
+          token: ${{ secrets.GITHUB_TOKEN }}
         env:
           SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY_DESIRE2LEARN }}
           SAUCE_USERNAME: Desire2Learn

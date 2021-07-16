@@ -38,7 +38,8 @@
     "eslint-plugin-sort-class-members": "^1",
     "karma-sauce-launcher": "^2",
     "lit-analyzer": "^1",
-    "sinon": "^9.0.2"
+    "sinon": "^9.0.2",
+    "karma-json-reporter": "^1.1"
   },
   "dependencies": {
     "@brightspace-ui/core": "^1",
