@@ -20,7 +20,7 @@ jobs:
       - name: Lint
         run: npm run lint
       - name: Unit Tests (SauceLabs)
-        uses: Brightspace/unit-test-action@v0.0.2
+        uses: Brightspace/unit-test-action@v1.0.0
         with:
           test-type: karma
           test-script: test:sauce
