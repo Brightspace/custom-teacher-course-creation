@@ -76,7 +76,7 @@ class TeacherCourseCreationSuccess extends BaseMixin(LitElement) {
 	}
 
 	_getCourseEnrollHref(orgUnitId) {
-		return `/d2l/lms/classlist/classlist.d2l?ou=${orgUnitId}`;
+		return `/d2l/lms/classlist.d2l?ou=${orgUnitId}`;
 	}
 
 	_getCourseHomepageHref(orgUnitId) {
